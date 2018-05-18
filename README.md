@@ -12,34 +12,42 @@ over time.
 
 Add the following to `WORKSPACE`:
 
-    git_repository(
-        name = "bazel_latex",
-        commit = "...",
-        remote = "https://github.com/ProdriveTechnologies/bazel-latex.git",
-    )
+```python
+git_repository(
+    name = "bazel_latex",
+    remote = "https://github.com/ProdriveTechnologies/bazel-latex.git",
+    tag = "...",
+)
+```
 
 And add the following `load()` directive to your `BUILD` files:
 
-    load("@bazel_latex//:latex.bzl", "latex_library", "latex_pdf")
+```python
+load("@bazel_latex//:latex.bzl", "latex_library", "latex_pdf")
+```
 
 You can then use the `latex_library()` function to package files that
 should be used together, similar to [`pkg_tar()`](https://docs.bazel.build/versions/master/be/pkg.html#pkg_tar).
 For example:
 
-    latex_library(
-        name = "my_report_lib",
-        srcs = glob([
-            "my_report.tex",
-            "chapters/*.tex",
-            "figures/*",
-        ]),
-        strip_prefix = ".",
-    )
+```python
+latex_library(
+    name = "my_report_lib",
+    srcs = glob([
+        "my_report.tex",
+        "chapters/*.tex",
+        "figures/*",
+    ]),
+    strip_prefix = ".",
+)
+```
 
 You can then use the `latex_pdf()` function to generate a PDF:
 
-    latex_pdf(
-        name = "my_report",
-        srcs = [":my_report_lib"],
-        main = "my_report.tex",
-    )
+```python
+latex_pdf(
+    name = "my_report",
+    srcs = [":my_report_lib"],
+    main = "my_report.tex",
+)
+```
