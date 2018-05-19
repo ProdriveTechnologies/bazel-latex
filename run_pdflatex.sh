@@ -51,11 +51,9 @@ for file in ${FILES}
 do
     case $file in
     *.tar)
-	    echo "Extract tar $file"
 	    tar -C "${SRCDIR}" -xf "${file}"
 	    ;;
     *)
-	    echo "Copy file $file"
 	    cp "${file}" "${SRCDIR}"
 	    ;;
     esac
