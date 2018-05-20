@@ -27,7 +27,7 @@ do
 done
 
 cd "${SRCDIR}"
-ENTRY="$(grep -rl '^\\documentclass\>' .)"
+ENTRY="$(find . -name '*.tex' -exec grep -l '^\\documentclass\>' {} +)"
 for i in 1 2; do
     if ! SOURCE_DATE_EPOCH=0 pdflatex -jobname="${NAME}" "${ENTRY}" > "${LOGFILE}" 2>&1; then
         cat "${LOGFILE}"
