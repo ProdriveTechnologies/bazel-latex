@@ -34,7 +34,7 @@ For example:
 latex_library(
     name = "my_report_lib",
     srcs = glob([
-        "main.tex",
+        "my_report.tex",
         "chapters/*.tex",
         "figures/*",
     ]),
@@ -58,6 +58,5 @@ latex_pdf(
 )
 ```
 
-By default, this function assumes that a file named `main.tex` is
-present that is used as the main LaTeX source file. A different file can
-be chosen by providing the `main` argument.
+This function automatically invokes `pdflatex` on the source file
+containing a `\documentclass` directive.

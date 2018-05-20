@@ -6,8 +6,6 @@ NAME="$1"
 shift
 OUT="$(pwd)/$1"
 shift
-ENTRY="$1"
-shift
 FILES="$*"
 
 WRKDIR="$(mktemp -d "${TMPDIR:-/tmp}/bazel.XXXXXXXX")"
@@ -29,6 +27,7 @@ do
 done
 
 cd "${SRCDIR}"
+ENTRY="$(grep -rl '^\\documentclass\>' .)"
 for i in 1 2; do
     if ! SOURCE_DATE_EPOCH=0 pdflatex -jobname="${NAME}" "${ENTRY}" > "${LOGFILE}" 2>&1; then
         cat "${LOGFILE}"
