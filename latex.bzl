@@ -14,8 +14,8 @@ def _latex_pdf_impl(ctx):
         executable = "sh",
         use_default_shell_env = True,
         arguments = [
-            ctx.label.name,
             ctx.executable._run_pdflatex.path,
+            ctx.label.name,
             ctx.outputs.out.path,
             ctx.attr.main,
         ] + [src.path for src in ctx.files.srcs],
