@@ -34,7 +34,7 @@ For example:
 latex_library(
     name = "my_report_lib",
     srcs = glob([
-        "my_report.tex",
+        "main.tex",
         "chapters/*.tex",
         "figures/*",
     ]),
@@ -55,6 +55,9 @@ function to generate PDFs:
 latex_pdf(
     name = "my_report",
     srcs = [":my_report_lib"],
-    main = "my_report.tex",
 )
 ```
+
+By default, this function assumes that a file named `main.tex` is
+present that is used as the main LaTeX source file. A different file can
+be chosen by providing the `main` argument.
