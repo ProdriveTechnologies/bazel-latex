@@ -38,7 +38,13 @@ latex_library(
         "chapters/*.tex",
         "figures/*",
     ]),
+    deps = [":company_style"],
     strip_prefix = ".",
+)
+
+latex_library(
+    name = "company_style",
+    ...
 )
 ```
 
