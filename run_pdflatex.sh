@@ -2,6 +2,8 @@
 
 set -eu
 
+NAME="$1"
+shift
 OUT="$(pwd)/$1"
 shift
 ENTRY="$1"
@@ -28,10 +30,10 @@ done
 
 cd "${SRCDIR}"
 for i in 1 2; do
-    if ! SOURCE_DATE_EPOCH=0 pdflatex -jobname=bazel_latex_output "${ENTRY}" > "${LOGFILE}" 2>&1; then
+    if ! SOURCE_DATE_EPOCH=0 pdflatex -jobname="${NAME}" "${ENTRY}" > "${LOGFILE}" 2>&1; then
         cat "${LOGFILE}"
         exit 1
     fi
 done
 
-cp "${SRCDIR}/bazel_latex_output.pdf" "${OUT}"
+cp "${SRCDIR}/${NAME}.pdf" "${OUT}"
