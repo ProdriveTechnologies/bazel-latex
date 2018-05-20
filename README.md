@@ -48,7 +48,8 @@ latex_library(
 )
 ```
 
-You can then use the `latex_pdf()` function to generate a PDF:
+After declaring some `latex_library()` targets, you can use the `latex_pdf()`
+function to generate PDFs:
 
 ```python
 latex_pdf(
