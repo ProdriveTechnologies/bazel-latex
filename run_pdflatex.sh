@@ -28,7 +28,7 @@ done
 
 cd "${SRCDIR}"
 for i in 1 2; do
-    if ! pdflatex '\pdfinfoomitdate=1\pdftrailerid{}\pdfsuppressptexinfo=-1\input{'"${ENTRY}"'}' > "${LOGFILE}" 2>&1; then
+    if ! SOURCE_DATE_EPOCH=0 pdflatex "${ENTRY}" > "${LOGFILE}" 2>&1; then
         cat "${LOGFILE}"
         exit 1
     fi
