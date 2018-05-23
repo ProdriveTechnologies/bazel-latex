@@ -23,32 +23,30 @@ git_repository(
 And add the following `load()` directive to your `BUILD` files:
 
 ```python
-load("@bazel_latex//:latex.bzl", "latex_library", "latex_pdf")
+load("@bazel_latex//:latex.bzl", "latex_pdf")
 ```
 
-You can then use the `latex_library()` function to package files that
-should be used together, similar to [`pkg_tar()`](https://docs.bazel.build/versions/master/be/pkg.html#pkg_tar).
-For example:
+You can then use the
+[`filegroup()`](https://docs.bazel.build/versions/master/be/general.html#filegroup)
+function to package files. For example:
 
 ```python
-latex_library(
+filegroup(
     name = "my_report_lib",
     srcs = glob([
         "my_report.tex",
         "chapters/*.tex",
         "figures/*",
-    ]),
-    deps = [":company_style"],
-    strip_prefix = ".",
+    ]) + [":company_style"],
 )
 
-latex_library(
+filegroup(
     name = "company_style",
-    ...
+    srcs = ...
 )
 ```
 
-After declaring some `latex_library()` targets, you can use the `latex_pdf()`
+After declaring some `filegroup()` targets, you can use the `latex_pdf()`
 function to generate PDFs:
 
 ```python
