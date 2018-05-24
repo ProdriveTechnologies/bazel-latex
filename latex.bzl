@@ -13,7 +13,7 @@ def _latex_pdf_impl(ctx):
         outputs = [ctx.outputs.out],
     )
 
-latex_pdf = rule(
+_latex_pdf = rule(
     attrs = {
         "srcs": attr.label_list(allow_files = True),
         "_run_pdflatex": attr.label(
@@ -26,3 +26,27 @@ latex_pdf = rule(
     outputs = {"out": "%{name}.pdf"},
     implementation = _latex_pdf_impl,
 )
+
+def latex_document(name, srcs = []):
+    # PDF generation.
+    _latex_pdf(
+        name = name,
+        srcs = srcs,
+    )
+
+    # Convenience rule for viewing PDFs.
+    native.sh_library(
+        name = name + "_view_lib",
+        data = [":" + name],
+    )
+    native.genrule(
+        name = name + "_view_sh",
+        outs = [name + "_view.sh"],
+        cmd = "echo '#!/bin/sh' > $@; " +
+              "echo 'exec xdg-open '\\''./" + native.package_name() + "/" + name + ".pdf'\\' >> $@",
+    )
+    native.sh_binary(
+        name = name + "_view",
+        srcs = [":" + name + "_view_sh"],
+        data = [":" + name + "_view_lib"],
+    )

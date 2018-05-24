@@ -23,16 +23,17 @@ git_repository(
 And add the following `load()` directive to your `BUILD` files:
 
 ```python
-load("@bazel_latex//:latex.bzl", "latex_pdf")
+load("@bazel_latex//:latex.bzl", "latex_document")
 ```
 
-You can then use the
+You can then use `latex_document()` to declare documents that need to be
+built. Commonly reused sources (e.g., templates) can be placed in
 [`filegroup()`](https://docs.bazel.build/versions/master/be/general.html#filegroup)
-function to package files. For example:
+blocks, so that they don't need to be repeated.
 
 ```python
-filegroup(
-    name = "my_report_lib",
+latex_document(
+    name = "my_report",
     srcs = glob([
         "my_report.tex",
         "chapters/*.tex",
@@ -42,19 +43,23 @@ filegroup(
 
 filegroup(
     name = "company_style",
-    srcs = ...
+    srcs = glob([
+        ...
+    ]),
 )
 ```
 
-After declaring some `filegroup()` targets, you can use the `latex_pdf()`
-function to generate PDFs:
+The `latex_document()` function automatically determines the main source
+file by choosing the `.tex` file containing a `\documentclass` directive.
 
-```python
-latex_pdf(
-    name = "my_report",
-    srcs = [":my_report_lib"],
-)
+A PDF can be built by running:
+
+```
+bazel build :my_report
 ```
 
-This function automatically invokes `pdflatex` on the source file
-containing a `\documentclass` directive.
+It can be viewed using your system's PDF viewer by running:
+
+```
+bazel run :my_report_view
+```
