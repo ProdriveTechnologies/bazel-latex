@@ -32,7 +32,7 @@ done
 # Generate PDF.
 ENTRY="$(grep -rl '^\\documentclass\>' .)"
 for i in 1 2; do
-    if ! SOURCE_DATE_EPOCH=0 pdflatex -jobname="${NAME}" "${ENTRY}" > "${LOGFILE}" 2>&1; then
+    if ! SOURCE_DATE_EPOCH=0 pdflatex -file-line-error -jobname="${NAME}" "${ENTRY}" > "${LOGFILE}" 2>&1; then
         cat "${LOGFILE}"
         exit 1
     fi
