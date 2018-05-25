@@ -27,7 +27,7 @@ _latex_pdf = rule(
     implementation = _latex_pdf_impl,
 )
 
-def latex_document(name, srcs = []):
+def latex_document(name, srcs):
     # PDF generation.
     _latex_pdf(
         name = name,
