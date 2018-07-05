@@ -43,7 +43,7 @@ def latex_document(name, srcs):
         name = name + "_view_sh",
         outs = [name + "_view.sh"],
         cmd = "echo '#!/bin/sh' > $@; " +
-              "echo 'exec xdg-open '\\''./" + native.package_name() + "/" + name + ".pdf'\\' >> $@",
+              "echo 'exec xdg-open '\\''./" + native.package_name() + "/" + name + ".pdf'\\'' &' >> $@",
     )
     native.sh_binary(
         name = name + "_view",
