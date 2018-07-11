@@ -17,7 +17,7 @@ LOGFILE="${WRKDIR}/log"
 mkdir "${SRCDIR}"
 for file in ${FILES}
 do
-    dir="$(dirname "${file}")"
+    dir="$(dirname "${file}" | sed 's|^bazel-out/[^/]*/genfiles/||')"
     mkdir -p "${SRCDIR}/${dir}"
     cp "${file}" "${SRCDIR}/${dir}"
 done
