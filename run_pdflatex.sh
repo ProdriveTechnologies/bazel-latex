@@ -31,11 +31,20 @@ done
 
 # Generate PDF.
 ENTRY="$(grep -rl '^\\documentclass\>' .)"
-for i in 1 2; do
+PDFLATEX_OUT="${SRCDIR}/${NAME}.pdf"
+for i in 1 2 3 4 5 6 7 8 9 10; do
     if ! SOURCE_DATE_EPOCH=0 pdflatex -file-line-error -jobname="${NAME}" "${ENTRY}" > "${LOGFILE}" 2>&1; then
         cat "${LOGFILE}"
         exit 1
     fi
+
+    # Only terminate successfully if we have two pdflatex runs that yield the same document.
+    if test -f "${PDFLATEX_OUT}.previous" && cmp -s "${PDFLATEX_OUT}" "${PDFLATEX_OUT}.previous"; then
+        cp "${PDFLATEX_OUT}" "${OUT}"
+        exit 0
+    fi
+    cp "${PDFLATEX_OUT}" "${PDFLATEX_OUT}.previous"
 done
 
-cp "${SRCDIR}/${NAME}.pdf" "${OUT}"
+echo "Number of pdflatex runs insufficient to obtain definitive output"
+exit 1
