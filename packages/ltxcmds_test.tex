@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{ltxcmds}
+\makeatletter
+\newcommand*{\getdata}[2]{%
+  \expandafter\ltx@CarNumth\expandafter{%
+    \the\numexpr(#1)\expandafter
+  }#2\@nil
+}
+\makeatother
+\newcommand*{\mydata}{%
+  {one} {two} {three}
+}
+\newcommand*{\mylongdata}{%
+  {one} {two} {three} {four} {five} {six} {seven} {eight} {nine} {ten}
+  {eleven} {twelve} {thirteen} {fourteen} {fifteen} {sixteen}
+  {seventeen} {eighteen} {nineteen} {twenty} {twenty-one} {twenty-two}
+  {twenty-three} {twenty-four}
+}
+\begin{document}
+\begin{itemize}
+\item \getdata{1}\mydata
+\item \getdata{2}\mydata
+\item \getdata{3}\mydata
+\item \getdata{24}\mylongdata
+\end{itemize}
+\end{document}

@@ -1,0 +1,553 @@
+load(":packages.bzl", "latex_package")
+
+# Externally usable library targets.
+
+latex_package(
+    name = "amsgen",
+    srcs = [":amsmath"],
+)
+
+latex_package(
+    name = "amstext",
+    srcs = [":amsmath"],
+)
+
+latex_package(
+    name = "amssymb",
+    srcs = [
+        ":amsfonts",
+        "@texlive_texmf__texmf-dist__fonts__tfm__public__amsfonts__symbols",
+        "@texlive_texmf__texmf-dist__fonts__type1__public__amsfonts__symbols",
+    ],
+)
+
+latex_package(
+    name = "array",
+    srcs = [":tools"],
+)
+
+latex_package(
+    name = "auxhook",
+    srcs = [":graphics_oberdiek"],
+)
+
+latex_package(
+    name = "babel_english",
+    srcs = [
+        ":babel",
+        "@texlive_texmf__texmf-dist__tex__generic__babel-english",
+    ],
+)
+
+latex_package(
+    name = "booktabs",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__booktabs"],
+)
+
+latex_package(
+    name = "calc",
+    srcs = [":tools"],
+)
+
+latex_package(
+    name = "capt-of",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__capt-of"],
+)
+
+latex_package(
+    name = "caption",
+    srcs = [
+        ":keyval",
+        "@texlive_texmf__texmf-dist__tex__latex__caption",
+    ],
+)
+
+latex_package(
+    name = "cleveref",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__cleveref"],
+)
+
+latex_package(
+    name = "color",
+    srcs = [":graphics_oberdiek"],
+)
+
+latex_package(
+    name = "colortbl",
+    srcs = [
+        ":array",
+        ":color",
+        "@texlive_texmf__texmf-dist__tex__latex__colortbl",
+    ],
+)
+
+latex_package(
+    name = "datetime",
+    srcs = [
+        ":etoolbox",
+        ":fmtcount",
+        "@texlive_texmf__texmf-dist__tex__latex__datetime",
+    ],
+)
+
+latex_package(
+    name = "datetime2",
+    srcs = [
+        ":tracklang",
+        ":xkeyval",
+        "@texlive_texmf__texmf-dist__tex__latex__datetime2",
+    ],
+)
+
+latex_package(
+    name = "enumitem",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__enumitem"],
+)
+
+latex_package(
+    name = "environ",
+    srcs = [
+        ":trimspaces",
+        "@texlive_texmf__texmf-dist__tex__latex__environ",
+    ],
+)
+
+latex_package(
+    name = "epstopdf-base",
+    srcs = [":graphics_oberdiek"],
+)
+
+latex_package(
+    name = "etoolbox",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__etoolbox"],
+)
+
+latex_package(
+    name = "eufrak",
+    srcs = [
+        ":amsfonts",
+        "@texlive_texmf__texmf-dist__fonts__tfm__public__amsfonts__euler",
+        "@texlive_texmf__texmf-dist__fonts__type1__public__amsfonts__euler",
+    ],
+)
+
+latex_package(
+    name = "everyshi",
+    srcs = [":ms"],
+)
+
+latex_package(
+    name = "expl3",
+    srcs = [":l3kernel"],
+)
+
+latex_package(
+    name = "fancyhdr",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__fancyhdr"],
+)
+
+latex_package(
+    name = "float",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__float"],
+)
+
+latex_package(
+    name = "fmtcount",
+    srcs = [
+        ":amsgen",
+        ":etoolbox",
+        ":xkeyval",
+        "@texlive_texmf__texmf-dist__tex__latex__fmtcount",
+    ],
+)
+
+latex_package(
+    name = "framed",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__framed"],
+)
+
+latex_package(
+    name = "geometry",
+    srcs = [
+        ":ifpdf",
+        ":ifxetex",
+        ":keyval",
+        "@texlive_texmf__texmf-dist__tex__latex__geometry",
+    ],
+)
+
+latex_package(
+    name = "graphicx",
+    srcs = [":graphics_oberdiek"],
+)
+
+latex_package(
+    name = "hanging",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__hanging"],
+)
+
+latex_package(
+    name = "helvet",
+    srcs = [
+        ":psnfss",
+        "@texlive_texmf__texmf-dist__fonts__tfm__adobe__helvetic",
+        "@texlive_texmf__texmf-dist__fonts__type1__urw__helvetic",
+        "@texlive_texmf__texmf-dist__fonts__vf__adobe__helvetic",
+    ],
+)
+
+latex_package(
+    name = "hyperref",
+    srcs = [
+        ":auxhook",
+        ":ifxetex",
+        ":keyval",
+        ":ltxcmds",
+        ":url",
+        "@texlive_texmf__texmf-dist__tex__latex__hyperref",
+    ],
+)
+
+latex_package(
+    name = "ifmtarg",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__ifmtarg"],
+)
+
+latex_package(
+    name = "ifpdf",
+    srcs = [":graphics_oberdiek"],
+)
+
+latex_package(name = "ifthen")
+
+latex_package(
+    name = "keyval",
+    srcs = [":graphics_oberdiek"],
+)
+
+latex_package(
+    name = "lastpage",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__lastpage"],
+)
+
+latex_package(
+    name = "lineno",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__lineno"],
+)
+
+latex_package(
+    name = "l3keys2e",
+    srcs = [
+        ":expl3",
+        "@texlive_texmf__texmf-dist__tex__latex__l3packages__l3keys2e",
+    ],
+)
+
+latex_package(
+    name = "listings",
+    srcs = [
+        ":keyval",
+        "@texlive_texmf__texmf-dist__tex__latex__listings",
+    ],
+)
+
+latex_package(
+    name = "longtable",
+    srcs = [":tools"],
+)
+
+latex_package(
+    name = "ltxcmds",
+    srcs = [":graphics_oberdiek"],
+)
+
+latex_package(
+    name = "marginnote",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__marginnote"],
+)
+
+latex_package(
+    name = "marvosym",
+    srcs = [
+        "@texlive_texmf__texmf-dist__fonts__tfm__public__marvosym",
+        "@texlive_texmf__texmf-dist__fonts__type1__public__marvosym",
+        "@texlive_texmf__texmf-dist__tex__latex__marvosym",
+    ],
+)
+
+latex_package(
+    name = "microtype",
+    srcs = [
+        ":keyval",
+        "@texlive_texmf__texmf-dist__tex__latex__microtype",
+    ],
+)
+
+latex_package(
+    name = "mnsymbol",
+    srcs = [
+        ":amsmath",
+        ":eufrak",
+        "@texlive_texmf__texmf-dist__fonts__enc__dvips__mnsymbol",
+        "@texlive_texmf__texmf-dist__fonts__tfm__public__mnsymbol",
+        "@texlive_texmf__texmf-dist__fonts__type1__public__mnsymbol",
+        "@texlive_texmf__texmf-dist__tex__latex__mnsymbol",
+    ],
+)
+
+latex_package(
+    name = "nth",
+    srcs = [":genmisc"],
+)
+
+latex_package(
+    name = "parskip",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__parskip"],
+)
+
+latex_package(
+    name = "pdfcomment",
+    srcs = [
+        ":calc",
+        ":datetime2",
+        ":etoolbox",
+        ":hyperref",
+        ":marginnote",
+        ":soulpos",
+        ":xkeyval",
+        ":zref-savepos",
+        "@texlive_texmf__texmf-dist__tex__latex__pdfcomment",
+    ],
+)
+
+latex_package(
+    name = "placeins",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__placeins"],
+)
+
+latex_package(
+    name = "ifxetex",
+    srcs = ["@texlive_texmf__texmf-dist__tex__generic__ifxetex"],
+)
+
+latex_package(
+    name = "siunitx",
+    srcs = [
+        ":amstext",
+        ":array",
+        ":expl3",
+        ":l3keys2e",
+        ":xparse",
+        "@texlive_texmf__texmf-dist__tex__latex__siunitx",
+    ],
+)
+
+latex_package(
+    name = "soul",
+    srcs = [
+        ":ec",
+        "@texlive_texmf__texmf-dist__tex__latex__soul",
+    ],
+)
+
+latex_package(
+    name = "soulutf8",
+    srcs = [":graphics_oberdiek"],
+)
+
+latex_package(
+    name = "soulpos",
+    srcs = [":bezos"],
+)
+
+latex_package(
+    name = "tabularx",
+    srcs = [":tools"],
+)
+
+latex_package(
+    name = "tikz",
+    srcs = [":pgf"],
+)
+
+latex_package(
+    name = "titlesec",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__titlesec"],
+)
+
+latex_package(
+    name = "tocloft",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__tocloft"],
+)
+
+latex_package(
+    name = "tracklang",
+    srcs = [
+        ":etoolbox",
+        "@texlive_texmf__texmf-dist__tex__generic__tracklang",
+        "@texlive_texmf__texmf-dist__tex__latex__tracklang",
+    ],
+)
+
+latex_package(
+    name = "trimspaces",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__trimspaces"],
+)
+
+latex_package(
+    name = "ulem",
+    srcs = [
+        ":latxfont",
+        "@texlive_texmf__texmf-dist__tex__generic__ulem",
+    ],
+)
+
+latex_package(
+    name = "url",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__url"],
+)
+
+latex_package(
+    name = "xcolor",
+    srcs = [
+        ":graphics_oberdiek",
+        "@texlive_texmf__texmf-dist__tex__latex__xcolor",
+    ],
+)
+
+latex_package(
+    name = "xifthen",
+    srcs = [
+        ":calc",
+        ":ifmtarg",
+        "@texlive_texmf__texmf-dist__tex__latex__xifthen",
+    ],
+)
+
+latex_package(
+    name = "xkeyval",
+    srcs = [
+        "@texlive_texmf__texmf-dist__tex__generic__xkeyval",
+        "@texlive_texmf__texmf-dist__tex__latex__xkeyval",
+    ],
+)
+
+latex_package(
+    name = "xparse",
+    srcs = [
+        ":expl3",
+        "@texlive_texmf__texmf-dist__tex__latex__l3packages__xparse",
+    ],
+)
+
+latex_package(
+    name = "xstring",
+    srcs = ["@texlive_texmf__texmf-dist__tex__generic__xstring"],
+)
+
+latex_package(
+    name = "zref-savepos",
+    srcs = [":graphics_oberdiek"],
+)
+
+# Internal library targets.
+
+filegroup(
+    name = "amsfonts",
+    srcs = [
+        "@texlive_texmf__texmf-dist__fonts__tfm__public__amsfonts__cmextra",
+        "@texlive_texmf__texmf-dist__tex__latex__amsfonts",
+    ],
+)
+
+filegroup(
+    name = "amsmath",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__amsmath"],
+)
+
+filegroup(
+    name = "babel",
+    srcs = ["@texlive_texmf__texmf-dist__tex__generic__babel"],
+)
+
+filegroup(
+    name = "bezos",
+    srcs = [
+        ":keyval",
+        ":soulutf8",
+        "@texlive_texmf__texmf-dist__tex__latex__bezos",
+    ],
+)
+
+filegroup(
+    name = "ec",
+    srcs = ["@texlive_texmf__texmf-dist__fonts__tfm__jknappen__ec"],
+)
+
+filegroup(
+    name = "genmisc",
+    srcs = ["@texlive_texmf__texmf-dist__tex__generic__genmisc"],
+)
+
+# These packages have a cyclic dependency on each other.
+filegroup(
+    name = "graphics_oberdiek",
+    srcs = [
+        ":soul",
+        "@texlive_texmf__texmf-dist__tex__generic__oberdiek",
+        "@texlive_texmf__texmf-dist__tex__latex__graphics",
+        "@texlive_texmf__texmf-dist__tex__latex__graphics-cfg",
+        "@texlive_texmf__texmf-dist__tex__latex__graphics-def",
+        "@texlive_texmf__texmf-dist__tex__latex__oberdiek",
+    ],
+)
+
+filegroup(
+    name = "l3kernel",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__l3kernel"],
+)
+
+filegroup(
+    name = "latxfont",
+    srcs = ["@texlive_texmf__texmf-dist__fonts__type1__public__amsfonts__latxfont"],
+)
+
+filegroup(
+    name = "ms",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__ms"],
+)
+
+filegroup(
+    name = "pgf",
+    srcs = [
+        ":everyshi",
+        ":graphicx",
+        ":xcolor",
+        "@texlive_texmf__texmf-dist__tex__generic__pgf__basiclayer",
+        "@texlive_texmf__texmf-dist__tex__generic__pgf__frontendlayer__tikz",
+        "@texlive_texmf__texmf-dist__tex__generic__pgf__libraries",
+        "@texlive_texmf__texmf-dist__tex__generic__pgf__math",
+        "@texlive_texmf__texmf-dist__tex__generic__pgf__modules",
+        "@texlive_texmf__texmf-dist__tex__generic__pgf__systemlayer",
+        "@texlive_texmf__texmf-dist__tex__generic__pgf__utilities",
+        "@texlive_texmf__texmf-dist__tex__latex__pgf__basiclayer",
+        "@texlive_texmf__texmf-dist__tex__latex__pgf__compatibility",
+        "@texlive_texmf__texmf-dist__tex__latex__pgf__frontendlayer",
+        "@texlive_texmf__texmf-dist__tex__latex__pgf__math",
+        "@texlive_texmf__texmf-dist__tex__latex__pgf__systemlayer",
+        "@texlive_texmf__texmf-dist__tex__latex__pgf__utilities",
+    ],
+)
+
+filegroup(
+    name = "psnfss",
+    srcs = [
+        ":keyval",
+        "@texlive_texmf__texmf-dist__tex__latex__psnfss",
+    ],
+)
+
+filegroup(
+    name = "tools",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__tools"],
+)

@@ -1,37 +1,49 @@
-load("@bazel_tools//tools/build_defs/pkg:pkg.bzl", "pkg_tar")
-
 def _latex_pdf_impl(ctx):
     ctx.actions.run(
-        executable = "sh",
+        executable = "python",
         use_default_shell_env = True,
         arguments = [
-            ctx.executable._run_pdflatex.path,
+            "external/bazel_latex/run_pdflatex.py",
             ctx.label.name,
+            ctx.files.main[0].path,
             ctx.outputs.out.path,
-        ] + [src.path for src in ctx.files.srcs],
-        inputs = ctx.files.srcs + [ctx.executable._run_pdflatex],
+        ],
+        inputs = ctx.files.main + ctx.files.srcs,
         outputs = [ctx.outputs.out],
     )
 
 _latex_pdf = rule(
     attrs = {
+        "main": attr.label(allow_files = True),
         "srcs": attr.label_list(allow_files = True),
-        "_run_pdflatex": attr.label(
-            default = Label("//:run_pdflatex.sh"),
-            allow_files = True,
-            executable = True,
-            cfg = "host",
-        ),
     },
     outputs = {"out": "%{name}.pdf"},
     implementation = _latex_pdf_impl,
 )
 
-def latex_document(name, srcs):
+def latex_document(name, main, srcs = []):
     # PDF generation.
     _latex_pdf(
         name = name,
-        srcs = srcs,
+        srcs = srcs + [
+            "@bazel_latex//:run_pdflatex.py",
+            "@texlive_bin",
+            "@texlive_extra__tlpkg__TeXLive",
+            "@texlive_texmf__texmf-dist__fonts__enc__dvips__base",
+            "@texlive_texmf__texmf-dist__fonts__enc__dvips__cm-super",
+            "@texlive_texmf__texmf-dist__fonts__map__pdftex__updmap",
+            "@texlive_texmf__texmf-dist__fonts__tfm__public__cm",
+            "@texlive_texmf__texmf-dist__fonts__tfm__public__latex-fonts",
+            "@texlive_texmf__texmf-dist__fonts__type1__public__amsfonts__cm",
+            "@texlive_texmf__texmf-dist__fonts__type1__public__cm-super",
+            "@texlive_texmf__texmf-dist__scripts__texlive",
+            "@texlive_texmf__texmf-dist__tex__generic__hyphen",
+            "@texlive_texmf__texmf-dist__tex__generic__tex-ini-files",
+            "@texlive_texmf__texmf-dist__tex__latex__base",
+            "@texlive_texmf__texmf-dist__tex__latex__latexconfig",
+            "@texlive_texmf__texmf-dist__web2c",
+        ],
+        main = main,
     )
 
     # Convenience rule for viewing PDFs.
