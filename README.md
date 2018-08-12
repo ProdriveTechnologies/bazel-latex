@@ -54,10 +54,8 @@ filegroup(
 )
 ```
 
-The `latex_document()` function automatically determines the main source
-file by choosing the `.tex` file containing a `\documentclass`
-directive. As `pdflatex` is effectively invoked as if within the root of
-the workspace, all imports of resources (e.g., images) must use the full
+As `pdflatex` is effectively invoked as if within the root of the
+workspace, all imports of resources (e.g., images) must use the full
 path relative to the root.
 
 A PDF can be built by running:
