@@ -58,7 +58,7 @@ for i in range(10):
         ).wait()
     if return_code != 0:
         # Print error log on failure.
-        with open(log_file, "rb") as f:
+        with open(log_file, "r") as f:
             shutil.copyfileobj(f, sys.stdout)
         sys.exit(return_code)
 
