@@ -1,5 +1,5 @@
 def _latex_pdf_impl(ctx):
-    toolchain = ctx.toolchains["//:latex_toolchain_type"]
+    toolchain = ctx.toolchains["@bazel_latex//:latex_toolchain_type"]
     ctx.actions.run(
         executable = "python",
         use_default_shell_env = True,
@@ -22,7 +22,7 @@ _latex_pdf = rule(
     },
     outputs = {"out": "%{name}.pdf"},
     implementation = _latex_pdf_impl,
-    toolchains = ["//:latex_toolchain_type"],
+    toolchains = ["@bazel_latex//:latex_toolchain_type"],
 )
 
 def latex_document(name, main, srcs = []):

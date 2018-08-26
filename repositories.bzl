@@ -5460,6 +5460,6 @@ filegroup(
         )
 
     native.register_toolchains(
-        "//:latex_toolchain_x86_64-darwin",
-        "//:latex_toolchain_x86_64-linux",
+        "@bazel_latex//:latex_toolchain_x86_64-darwin",
+        "@bazel_latex//:latex_toolchain_x86_64-linux",
     )
