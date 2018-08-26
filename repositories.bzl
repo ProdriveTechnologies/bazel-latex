@@ -5458,3 +5458,8 @@ filegroup(
             sha256 = sha256,
             url = "https://github.com/ProdriveTechnologies/texlive-modular/releases/download/%s/texlive-%s-%s.tar.xz" % (_TEXLIVE_VERSION, _TEXLIVE_VERSION, path.replace("/", "--")),
         )
+
+    native.register_toolchains(
+        "//:latex_toolchain_x86_64-darwin",
+        "//:latex_toolchain_x86_64-linux",
+    )

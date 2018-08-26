@@ -1,1 +1,19 @@
+load(":toolchain.bzl", "latex_toolchain")
+
 exports_files(["run_pdflatex.py"])
+
+latex_toolchain(
+    exec_compatible_with = [
+        "@bazel_tools//platforms:osx",
+        "@bazel_tools//platforms:x86_64",
+    ],
+    platform = "x86_64-darwin",
+)
+
+latex_toolchain(
+    exec_compatible_with = [
+        "@bazel_tools//platforms:linux",
+        "@bazel_tools//platforms:x86_64",
+    ],
+    platform = "x86_64-linux",
+)

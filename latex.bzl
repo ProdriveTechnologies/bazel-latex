@@ -1,38 +1,28 @@
 def _latex_pdf_impl(ctx):
+    toolchain = ctx.toolchains["//:latex_toolchain_type"]
     ctx.actions.run(
         executable = "python",
         use_default_shell_env = True,
         arguments = [
             "external/bazel_latex/run_pdflatex.py",
-            ctx.executable._kpsewhich.path,
-            ctx.executable._pdftex.path,
+            toolchain.kpsewhich.files.to_list()[0].path,
+            toolchain.pdftex.files.to_list()[0].path,
             ctx.label.name,
             ctx.files.main[0].path,
             ctx.outputs.out.path,
         ],
-        inputs = [ctx.executable._kpsewhich, ctx.executable._pdftex] + ctx.files.main + ctx.files.srcs,
+        inputs = toolchain.kpsewhich.files + toolchain.pdftex.files + ctx.files.main + ctx.files.srcs,
         outputs = [ctx.outputs.out],
     )
 
 _latex_pdf = rule(
     attrs = {
-        "_kpsewhich": attr.label(
-            allow_single_file = True,
-            cfg = "host",
-            default = Label("@texlive_bin__x86_64-linux//:kpsewhich"),
-            executable = True,
-        ),
-        "_pdftex": attr.label(
-            allow_single_file = True,
-            cfg = "host",
-            default = Label("@texlive_bin__x86_64-linux//:pdftex"),
-            executable = True,
-        ),
         "main": attr.label(allow_files = True),
         "srcs": attr.label_list(allow_files = True),
     },
     outputs = {"out": "%{name}.pdf"},
     implementation = _latex_pdf_impl,
+    toolchains = ["//:latex_toolchain_type"],
 )
 
 def latex_document(name, main, srcs = []):
