@@ -27,7 +27,7 @@ for external in sorted(os.listdir("external")):
     else:
         texinputs.append(src)
 
-job_name, main_file, output_file = sys.argv[1:]
+kpsewhich_file, pdftex_file, job_name, main_file, output_file = sys.argv[1:]
 
 comparison_file = job_name + ".pdf.compare"
 intermediate_file = job_name + ".pdf"
@@ -42,9 +42,9 @@ env["TEXMFCNF"] = os.path.abspath("texmf/texmf-dist/web2c")
 env["TEXMFROOT"] = os.path.abspath("texmf")
 
 os.mkdir("bin")
-os.link("external/texlive_bin/kpsewhich", "bin/kpsewhich")
-os.link("external/texlive_bin/pdftex", "bin/pdflatex")
-os.link("external/texlive_bin/pdftex", "bin/pdftex")
+os.link(kpsewhich_file, "bin/kpsewhich")
+os.link(pdftex_file, "bin/pdflatex")
+os.link(pdftex_file, "bin/pdftex")
 os.link("texmf/texmf-dist/scripts/texlive/fmtutil.pl", "bin/mktexfmt")
 
 for i in range(10):

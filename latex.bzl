@@ -4,16 +4,30 @@ def _latex_pdf_impl(ctx):
         use_default_shell_env = True,
         arguments = [
             "external/bazel_latex/run_pdflatex.py",
+            ctx.executable._kpsewhich.path,
+            ctx.executable._pdftex.path,
             ctx.label.name,
             ctx.files.main[0].path,
             ctx.outputs.out.path,
         ],
-        inputs = ctx.files.main + ctx.files.srcs,
+        inputs = [ctx.executable._kpsewhich, ctx.executable._pdftex] + ctx.files.main + ctx.files.srcs,
         outputs = [ctx.outputs.out],
     )
 
 _latex_pdf = rule(
     attrs = {
+        "_kpsewhich": attr.label(
+            allow_single_file = True,
+            cfg = "host",
+            default = Label("@texlive_bin__x86_64-linux//:kpsewhich"),
+            executable = True,
+        ),
+        "_pdftex": attr.label(
+            allow_single_file = True,
+            cfg = "host",
+            default = Label("@texlive_bin__x86_64-linux//:pdftex"),
+            executable = True,
+        ),
         "main": attr.label(allow_files = True),
         "srcs": attr.label_list(allow_files = True),
     },
@@ -27,7 +41,6 @@ def latex_document(name, main, srcs = []):
         name = name,
         srcs = srcs + [
             "@bazel_latex//:run_pdflatex.py",
-            "@texlive_bin",
             "@texlive_extra__tlpkg__TeXLive",
             "@texlive_texmf__texmf-dist__fonts__enc__dvips__base",
             "@texlive_texmf__texmf-dist__fonts__enc__dvips__cm-super",

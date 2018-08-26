@@ -2,7 +2,27 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 _TEXLIVE_VERSION = "20180414"
 
-_TEXLIVE_MODULAR_PACKAGES = [
+_TEXLIVE_MODULAR_PACKAGES_BIN = [
+    ("bin/aarch64-linux", "93df0f0fa30d314d9f4452d8013c525792fbeec948d519e2aa975cac2e59b202"),
+    ("bin/amd64-freebsd", "a3e2a8457db517895971b31c05be810867cfb654b628179ba51de35d1bf20fd0"),
+    ("bin/amd64-netbsd", "8c7f12637fde6ef0be694e893a6302dd11a3500631895bb52afe275e49111671"),
+    ("bin/armhf-linux", "689989d1e05d6dc32234289344542071f833c58abb78a2c4804cb00f70bf46a2"),
+    ("bin/i386-cygwin", "bbbfac4a1939d639fb2c8dc3495fadcfaba116c20a4de20a2ae78b839df6235d"),
+    ("bin/i386-freebsd", "5a1d0b71e8703871e6b5ea7449c865efc68394392d71eeb8965e946bb2af05fe"),
+    ("bin/i386-linux", "28efe0aae4d12c1d28a2633081c0951a45449d1fa14a6e4591a61e6261145071"),
+    ("bin/i386-netbsd", "6e11ce98851cab2a977bd0ba020131db965a19ef3c80612f688828ef99fcf41b"),
+    ("bin/i386-solaris", "700ae8af64522a1996e97ddac1d7eb7ee6317c81285134c18e43e8161fd48a6b"),
+    ("bin/sparc-solaris", "30c9ad21cf7c2cd076ea4266159153ccb0008dd8763e6002624c4adfd1200b73"),
+    ("bin/win32", "b4f7f8ff51ec6dff6846212d1b76318074a8b140a4037aa84cbd615b452f5e97"),
+    ("bin/x86_64-cygwin", "b912288200ef93dfacd6e8a7299b0525b2a337f65e232ff8cad168e85583ecfe"),
+    ("bin/x86_64-darwinlegacy", "078f76e082fb9dc478a05318d01b850d00e9cf57bd1806e3eacc1a0fb5819a59"),
+    ("bin/x86_64-darwin", "2fb4960c5d83fab023da216bda8eee7705a96a8367067f489c40dbf54c919abd"),
+    ("bin/x86_64-linuxmusl", "f694f420eded58168bc46dec10f0358f0011a50eb47fcab3f27768efc2ff94f6"),
+    ("bin/x86_64-linux", "8571ba7f9135cfa17149701519f207bc68d7d3f025a2924074b8e06ac9899070"),
+    ("bin/x86_64-solaris", "0cccd358cad2a67df89ec4c267a19f06b59ff189fdf1f6f7ade1e0e3fa3d2c0b"),
+]
+
+_TEXLIVE_MODULAR_PACKAGES_OTHER = [
     ("extra/tlpkg/TeXLive", "36369f5190334a5c2dbc099b679024d8b30a030ec8f486f8c5a79ff4412f5498"),
     ("texmf/texmf-dist/asymptote", "99e0cae3154bbabe8ed259b5c2d60bd6b359ff17709f699aaf67178cb6a53f42"),
     ("texmf/texmf-dist/bibtex/bib/abntex2", "720053bb40756526576c96cb95d895b2ad43bdc6a960abe6f258f8c1d63ee995"),
@@ -5410,24 +5430,21 @@ _TEXLIVE_MODULAR_PACKAGES = [
 ]
 
 def latex_repositories():
-    # TODO(edsch): Pick the right binaries based on the architecture.
-    http_archive(
-        name = "texlive_bin",
-        build_file_content = """
-filegroup(
-    name = "texlive_bin",
-    srcs = [
-        "kpsewhich",
-        "pdftex",
-    ],
+    for path, sha256 in _TEXLIVE_MODULAR_PACKAGES_BIN:
+        name = "texlive_%s" % path.replace("/", "__")
+        http_archive(
+            name = name,
+            build_file_content = """
+exports_files(
+    ["kpsewhich", "pdftex"],
     visibility = ["//visibility:public"],
 )
 """,
-        sha256 = "8571ba7f9135cfa17149701519f207bc68d7d3f025a2924074b8e06ac9899070",
-        url = "https://github.com/ProdriveTechnologies/texlive-modular/releases/download/%s/texlive-%s-bin--x86_64-linux.tar.xz" % (_TEXLIVE_VERSION, _TEXLIVE_VERSION),
-    )
+            sha256 = sha256,
+            url = "https://github.com/ProdriveTechnologies/texlive-modular/releases/download/%s/texlive-%s-%s.tar.xz" % (_TEXLIVE_VERSION, _TEXLIVE_VERSION, path.replace("/", "--")),
+        )
 
-    for path, sha256 in _TEXLIVE_MODULAR_PACKAGES:
+    for path, sha256 in _TEXLIVE_MODULAR_PACKAGES_OTHER:
         name = "texlive_%s" % path.replace("/", "__")
         http_archive(
             name = name,
