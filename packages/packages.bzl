@@ -1,10 +1,16 @@
 load("//:latex.bzl", "latex_document")
 
-def latex_package(name, srcs = []):
+def public_filegroup(name, srcs = []):
     native.filegroup(
         name = name,
         srcs = srcs,
         visibility = ["//visibility:public"],
+    )
+
+def latex_package(name, srcs = []):
+    public_filegroup(
+        name = name,
+        srcs = srcs
     )
 
     latex_document(

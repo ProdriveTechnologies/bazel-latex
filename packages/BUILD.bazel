@@ -1,4 +1,4 @@
-load(":packages.bzl", "latex_package")
+load(":packages.bzl", "latex_package", "public_filegroup")
 
 # Externally usable library targets.
 
@@ -452,7 +452,7 @@ latex_package(
 
 # Internal library targets.
 
-filegroup(
+public_filegroup(
     name = "amsfonts",
     srcs = [
         "@texlive_texmf__texmf-dist__fonts__tfm__public__amsfonts__cmextra",
@@ -460,17 +460,17 @@ filegroup(
     ],
 )
 
-filegroup(
+public_filegroup(
     name = "amsmath",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__amsmath"],
 )
 
-filegroup(
+public_filegroup(
     name = "babel",
     srcs = ["@texlive_texmf__texmf-dist__tex__generic__babel"],
 )
 
-filegroup(
+public_filegroup(
     name = "bezos",
     srcs = [
         ":keyval",
@@ -479,18 +479,18 @@ filegroup(
     ],
 )
 
-filegroup(
+public_filegroup(
     name = "ec",
     srcs = ["@texlive_texmf__texmf-dist__fonts__tfm__jknappen__ec"],
 )
 
-filegroup(
+public_filegroup(
     name = "genmisc",
     srcs = ["@texlive_texmf__texmf-dist__tex__generic__genmisc"],
 )
 
 # These packages have a cyclic dependency on each other.
-filegroup(
+public_filegroup(
     name = "graphics_oberdiek",
     srcs = [
         ":soul",
@@ -502,22 +502,22 @@ filegroup(
     ],
 )
 
-filegroup(
+public_filegroup(
     name = "l3kernel",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__l3kernel"],
 )
 
-filegroup(
+public_filegroup(
     name = "latxfont",
     srcs = ["@texlive_texmf__texmf-dist__fonts__type1__public__amsfonts__latxfont"],
 )
 
-filegroup(
+public_filegroup(
     name = "ms",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__ms"],
 )
 
-filegroup(
+public_filegroup(
     name = "pgf",
     srcs = [
         ":everyshi",
@@ -539,7 +539,7 @@ filegroup(
     ],
 )
 
-filegroup(
+public_filegroup(
     name = "psnfss",
     srcs = [
         ":keyval",
@@ -547,7 +547,7 @@ filegroup(
     ],
 )
 
-filegroup(
+public_filegroup(
     name = "tools",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__tools"],
 )
