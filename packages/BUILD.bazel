@@ -8,6 +8,14 @@ latex_package(
 )
 
 latex_package(
+    name = "amsmath",
+    srcs = [
+        ":amsfonts",
+        "@texlive_texmf__texmf-dist__tex__latex__amsmath",
+    ],
+)
+
+latex_package(
     name = "amstext",
     srcs = [":amsmath"],
 )
@@ -458,11 +466,6 @@ filegroup(
         "@texlive_texmf__texmf-dist__fonts__tfm__public__amsfonts__cmextra",
         "@texlive_texmf__texmf-dist__tex__latex__amsfonts",
     ],
-)
-
-filegroup(
-    name = "amsmath",
-    srcs = ["@texlive_texmf__texmf-dist__tex__latex__amsmath"],
 )
 
 filegroup(
