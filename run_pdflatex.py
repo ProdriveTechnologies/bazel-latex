@@ -14,7 +14,7 @@ import sys
 #
 # Externals that do not start with the special prefix should be added to
 # TEXINPUTS, so that inclusions of external resources works.
-texinputs = [""] + glob.glob("bazel-out/*/genfiles")
+texinputs = [""] + glob.glob("bazel-out/*/bin")
 for external in sorted(os.listdir("external")):
     src = os.path.abspath(os.path.join("external", external))
     if external.startswith("texlive_extra__") or external.startswith("texlive_texmf__"):
