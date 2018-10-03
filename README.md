@@ -14,10 +14,11 @@ TeXLive that are actually used in your documents.
 Add the following to `WORKSPACE`:
 
 ```python
-git_repository(
+http_archive(
     name = "bazel_latex",
-    remote = "https://github.com/ProdriveTechnologies/bazel-latex.git",
-    tag = "...",
+    sha256 = "<checksum>",
+    strip_prefix = "bazel-latex-<release>",
+    url = "https://github.com/ProdriveTechnologies/bazel-latex/archive/v<release>.tar.gz",
 )
 
 load("@bazel_latex//:repositories.bzl", "latex_repositories")
