@@ -30,6 +30,11 @@ latex_package(
 )
 
 latex_package(
+    name = "amsthm",
+    srcs = [":amscls"],
+)
+
+latex_package(
     name = "array",
     srcs = [":tools"],
 )
@@ -45,6 +50,16 @@ latex_package(
         ":babel",
         "@texlive_texmf__texmf-dist__tex__generic__babel-english",
     ],
+)
+
+latex_package(
+    name = "beamerthemedefault",
+    srcs = [":beamer"],
+)
+
+latex_package(
+    name = "beamerthemesplit",
+    srcs = [":beamer"],
 )
 
 latex_package(
@@ -105,6 +120,11 @@ latex_package(
         ":xkeyval",
         "@texlive_texmf__texmf-dist__tex__latex__datetime2",
     ],
+)
+
+latex_package(
+    name = "enumerate",
+    srcs = [":tools"],
 )
 
 latex_package(
@@ -329,6 +349,11 @@ latex_package(
 )
 
 latex_package(
+    name = "pgfcore",
+    srcs = [":pgf"],
+)
+
+latex_package(
     name = "placeins",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__placeins"],
 )
@@ -398,6 +423,15 @@ latex_package(
 )
 
 latex_package(
+    name = "translator",
+    srcs = [
+        ":babel",
+        ":keyval",
+        "@texlive_texmf__texmf-dist__tex__latex__translator",
+    ],
+)
+
+latex_package(
     name = "trimspaces",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__trimspaces"],
 )
@@ -461,6 +495,11 @@ latex_package(
 # Internal library targets.
 
 filegroup(
+    name = "amscls",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__amscls"],
+)
+
+filegroup(
     name = "amsfonts",
     srcs = [
         "@texlive_texmf__texmf-dist__fonts__tfm__public__amsfonts__cmextra",
@@ -471,6 +510,23 @@ filegroup(
 filegroup(
     name = "babel",
     srcs = ["@texlive_texmf__texmf-dist__tex__generic__babel"],
+)
+
+filegroup(
+    name = "beamer",
+    srcs = [
+        ":amsmath",
+        ":amssymb",
+        ":amsthm",
+        ":enumerate",
+        ":etoolbox",
+        ":geometry",
+        ":hyperref",
+        ":ifpdf",
+        ":pgfcore",
+        ":translator",
+        "@texlive_texmf__texmf-dist__tex__latex__beamer",
+    ],
 )
 
 filegroup(
