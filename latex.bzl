@@ -21,31 +21,15 @@ _latex_pdf = rule(
         "srcs": attr.label_list(allow_files = True),
     },
     outputs = {"out": "%{name}.pdf"},
-    implementation = _latex_pdf_impl,
     toolchains = ["@bazel_latex//:latex_toolchain_type"],
+    implementation = _latex_pdf_impl,
 )
 
 def latex_document(name, main, srcs = []):
     # PDF generation.
     _latex_pdf(
         name = name,
-        srcs = srcs + [
-            "@bazel_latex//:run_pdflatex.py",
-            "@texlive_extra__tlpkg__TeXLive",
-            "@texlive_texmf__texmf-dist__fonts__enc__dvips__base",
-            "@texlive_texmf__texmf-dist__fonts__enc__dvips__cm-super",
-            "@texlive_texmf__texmf-dist__fonts__map__pdftex__updmap",
-            "@texlive_texmf__texmf-dist__fonts__tfm__public__cm",
-            "@texlive_texmf__texmf-dist__fonts__tfm__public__latex-fonts",
-            "@texlive_texmf__texmf-dist__fonts__type1__public__amsfonts__cm",
-            "@texlive_texmf__texmf-dist__fonts__type1__public__cm-super",
-            "@texlive_texmf__texmf-dist__scripts__texlive",
-            "@texlive_texmf__texmf-dist__tex__generic__hyphen",
-            "@texlive_texmf__texmf-dist__tex__generic__tex-ini-files",
-            "@texlive_texmf__texmf-dist__tex__latex__base",
-            "@texlive_texmf__texmf-dist__tex__latex__latexconfig",
-            "@texlive_texmf__texmf-dist__web2c",
-        ],
+        srcs = srcs + ["@bazel_latex//:core_dependencies"],
         main = main,
     )
 
