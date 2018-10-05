@@ -23,17 +23,20 @@ with subprocess.Popen(
 
 def build(externals):
     """Build a document with given externals and return its checksum."""
-    with open("BUILD.bazel", "w") as f:
-        f.write(
-            """load("//:latex.bzl", "latex_document")
+    with open("BUILD.bazel", "wb") as f:
+        with subprocess.Popen(
+            ["buildifier"], stdin=subprocess.PIPE, stdout=f, encoding="ascii"
+        ) as proc:
+            proc.stdin.write(
+                """load("//:latex.bzl", "latex_document")
 
 latex_document(
     name = "output",
     main = "input.tex",
     srcs = %s,
 )"""
-            % repr(sorted(externals))
-        )
+                % repr(sorted(externals))
+            )
     if subprocess.call(["bazel", "build", ":output"]) != 0:
         return None
     checksum = hashlib.sha256()
