@@ -37,7 +37,7 @@ latex_document(
     if subprocess.call(["bazel", "build", ":output"]) != 0:
         return None
     checksum = hashlib.sha256()
-    with open("../../bazel-bin/compute_dependencies/output.pdf", "rb") as f:
+    with open("../../bazel-bin/tools/compute_dependencies/output.pdf", "rb") as f:
         while True:
             data = f.read(4096)
             if not data:
