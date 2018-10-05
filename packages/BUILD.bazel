@@ -305,6 +305,14 @@ latex_package(
 )
 
 latex_package(
+    name = "makecell",
+    srcs = [
+        ":tools",
+        "@texlive_texmf__texmf-dist__tex__latex__makecell",
+    ]
+)
+
+latex_package(
     name = "marginnote",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__marginnote"],
 )
