@@ -309,7 +309,7 @@ latex_package(
     srcs = [
         ":tools",
         "@texlive_texmf__texmf-dist__tex__latex__makecell",
-    ]
+    ],
 )
 
 latex_package(
