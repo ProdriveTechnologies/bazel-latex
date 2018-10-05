@@ -3,6 +3,16 @@ load(":packages.bzl", "latex_package")
 # Externally usable library targets.
 
 latex_package(
+    name = "adjustbox",
+    srcs = [
+        ":collectbox",
+        ":graphicx",
+        ":xkeyval",
+        "@texlive_texmf__texmf-dist__tex__latex__adjustbox",
+    ],
+)
+
+latex_package(
     name = "amsgen",
     srcs = [":amsmath"],
 )
@@ -88,6 +98,11 @@ latex_package(
 latex_package(
     name = "cleveref",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__cleveref"],
+)
+
+latex_package(
+    name = "collectbox",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__collectbox"],
 )
 
 latex_package(
