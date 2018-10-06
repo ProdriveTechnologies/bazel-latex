@@ -90,3 +90,14 @@ latex_document(
 
 This repository provides bindings for most commonly used packages.
 Please send pull requests if additional bindings are needed.
+
+# Platform support
+
+These rules have been tested to work on:
+
+- macOS Mojave 10.14.
+- Ubuntu 18.04.
+- Ubuntu 18.04, building on a Debian 9 based
+  [Buildbarn](https://github.com/EdSchouten/bazel-buildbarn) setup.
+- Windows 10 1803, building on a Debian 9 based
+  [Buildbarn](https://github.com/EdSchouten/bazel-buildbarn) setup.
