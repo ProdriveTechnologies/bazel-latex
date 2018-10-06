@@ -307,7 +307,7 @@ latex_package(
 latex_package(
     name = "makecell",
     srcs = [
-        ":tools",
+        ":array",
         "@texlive_texmf__texmf-dist__tex__latex__makecell",
     ],
 )
