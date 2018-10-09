@@ -1,6 +1,7 @@
 def _latex_pdf_impl(ctx):
     toolchain = ctx.toolchains["@bazel_latex//:latex_toolchain_type"]
     ctx.actions.run(
+        mnemonic = "PdfLatex",
         executable = "python",
         use_default_shell_env = True,
         arguments = [
