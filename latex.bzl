@@ -64,7 +64,7 @@ def latex_document(name, main, srcs = []):
     )
     _latex_view_sh(
         name = name + "_view_sh",
-        document_path = "%s/%s.pdf" % (native.package_name(), name),
+        document_path = "./%s/%s.pdf" % (native.package_name(), name),
     )
     native.sh_binary(
         name = name + "_view",
