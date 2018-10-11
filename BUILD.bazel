@@ -1,6 +1,9 @@
 load(":toolchain.bzl", "latex_toolchain")
 
-exports_files(["run_pdflatex.py"])
+exports_files([
+    "run_pdflatex.py",
+    "view_pdf.sh",
+])
 
 latex_toolchain(
     exec_compatible_with = [

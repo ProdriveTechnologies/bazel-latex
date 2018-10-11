@@ -26,29 +26,6 @@ _latex_pdf = rule(
     implementation = _latex_pdf_impl,
 )
 
-def _latex_view_sh_impl(ctx):
-    ctx.actions.write(ctx.outputs.out, """#!/bin/sh
-filename="%s"
-if type xdg-open > /dev/null 2>&1; then
-    # X11-based systems (Linux, BSD).
-    exec xdg-open "${filename}" &
-elif type open > /dev/null 2>&1; then
-    # macOS.
-    exec open "${filename}"
-else
-    echo "Don't know how to view PDFs on this platform." >&2
-    exit 1
-fi
-""" % ctx.attr.document_path)
-
-_latex_view_sh = rule(
-    attrs = {
-        "document_path": attr.string(),
-    },
-    outputs = {"out": "%{name}.sh"},
-    implementation = _latex_view_sh_impl,
-)
-
 def latex_document(name, main, srcs = []):
     # PDF generation.
     _latex_pdf(
@@ -64,12 +41,8 @@ def latex_document(name, main, srcs = []):
         name = name + "_view_lib",
         data = [":" + name],
     )
-    _latex_view_sh(
-        name = name + "_view_sh",
-        document_path = "./%s/%s.pdf" % (native.package_name(), name),
-    )
     native.sh_binary(
         name = name + "_view",
-        srcs = [":" + name + "_view_sh"],
+        srcs = ["@bazel_latex//:view_pdf.sh"],
         data = [":" + name + "_view_lib"],
     )
