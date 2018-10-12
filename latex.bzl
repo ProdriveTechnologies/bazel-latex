@@ -35,14 +35,8 @@ def latex_document(name, main, srcs = []):
     )
 
     # Convenience rule for viewing PDFs.
-    # TODO(edsch): Remove the sh_library once
-    # https://github.com/bazelbuild/bazel/pull/6352 lands.
-    native.sh_library(
-        name = name + "_view_lib",
-        data = [":" + name],
-    )
     native.sh_binary(
         name = name + "_view",
         srcs = ["@bazel_latex//:view_pdf.sh"],
-        data = [":" + name + "_view_lib"],
+        data = [name + ".pdf"],
     )
