@@ -8,11 +8,13 @@ def _latex_pdf_impl(ctx):
             "external/bazel_latex/run_pdflatex.py",
             toolchain.kpsewhich.files.to_list()[0].path,
             toolchain.pdftex.files.to_list()[0].path,
+            ctx.files._latexrun[0].path,
             ctx.label.name,
             ctx.files.main[0].path,
             ctx.outputs.out.path,
         ],
-        inputs = toolchain.kpsewhich.files + toolchain.pdftex.files + ctx.files.main + ctx.files.srcs,
+        inputs = toolchain.kpsewhich.files + toolchain.pdftex.files +
+                 ctx.files._latexrun + ctx.files.main + ctx.files.srcs,
         outputs = [ctx.outputs.out],
     )
 
@@ -20,6 +22,10 @@ _latex_pdf = rule(
     attrs = {
         "main": attr.label(allow_files = True),
         "srcs": attr.label_list(allow_files = True),
+        "_latexrun": attr.label(
+            allow_files = True,
+            default = "@bazel_latex_latexrun//:latexrun",
+        ),
     },
     outputs = {"out": "%{name}.pdf"},
     toolchains = ["@bazel_latex//:latex_toolchain_type"],

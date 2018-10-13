@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 
-import filecmp
 import glob
 import os
-import shutil
 import subprocess
 import sys
 
@@ -27,11 +25,14 @@ for external in sorted(os.listdir("external")):
     else:
         texinputs.append(src)
 
-kpsewhich_file, pdftex_file, job_name, main_file, output_file = sys.argv[1:]
-
-comparison_file = job_name + ".pdf.compare"
-intermediate_file = job_name + ".pdf"
-log_file = "log"
+(
+    kpsewhich_file,
+    pdftex_file,
+    latexrun_file,
+    job_name,
+    main_file,
+    output_file,
+) = sys.argv[1:]
 
 env = dict(os.environ)
 env["PATH"] = "%s:%s" % (os.path.abspath("bin"), env["PATH"])
@@ -47,27 +48,10 @@ os.link(pdftex_file, "bin/pdflatex")
 os.link(pdftex_file, "bin/pdftex")
 os.link("texmf/texmf-dist/scripts/texlive/fmtutil.pl", "bin/mktexfmt")
 
-for i in range(10):
-    # Call pdflatex.
-    with open(log_file, "wb") as f:
-        return_code = subprocess.Popen(
-            args=["pdflatex", "-file-line-error", "-jobname=" + job_name, main_file],
-            stdout=f,
-            stderr=f,
-            env=env,
-        ).wait()
-    if return_code != 0:
-        # Print error log on failure.
-        with open(log_file, "r") as f:
-            shutil.copyfileobj(f, sys.stdout)
-        sys.exit(return_code)
-
-    # Emit PDF when two successive runs yield the same PDF.
-    if i != 0:
-        if filecmp.cmp(intermediate_file, comparison_file):
-            os.rename(intermediate_file, output_file)
-            sys.exit(0)
-    os.rename(intermediate_file, comparison_file)
-
-print("Number of pdflatex runs insufficient to obtain definitive output")
-sys.exit(1)
+return_code = subprocess.call(
+    args=[latexrun_file, "--latex-args=-jobname=" + job_name, "-Wall", main_file],
+    env=env,
+)
+if return_code != 0:
+    sys.exit(return_code)
+os.rename(job_name + ".pdf", output_file)
