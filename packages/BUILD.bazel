@@ -138,6 +138,14 @@ latex_package(
 )
 
 latex_package(
+    name = "datetime2_english",
+    srcs = [
+        ":datetime2",
+        "@texlive_texmf__texmf-dist__tex__latex__datetime2-english",
+    ],
+)
+
+latex_package(
     name = "enumerate",
     srcs = [":tools"],
 )
