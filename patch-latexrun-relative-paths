@@ -12,12 +12,3 @@
          else:
              finfo = '<no file>'
          if self.lineno is not None:
-@@ -861,7 +858,7 @@ class LaTeX(Task):
-         pages of output.
-         """
-         jobname = outname = None
--        for m in re.finditer(r'^Transcript written on "?(.*)\.log"?\.$', stdout,
-+        for m in re.finditer(r'^Transcript written on "?(.*?)\.log"?\.$', stdout,
-                              re.MULTILINE | re.DOTALL):
-             jobname = m.group(1).replace('\n', '')
-         if jobname is None:

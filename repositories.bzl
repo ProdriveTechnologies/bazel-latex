@@ -5462,7 +5462,11 @@ filegroup(
     http_archive(
         name = "bazel_latex_latexrun",
         build_file_content = "exports_files([\"latexrun\"])",
-        patches = ["@bazel_latex//:patch-latexrun"],
+        patches = [
+            "@bazel_latex//:patch-latexrun-pull-21",
+            "@bazel_latex//:patch-latexrun-pull-47",
+            "@bazel_latex//:patch-latexrun-relative-paths",
+        ],
         sha256 = "4e1512fde5a05d1249fd6b4e6610cdab8e14ddba82a7cbb58dc7d5c0ba468c2a",
         strip_prefix = "latexrun-38ff6ec2815654513c91f64bdf2a5760c85da26e",
         url = "https://github.com/aclements/latexrun/archive/38ff6ec2815654513c91f64bdf2a5760c85da26e.tar.gz",
