@@ -1,21 +1,28 @@
 --- latexrun
 +++ latexrun
-@@ -384,7 +384,7 @@ hash_cache = HashCache()
+@@ -416,7 +416,24 @@ class _Terminfo:
+             else:
+                 s = self.__ensure(cap)
+             sys.stdout.buffer.write(s)
+-terminfo = _Terminfo()
++
++class _BatchColorTerminfo:
++    def has(self, *caps):
++        for cap in caps:
++            if cap not in ['bold', 'setaf', 'sgr0']:
++                return False
++        return True
++
++    def send(self, *caps):
++        sys.stdout.flush()
++        for cap in caps:
++            if cap == 'bold':
++                sys.stdout.buffer.write(b'\x1b[1m')
++            elif isinstance(cap, tuple) and cap[0] == 'setaf':
++                sys.stdout.buffer.write(b'\x1b[%dm' % (cap[1] + 30))
++            elif cap == 'sgr0':
++                sys.stdout.buffer.write(b'\x1b[m')
++terminfo = _BatchColorTerminfo()
  
- class _Terminfo:
-     def __init__(self):
--        self.__tty = os.isatty(sys.stdout.fileno())
-+        self.__tty = True
-         if self.__tty:
-             curses.setupterm()
-         self.__ti = {}
-@@ -424,8 +424,7 @@ class Progress:
-     def __init__(self, prefix):
-         self.__prefix = prefix
-         if Progress._enabled is None:
--            Progress._enabled = (not debug.enabled) and \
--                                terminfo.has('cr', 'el', 'rmam', 'smam')
-+            Progress._enabled = False
- 
-     def __enter__(self):
-         self.last = ''
+ class Progress:
+     _enabled = None
