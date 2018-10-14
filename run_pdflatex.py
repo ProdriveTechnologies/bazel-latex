@@ -41,6 +41,7 @@ env["TEXINPUTS"] = ":".join(texinputs)
 env["TEXMF"] = os.path.abspath("texmf/texmf-dist")
 env["TEXMFCNF"] = os.path.abspath("texmf/texmf-dist/web2c")
 env["TEXMFROOT"] = os.path.abspath("texmf")
+env["TERM"] = "xterm"
 
 os.mkdir("bin")
 os.link(kpsewhich_file, "bin/kpsewhich")

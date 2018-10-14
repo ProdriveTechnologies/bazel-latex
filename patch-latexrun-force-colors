@@ -1,0 +1,21 @@
+--- latexrun
++++ latexrun
+@@ -384,7 +384,7 @@ hash_cache = HashCache()
+ 
+ class _Terminfo:
+     def __init__(self):
+-        self.__tty = os.isatty(sys.stdout.fileno())
++        self.__tty = True
+         if self.__tty:
+             curses.setupterm()
+         self.__ti = {}
+@@ -424,8 +424,7 @@ class Progress:
+     def __init__(self, prefix):
+         self.__prefix = prefix
+         if Progress._enabled is None:
+-            Progress._enabled = (not debug.enabled) and \
+-                                terminfo.has('cr', 'el', 'rmam', 'smam')
++            Progress._enabled = False
+ 
+     def __enter__(self):
+         self.last = ''

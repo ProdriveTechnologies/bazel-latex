@@ -5463,6 +5463,7 @@ filegroup(
         name = "bazel_latex_latexrun",
         build_file_content = "exports_files([\"latexrun\"])",
         patches = [
+            "@bazel_latex//:patch-latexrun-force-colors",
             "@bazel_latex//:patch-latexrun-pull-21",
             "@bazel_latex//:patch-latexrun-pull-47",
             "@bazel_latex//:patch-latexrun-pull-61",
