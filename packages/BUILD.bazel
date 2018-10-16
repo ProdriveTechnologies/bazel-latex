@@ -272,6 +272,11 @@ latex_package(
 latex_package(name = "ifthen")
 
 latex_package(
+    name = "ifxetex",
+    srcs = ["@texlive_texmf__texmf-dist__tex__generic__ifxetex"],
+)
+
+latex_package(
     name = "keyval",
     srcs = [":graphics_oberdiek"],
 )
@@ -390,8 +395,8 @@ latex_package(
 )
 
 latex_package(
-    name = "ifxetex",
-    srcs = ["@texlive_texmf__texmf-dist__tex__generic__ifxetex"],
+    name = "silence",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__silence"],
 )
 
 latex_package(
