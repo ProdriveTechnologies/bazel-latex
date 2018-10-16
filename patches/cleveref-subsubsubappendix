@@ -1,0 +1,10 @@
+--- cleveref.sty
++++ cleveref.sty
+@@ -7901,6 +7901,7 @@
+   \@crefcopyformats{section}{subsubsection}%
+   \@crefcopyformats{appendix}{subappendix}%
+   \@crefcopyformats{appendix}{subsubappendix}%
++  \@crefcopyformats{appendix}{subsubsubappendix}
+   \@crefcopyformats{figure}{subfigure}%
+   \@crefcopyformats{table}{subtable}%
+   \@crefcopyformats{equation}{subequation}%
