@@ -7,6 +7,14 @@ exports_files([
 
 latex_toolchain(
     exec_compatible_with = [
+        "@bazel_tools//platforms:freebsd",
+        "@bazel_tools//platforms:x86_64",
+    ],
+    platform = "amd64-freebsd",
+)
+
+latex_toolchain(
+    exec_compatible_with = [
         "@bazel_tools//platforms:osx",
         "@bazel_tools//platforms:x86_64",
     ],

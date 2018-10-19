@@ -5476,6 +5476,7 @@ filegroup(
     )
 
     native.register_toolchains(
+        "@bazel_latex//:latex_toolchain_amd64-freebsd",
         "@bazel_latex//:latex_toolchain_x86_64-darwin",
         "@bazel_latex//:latex_toolchain_x86_64-linux",
     )
