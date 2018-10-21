@@ -99,11 +99,12 @@ Please send pull requests if additional bindings are needed.
 
 These rules have been tested to work on:
 
+- FreeBSD 11.2, building locally.
 - macOS Mojave 10.14, building locally.
 - Ubuntu 18.04, building locally.
-- Ubuntu 18.04, building on a Debian 9 based
+- Ubuntu 18.04, building on a Debian 8 based
   [Buildbarn](https://github.com/EdSchouten/bazel-buildbarn) setup.
-- Windows 10 1803, building on a Debian 9 based
+- Windows 10 1803, building on a Debian 8 based
   [Buildbarn](https://github.com/EdSchouten/bazel-buildbarn) setup.
 
 These rules are known not to work on:
