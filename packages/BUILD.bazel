@@ -481,6 +481,11 @@ latex_package(
 )
 
 latex_package(
+    name = "upquote",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__upquote"],
+)
+
+latex_package(
     name = "url",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__url"],
 )
