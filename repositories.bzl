@@ -2931,7 +2931,7 @@ _TEXLIVE_MODULAR_PACKAGES_OTHER = [
     ("texmf/texmf-dist/tex/latex/beuron", "d2297d86f6bc22896c125c75a2855014a7439e78f6e86b01abd2df567d2a38bf", []),
     ("texmf/texmf-dist/tex/latex/bewerbung", "b65feb94724f7e4dc2e2636bbc1495824f3819f74b37fcffb7c667a69c844216", []),
     ("texmf/texmf-dist/tex/latex/bez123", "4b912bd2331e4220854137f7e4edffda0049c6cc87ed98b5556f0c096c7467b2", []),
-    ("texmf/texmf-dist/tex/latex/bezos", "b544a4aa5e784567162bb9e0e8334137a9e5c2a6b413d0f2fcf04bafb0b34ff3", []),
+    ("texmf/texmf-dist/tex/latex/bezos", "b544a4aa5e784567162bb9e0e8334137a9e5c2a6b413d0f2fcf04bafb0b34ff3", ["@bazel_latex//:patches/bezos-luatex"]),
     ("texmf/texmf-dist/tex/latex/bgreek", "369dfd11a3aab865b511362ab54e6c7d6eed9efcb14b573fd63d071fb62c693c", []),
     ("texmf/texmf-dist/tex/latex/bgteubner", "00fbf0ca94c6886090f7b42a294a6df45678d5fd142fd9fc8e083f2d304fc53a", []),
     ("texmf/texmf-dist/tex/latex/bguq", "332f5586c13770174296cc468c49c58adf2188c060cf014e293ed37a94a6bb40", []),

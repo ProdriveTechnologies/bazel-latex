@@ -1,0 +1,15 @@
+--- soulpos.sty
++++ soulpos.sty
+@@ -153,10 +153,10 @@
+        \ulp@draw
+        \global\expandafter\let\csname ulp@@\the\ulp@subcnt\endcsname\@undefined}%
+     \ifcase\ulp@pos\hss\fi % over
+-    \pdfsavepos
++    \savepos
+     \protected@write\ulp@out{}%
+       {\string\ulp@Pa\number#1{\the\ulp@subcnt}%
+-      {\noexpand\the\pdflastxpos}{\noexpand\the\pdflastypos}%
++      {\noexpand\the\lastxpos}{\noexpand\the\lastypos}%
+        \@percentchar}%
+   \egroup}
+ 
