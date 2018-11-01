@@ -27,7 +27,7 @@ for external in sorted(os.listdir("external")):
 
 (
     kpsewhich_file,
-    pdftex_file,
+    luatex_file,
     latexrun_file,
     job_name,
     main_file,
@@ -44,12 +44,18 @@ env["TEXMFROOT"] = os.path.abspath("texmf")
 
 os.mkdir("bin")
 os.link(kpsewhich_file, "bin/kpsewhich")
-os.link(pdftex_file, "bin/pdflatex")
-os.link(pdftex_file, "bin/pdftex")
+os.link(luatex_file, "bin/lualatex")
+os.link(luatex_file, "bin/luatex")
 os.link("texmf/texmf-dist/scripts/texlive/fmtutil.pl", "bin/mktexfmt")
 
 return_code = subprocess.call(
-    args=[latexrun_file, "--latex-args=-jobname=" + job_name, "-Wall", main_file],
+    args=[
+        latexrun_file,
+        "--latex-args=-jobname=" + job_name,
+        "--latex-cmd=lualatex",
+        "-Wall",
+        main_file,
+    ],
     env=env,
 )
 if return_code != 0:

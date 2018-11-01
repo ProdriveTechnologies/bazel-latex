@@ -7,6 +7,7 @@ latex_package(
     srcs = [
         ":collectbox",
         ":graphicx",
+        ":pgf",
         ":xkeyval",
         "@texlive_texmf__texmf-dist__tex__latex__adjustbox",
     ],
@@ -318,6 +319,11 @@ latex_package(
 )
 
 latex_package(
+    name = "luatex85",
+    srcs = ["@texlive_texmf__texmf-dist__tex__generic__luatex85"],
+)
+
+latex_package(
     name = "makecell",
     srcs = [
         ":array",
@@ -376,6 +382,7 @@ latex_package(
         ":datetime2",
         ":etoolbox",
         ":hyperref",
+        ":luatex85",
         ":marginnote",
         ":soulpos",
         ":xkeyval",
@@ -594,6 +601,7 @@ filegroup(
     name = "graphics_oberdiek",
     srcs = [
         ":soul",
+        "@texlive_texmf__texmf-dist__scripts__oberdiek",
         "@texlive_texmf__texmf-dist__tex__generic__oberdiek",
         "@texlive_texmf__texmf-dist__tex__latex__graphics",
         "@texlive_texmf__texmf-dist__tex__latex__graphics-cfg",

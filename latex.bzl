@@ -1,19 +1,19 @@
 def _latex_pdf_impl(ctx):
     toolchain = ctx.toolchains["@bazel_latex//:latex_toolchain_type"]
     ctx.actions.run(
-        mnemonic = "PdfLatex",
+        mnemonic = "LuaLatex",
         executable = "python",
         use_default_shell_env = True,
         arguments = [
-            "external/bazel_latex/run_pdflatex.py",
+            "external/bazel_latex/run_lualatex.py",
             toolchain.kpsewhich.files.to_list()[0].path,
-            toolchain.pdftex.files.to_list()[0].path,
+            toolchain.luatex.files.to_list()[0].path,
             ctx.files._latexrun[0].path,
             ctx.label.name,
             ctx.files.main[0].path,
             ctx.outputs.out.path,
         ],
-        inputs = toolchain.kpsewhich.files + toolchain.pdftex.files +
+        inputs = toolchain.kpsewhich.files + toolchain.luatex.files +
                  ctx.files._latexrun + ctx.files.main + ctx.files.srcs,
         outputs = [ctx.outputs.out],
     )

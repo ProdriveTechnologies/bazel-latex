@@ -4353,7 +4353,7 @@ _TEXLIVE_MODULAR_PACKAGES_OTHER = [
     ("texmf/texmf-dist/tex/latex/pbox", "c59bcdfe4676eaff79e496ea21ba83409d7203d5256a0551aa045c7d4ff0d00b", []),
     ("texmf/texmf-dist/tex/latex/pbsheet", "c520330cd23d84698172e028b649a52db0bc96e6dfa760571d7b89377e7f2883", []),
     ("texmf/texmf-dist/tex/latex/pdf14", "09053594e6705458e46ed760a916df261f3240f5e8dd49bba5f22bfe32c6e55a", []),
-    ("texmf/texmf-dist/tex/latex/pdfcomment", "ad064469a437eca0298ef6fbb5f673ecb066b6fccdb2268101e43be53e30611f", []),
+    ("texmf/texmf-dist/tex/latex/pdfcomment", "ad064469a437eca0298ef6fbb5f673ecb066b6fccdb2268101e43be53e30611f", ["@bazel_latex//:patches/pdfcomment-luatex"]),
     ("texmf/texmf-dist/tex/latex/pdfcprot", "2e5d097b7cb1507307430129062c218460fcef9b419cefa31d131bcd6333fee2", []),
     ("texmf/texmf-dist/tex/latex/pdfmarginpar", "29049bb966fab81c1fc97db6b7b1eef91c152ff22c598c1e30d9298211afd693", []),
     ("texmf/texmf-dist/tex/latex/pdfpagediff", "0b93fabfd431432ed5d8d54e91022d6f78e9c76c5052bb9f6b70c67a6e135074", []),
@@ -5436,7 +5436,7 @@ def latex_repositories():
             name = name,
             build_file_content = """
 exports_files(
-    ["kpsewhich", "pdftex"],
+    ["kpsewhich", "luatex"],
     visibility = ["//visibility:public"],
 )
 """,

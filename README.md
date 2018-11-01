@@ -59,7 +59,7 @@ filegroup(
 )
 ```
 
-As `pdflatex` is effectively invoked as if within the root of the
+As `lualatex` is effectively invoked as if within the root of the
 workspace, all imports of resources (e.g., images) must use the full
 path relative to the root.
 
