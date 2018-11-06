@@ -407,6 +407,17 @@ latex_package(
 )
 
 latex_package(
+    name = "placeat",
+    srcs = [
+        ":luacode",
+        ":luatexbase",
+        ":xparse",
+        "@texlive_texmf__texmf-dist__scripts__placeat",
+        "@texlive_texmf__texmf-dist__tex__lualatex__placeat",
+    ],
+)
+
+latex_package(
     name = "placeins",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__placeins"],
 )
@@ -613,6 +624,11 @@ filegroup(
 )
 
 filegroup(
+    name = "ctablestack",
+    srcs = ["@texlive_texmf__texmf-dist__tex__luatex__ctablestack"],
+)
+
+filegroup(
     name = "cyrillic",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__cyrillic"],
 )
@@ -649,6 +665,22 @@ filegroup(
 filegroup(
     name = "latxfont",
     srcs = ["@texlive_texmf__texmf-dist__fonts__type1__public__amsfonts__latxfont"],
+)
+
+filegroup(
+    name = "luacode",
+    srcs = [
+        ":graphics_oberdiek",
+        "@texlive_texmf__texmf-dist__tex__lualatex__luacode",
+    ],
+)
+
+filegroup(
+    name = "luatexbase",
+    srcs = [
+        ":ctablestack",
+        "@texlive_texmf__texmf-dist__tex__luatex__luatexbase",
+    ],
 )
 
 filegroup(
