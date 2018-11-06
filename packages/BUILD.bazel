@@ -463,6 +463,17 @@ latex_package(
 )
 
 latex_package(
+    name = "tcolorbox",
+    srcs = [
+        ":environ",
+        ":etoolbox",
+        ":pgf",
+        ":verbatim",
+        "@texlive_texmf__texmf-dist__tex__latex__tcolorbox",
+    ],
+)
+
+latex_package(
     name = "tikz",
     srcs = [":pgf"],
 )
@@ -516,6 +527,11 @@ latex_package(
 latex_package(
     name = "url",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__url"],
+)
+
+latex_package(
+    name = "verbatim",
+    srcs = [":tools"],
 )
 
 latex_package(
