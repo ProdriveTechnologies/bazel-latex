@@ -219,6 +219,11 @@ latex_package(
 )
 
 latex_package(
+    name = "fullpage",
+    srcs = [":preprint"],
+)
+
+latex_package(
     name = "geometry",
     srcs = [
         ":ifpdf",
@@ -258,6 +263,11 @@ latex_package(
         ":url",
         "@texlive_texmf__texmf-dist__tex__latex__hyperref",
     ],
+)
+
+latex_package(
+    name = "hyphenat",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__hyphenat"],
 )
 
 latex_package(
@@ -645,6 +655,11 @@ filegroup(
         "@texlive_texmf__texmf-dist__tex__latex__pgf__systemlayer",
         "@texlive_texmf__texmf-dist__tex__latex__pgf__utilities",
     ],
+)
+
+filegroup(
+    name = "preprint",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__preprint"],
 )
 
 filegroup(
