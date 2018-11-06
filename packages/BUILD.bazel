@@ -508,6 +508,22 @@ latex_package(
 )
 
 latex_package(
+    name = "xcharter",
+    srcs = [
+        ":cyrillic",
+        ":etoolbox",
+        ":ly1",
+        ":psnfss",
+        ":times",
+        "@texlive_texmf__texmf-dist__fonts__enc__dvips__xcharter",
+        "@texlive_texmf__texmf-dist__fonts__tfm__public__xcharter",
+        "@texlive_texmf__texmf-dist__fonts__type1__public__xcharter",
+        "@texlive_texmf__texmf-dist__fonts__vf__public__xcharter",
+        "@texlive_texmf__texmf-dist__tex__latex__xcharter",
+    ],
+)
+
+latex_package(
     name = "xcolor",
     srcs = [
         ":graphics_oberdiek",
@@ -597,6 +613,11 @@ filegroup(
 )
 
 filegroup(
+    name = "cyrillic",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__cyrillic"],
+)
+
+filegroup(
     name = "ec",
     srcs = ["@texlive_texmf__texmf-dist__fonts__tfm__jknappen__ec"],
 )
@@ -628,6 +649,11 @@ filegroup(
 filegroup(
     name = "latxfont",
     srcs = ["@texlive_texmf__texmf-dist__fonts__type1__public__amsfonts__latxfont"],
+)
+
+filegroup(
+    name = "ly1",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__ly1"],
 )
 
 filegroup(
@@ -667,6 +693,14 @@ filegroup(
     srcs = [
         ":keyval",
         "@texlive_texmf__texmf-dist__tex__latex__psnfss",
+    ],
+)
+
+filegroup(
+    name = "times",
+    srcs = [
+        "@texlive_texmf__texmf-dist__fonts__tfm__adobe__times",
+        "@texlive_texmf__texmf-dist__fonts__vf__adobe__times",
     ],
 )
 
