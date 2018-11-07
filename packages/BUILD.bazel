@@ -214,6 +214,14 @@ latex_package(
 )
 
 latex_package(
+    name = "fontspec",
+    srcs = [
+        ":xparse",
+        "@texlive_texmf__texmf-dist__tex__latex__fontspec",
+    ],
+)
+
+latex_package(
     name = "framed",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__framed"],
 )
@@ -294,6 +302,11 @@ latex_package(
 
 latex_package(
     name = "keyval",
+    srcs = [":graphics_oberdiek"],
+)
+
+latex_package(
+    name = "kvoptions",
     srcs = [":graphics_oberdiek"],
 )
 
@@ -484,6 +497,15 @@ latex_package(
         ":pgf",
         ":verbatim",
         "@texlive_texmf__texmf-dist__tex__latex__tcolorbox",
+    ],
+)
+
+latex_package(
+    name = "tgheros",
+    srcs = [
+        ":kvoptions",
+        "@texlive_texmf__texmf-dist__fonts__opentype__public__tex-gyre",
+        "@texlive_texmf__texmf-dist__tex__latex__tex-gyre",
     ],
 )
 
