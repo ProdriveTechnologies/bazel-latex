@@ -121,6 +121,11 @@ latex_package(
 )
 
 latex_package(
+    name = "datenumber",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__datenumber"],
+)
+
+latex_package(
     name = "datetime",
     srcs = [
         ":etoolbox",
