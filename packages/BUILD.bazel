@@ -419,6 +419,22 @@ latex_package(
 )
 
 latex_package(
+    name = "moderncv",
+    srcs = [
+        ":etoolbox",
+        ":fancyhdr",
+        ":fontawesome",
+        ":hyperref",
+        ":ifxetex",
+        ":microtype",
+        ":url",
+        ":xcolor",
+        ":xparse",
+        "@texlive_texmf__texmf-dist__tex__latex__moderncv",
+    ],
+)
+
+latex_package(
     name = "nth",
     srcs = [":genmisc"],
 )
@@ -605,6 +621,7 @@ latex_package(
 latex_package(
     name = "xcolor",
     srcs = [
+        ":colortbl",
         ":graphics_oberdiek",
         "@texlive_texmf__texmf-dist__tex__latex__xcolor",
     ],
