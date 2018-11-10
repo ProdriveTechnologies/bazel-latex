@@ -5,6 +5,11 @@ exports_files([
     "view_pdf.sh",
 ])
 
+toolchain_type(
+    name = "latex_toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
 latex_toolchain(
     exec_compatible_with = [
         "@bazel_tools//platforms:freebsd",
