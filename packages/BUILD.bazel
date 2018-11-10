@@ -219,6 +219,17 @@ latex_package(
 )
 
 latex_package(
+    name = "fontawesome",
+    srcs = [
+        ":fontspec",
+        ":ifluatex",
+        ":ifxetex",
+        "@texlive_texmf__texmf-dist__fonts__opentype__public__fontawesome",
+        "@texlive_texmf__texmf-dist__tex__latex__fontawesome",
+    ],
+)
+
+latex_package(
     name = "fontspec",
     srcs = [
         ":xparse",
