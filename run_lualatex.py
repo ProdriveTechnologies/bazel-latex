@@ -35,12 +35,14 @@ for external in sorted(os.listdir("external")):
 ) = sys.argv[1:]
 
 env = dict(os.environ)
+env["OPENTYPEFONTS"] = ":".join(texinputs)
 env["PATH"] = "%s:%s" % (os.path.abspath("bin"), env["PATH"])
 env["SOURCE_DATE_EPOCH"] = "0"
 env["TEXINPUTS"] = ":".join(texinputs)
 env["TEXMF"] = os.path.abspath("texmf/texmf-dist")
 env["TEXMFCNF"] = os.path.abspath("texmf/texmf-dist/web2c")
 env["TEXMFROOT"] = os.path.abspath("texmf")
+env["TTFONTS"] = ":".join(texinputs)
 
 os.mkdir("bin")
 os.link(kpsewhich_file, "bin/kpsewhich")
