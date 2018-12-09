@@ -11,11 +11,13 @@ latex_package(
         ":xkeyval",
         "@texlive_texmf__texmf-dist__tex__latex__adjustbox",
     ],
+    tests = ["adjustbox_test.tex"],
 )
 
 latex_package(
     name = "amsgen",
     srcs = [":amsmath"],
+    tests = ["amsgen_test.tex"],
 )
 
 latex_package(
@@ -24,11 +26,13 @@ latex_package(
         ":amsfonts",
         "@texlive_texmf__texmf-dist__tex__latex__amsmath",
     ],
+    tests = ["amsmath_test.tex"],
 )
 
 latex_package(
     name = "amstext",
     srcs = [":amsmath"],
+    tests = ["amstext_test.tex"],
 )
 
 latex_package(
@@ -38,21 +42,25 @@ latex_package(
         "@texlive_texmf__texmf-dist__fonts__tfm__public__amsfonts__symbols",
         "@texlive_texmf__texmf-dist__fonts__type1__public__amsfonts__symbols",
     ],
+    tests = ["amssymb_test.tex"],
 )
 
 latex_package(
     name = "amsthm",
     srcs = [":amscls"],
+    tests = ["amsthm_test.tex"],
 )
 
 latex_package(
     name = "array",
     srcs = [":tools"],
+    tests = ["array_test.tex"],
 )
 
 latex_package(
     name = "auxhook",
     srcs = [":graphics_oberdiek"],
+    tests = ["auxhook_test.tex"],
 )
 
 latex_package(
@@ -61,31 +69,46 @@ latex_package(
         ":babel",
         "@texlive_texmf__texmf-dist__tex__generic__babel-english",
     ],
+    tests = ["babel_english_test.tex"],
 )
 
 latex_package(
-    name = "beamerthemedefault",
-    srcs = [":beamer"],
-)
-
-latex_package(
-    name = "beamerthemesplit",
-    srcs = [":beamer"],
+    name = "beamer",
+    srcs = [
+        ":amsmath",
+        ":amssymb",
+        ":amsthm",
+        ":enumerate",
+        ":etoolbox",
+        ":geometry",
+        ":hyperref",
+        ":ifpdf",
+        ":pgfcore",
+        ":translator",
+        "@texlive_texmf__texmf-dist__tex__latex__beamer",
+    ],
+    tests = [
+        "beamerthemedefault_test.tex",
+        "beamerthemesplit_test.tex",
+    ],
 )
 
 latex_package(
     name = "booktabs",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__booktabs"],
+    tests = ["booktabs_test.tex"],
 )
 
 latex_package(
     name = "calc",
     srcs = [":tools"],
+    tests = ["calc_test.tex"],
 )
 
 latex_package(
     name = "capt-of",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__capt-of"],
+    tests = ["capt-of_test.tex"],
 )
 
 latex_package(
@@ -94,21 +117,25 @@ latex_package(
         ":keyval",
         "@texlive_texmf__texmf-dist__tex__latex__caption",
     ],
+    tests = ["caption_test.tex"],
 )
 
 latex_package(
     name = "cleveref",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__cleveref"],
+    tests = ["cleveref_test.tex"],
 )
 
 latex_package(
     name = "collectbox",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__collectbox"],
+    tests = ["collectbox_test.tex"],
 )
 
 latex_package(
     name = "color",
     srcs = [":graphics_oberdiek"],
+    tests = ["color_test.tex"],
 )
 
 latex_package(
@@ -118,11 +145,13 @@ latex_package(
         ":color",
         "@texlive_texmf__texmf-dist__tex__latex__colortbl",
     ],
+    tests = ["colortbl_test.tex"],
 )
 
 latex_package(
     name = "datenumber",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__datenumber"],
+    tests = ["datenumber_test.tex"],
 )
 
 latex_package(
@@ -132,6 +161,7 @@ latex_package(
         ":fmtcount",
         "@texlive_texmf__texmf-dist__tex__latex__datetime",
     ],
+    tests = ["datetime_test.tex"],
 )
 
 latex_package(
@@ -141,6 +171,7 @@ latex_package(
         ":xkeyval",
         "@texlive_texmf__texmf-dist__tex__latex__datetime2",
     ],
+    tests = ["datetime2_test.tex"],
 )
 
 latex_package(
@@ -149,16 +180,19 @@ latex_package(
         ":datetime2",
         "@texlive_texmf__texmf-dist__tex__latex__datetime2-english",
     ],
+    tests = ["datetime2_english_test.tex"],
 )
 
 latex_package(
     name = "enumerate",
     srcs = [":tools"],
+    tests = ["enumerate_test.tex"],
 )
 
 latex_package(
     name = "enumitem",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__enumitem"],
+    tests = ["enumitem_test.tex"],
 )
 
 latex_package(
@@ -167,16 +201,19 @@ latex_package(
         ":trimspaces",
         "@texlive_texmf__texmf-dist__tex__latex__environ",
     ],
+    tests = ["environ_test.tex"],
 )
 
 latex_package(
     name = "epstopdf-base",
     srcs = [":graphics_oberdiek"],
+    tests = ["epstopdf-base_test.tex"],
 )
 
 latex_package(
     name = "etoolbox",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__etoolbox"],
+    tests = ["etoolbox_test.tex"],
 )
 
 latex_package(
@@ -186,26 +223,31 @@ latex_package(
         "@texlive_texmf__texmf-dist__fonts__tfm__public__amsfonts__euler",
         "@texlive_texmf__texmf-dist__fonts__type1__public__amsfonts__euler",
     ],
+    tests = ["eufrak_test.tex"],
 )
 
 latex_package(
     name = "everyshi",
     srcs = [":ms"],
+    tests = ["everyshi_test.tex"],
 )
 
 latex_package(
     name = "expl3",
     srcs = [":l3kernel"],
+    tests = ["expl3_test.tex"],
 )
 
 latex_package(
     name = "fancyhdr",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__fancyhdr"],
+    tests = ["fancyhdr_test.tex"],
 )
 
 latex_package(
     name = "float",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__float"],
+    tests = ["float_test.tex"],
 )
 
 latex_package(
@@ -216,6 +258,7 @@ latex_package(
         ":xkeyval",
         "@texlive_texmf__texmf-dist__tex__latex__fmtcount",
     ],
+    tests = ["fmtcount_test.tex"],
 )
 
 latex_package(
@@ -227,6 +270,7 @@ latex_package(
         "@texlive_texmf__texmf-dist__fonts__opentype__public__fontawesome",
         "@texlive_texmf__texmf-dist__tex__latex__fontawesome",
     ],
+    tests = ["fontawesome_test.tex"],
 )
 
 latex_package(
@@ -235,16 +279,19 @@ latex_package(
         ":xparse",
         "@texlive_texmf__texmf-dist__tex__latex__fontspec",
     ],
+    tests = ["fontspec_test.tex"],
 )
 
 latex_package(
     name = "framed",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__framed"],
+    tests = ["framed_test.tex"],
 )
 
 latex_package(
     name = "fullpage",
     srcs = [":preprint"],
+    tests = ["fullpage_test.tex"],
 )
 
 latex_package(
@@ -255,16 +302,19 @@ latex_package(
         ":keyval",
         "@texlive_texmf__texmf-dist__tex__latex__geometry",
     ],
+    tests = ["geometry_test.tex"],
 )
 
 latex_package(
     name = "graphicx",
     srcs = [":graphics_oberdiek"],
+    tests = ["graphicx_test.tex"],
 )
 
 latex_package(
     name = "hanging",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__hanging"],
+    tests = ["hanging_test.tex"],
 )
 
 latex_package(
@@ -275,6 +325,7 @@ latex_package(
         "@texlive_texmf__texmf-dist__fonts__type1__urw__helvetic",
         "@texlive_texmf__texmf-dist__fonts__vf__adobe__helvetic",
     ],
+    tests = ["helvet_test.tex"],
 )
 
 latex_package(
@@ -287,53 +338,66 @@ latex_package(
         ":url",
         "@texlive_texmf__texmf-dist__tex__latex__hyperref",
     ],
+    tests = ["hyperref_test.tex"],
 )
 
 latex_package(
     name = "hyphenat",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__hyphenat"],
+    tests = ["hyphenat_test.tex"],
 )
 
 latex_package(
     name = "ifmtarg",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__ifmtarg"],
+    tests = ["ifmtarg_test.tex"],
 )
 
 latex_package(
     name = "ifluatex",
     srcs = [":graphics_oberdiek"],
+    tests = ["ifluatex_test.tex"],
 )
 
 latex_package(
     name = "ifpdf",
     srcs = [":graphics_oberdiek"],
+    tests = ["ifpdf_test.tex"],
 )
 
-latex_package(name = "ifthen")
+latex_package(
+    name = "ifthen",
+    tests = ["ifthen_test.tex"],
+)
 
 latex_package(
     name = "ifxetex",
     srcs = ["@texlive_texmf__texmf-dist__tex__generic__ifxetex"],
+    tests = ["ifxetex_test.tex"],
 )
 
 latex_package(
     name = "keyval",
     srcs = [":graphics_oberdiek"],
+    tests = ["keyval_test.tex"],
 )
 
 latex_package(
     name = "kvoptions",
     srcs = [":graphics_oberdiek"],
+    tests = ["kvoptions_test.tex"],
 )
 
 latex_package(
     name = "lastpage",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__lastpage"],
+    tests = ["lastpage_test.tex"],
 )
 
 latex_package(
     name = "lineno",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__lineno"],
+    tests=["lineno_test.tex"]
 )
 
 latex_package(
@@ -342,6 +406,7 @@ latex_package(
         ":expl3",
         "@texlive_texmf__texmf-dist__tex__latex__l3packages__l3keys2e",
     ],
+    tests=["l3keys2e_test.tex"]
 )
 
 latex_package(
@@ -350,16 +415,19 @@ latex_package(
         ":keyval",
         "@texlive_texmf__texmf-dist__tex__latex__listings",
     ],
+    tests=["listings_test.tex"]
 )
 
 latex_package(
     name = "longtable",
     srcs = [":tools"],
+    tests=["longtable_test.tex"]
 )
 
 latex_package(
     name = "ltxcmds",
     srcs = [":graphics_oberdiek"],
+    tests=["ltxcmds_test.tex"]
 )
 
 latex_package(
@@ -369,11 +437,13 @@ latex_package(
         ":luatexbase",
         "@texlive_texmf__texmf-dist__tex__lualatex__luacode",
     ],
+    tests=["luacode_test.tex"]
 )
 
 latex_package(
     name = "luatex85",
     srcs = ["@texlive_texmf__texmf-dist__tex__generic__luatex85"],
+    tests=["luatex85_test.tex"]
 )
 
 latex_package(
@@ -382,11 +452,13 @@ latex_package(
         ":array",
         "@texlive_texmf__texmf-dist__tex__latex__makecell",
     ],
+    tests=["makecell_test.tex"]
 )
 
 latex_package(
     name = "marginnote",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__marginnote"],
+    tests=["marginnote_test.tex"]
 )
 
 latex_package(
@@ -396,6 +468,7 @@ latex_package(
         "@texlive_texmf__texmf-dist__fonts__type1__public__marvosym",
         "@texlive_texmf__texmf-dist__tex__latex__marvosym",
     ],
+    tests=["marvosym_test.tex"]
 )
 
 latex_package(
@@ -404,6 +477,7 @@ latex_package(
         ":keyval",
         "@texlive_texmf__texmf-dist__tex__latex__microtype",
     ],
+    tests=["microtype_test.tex"]
 )
 
 latex_package(
@@ -416,6 +490,7 @@ latex_package(
         "@texlive_texmf__texmf-dist__fonts__type1__public__mnsymbol",
         "@texlive_texmf__texmf-dist__tex__latex__mnsymbol",
     ],
+    tests=["mnsymbol_test.tex"]
 )
 
 latex_package(
@@ -432,16 +507,19 @@ latex_package(
         ":xparse",
         "@texlive_texmf__texmf-dist__tex__latex__moderncv",
     ],
+    tests = ["moderncv_test.tex"],
 )
 
 latex_package(
     name = "nth",
     srcs = [":genmisc"],
+    tests=["nth_test.tex"]
 )
 
 latex_package(
     name = "parskip",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__parskip"],
+    tests=["parskip_test.tex"]
 )
 
 latex_package(
@@ -458,11 +536,13 @@ latex_package(
         ":zref-savepos",
         "@texlive_texmf__texmf-dist__tex__latex__pdfcomment",
     ],
+    tests=["pdfcomment_test.tex"]
 )
 
 latex_package(
     name = "pgfcore",
     srcs = [":pgf"],
+    tests=["pgfcore_test.tex"]
 )
 
 latex_package(
@@ -474,16 +554,19 @@ latex_package(
         "@texlive_texmf__texmf-dist__scripts__placeat",
         "@texlive_texmf__texmf-dist__tex__lualatex__placeat",
     ],
+    tests=["placeat_test.tex"]
 )
 
 latex_package(
     name = "placeins",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__placeins"],
+    tests=["placeins_test.tex"]
 )
 
 latex_package(
     name = "silence",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__silence"],
+    tests=["silence_test.tex"]
 )
 
 latex_package(
@@ -496,6 +579,7 @@ latex_package(
         ":xparse",
         "@texlive_texmf__texmf-dist__tex__latex__siunitx",
     ],
+    tests=["siunitx_test.tex"]
 )
 
 latex_package(
@@ -504,21 +588,25 @@ latex_package(
         ":ec",
         "@texlive_texmf__texmf-dist__tex__latex__soul",
     ],
+    tests=["soul_test.tex"]
 )
 
 latex_package(
     name = "soulutf8",
     srcs = [":graphics_oberdiek"],
+    tests=["soulutf8_test.tex"]
 )
 
 latex_package(
     name = "soulpos",
     srcs = [":bezos"],
+    tests=["soulpos_test.tex"]
 )
 
 latex_package(
     name = "tabularx",
     srcs = [":tools"],
+    tests=["tabularx_test.tex"]
 )
 
 latex_package(
@@ -530,6 +618,7 @@ latex_package(
         ":verbatim",
         "@texlive_texmf__texmf-dist__tex__latex__tcolorbox",
     ],
+    tests=["tcolorbox_test.tex"]
 )
 
 latex_package(
@@ -539,21 +628,25 @@ latex_package(
         "@texlive_texmf__texmf-dist__fonts__opentype__public__tex-gyre",
         "@texlive_texmf__texmf-dist__tex__latex__tex-gyre",
     ],
+    tests=["tgheros_test.tex"]
 )
 
 latex_package(
     name = "tikz",
     srcs = [":pgf"],
+    tests=["tikz_test.tex"]
 )
 
 latex_package(
     name = "titlesec",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__titlesec"],
+    tests=["titlesec_test.tex"]
 )
 
 latex_package(
     name = "tocloft",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__tocloft"],
+    tests=["tocloft_test.tex"]
 )
 
 latex_package(
@@ -563,6 +656,7 @@ latex_package(
         "@texlive_texmf__texmf-dist__tex__generic__tracklang",
         "@texlive_texmf__texmf-dist__tex__latex__tracklang",
     ],
+    tests=["tracklang_test.tex"]
 )
 
 latex_package(
@@ -572,11 +666,13 @@ latex_package(
         ":keyval",
         "@texlive_texmf__texmf-dist__tex__latex__translator",
     ],
+    tests=["translator_test.tex"]
 )
 
 latex_package(
     name = "trimspaces",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__trimspaces"],
+    tests=["trimspaces_test.tex"]
 )
 
 latex_package(
@@ -585,21 +681,25 @@ latex_package(
         ":latxfont",
         "@texlive_texmf__texmf-dist__tex__generic__ulem",
     ],
+    tests=["ulem_test.tex"]
 )
 
 latex_package(
     name = "upquote",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__upquote"],
+    tests=["upquote_test.tex"]
 )
 
 latex_package(
     name = "url",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__url"],
+    tests=["url_test.tex"]
 )
 
 latex_package(
     name = "verbatim",
     srcs = [":tools"],
+    tests=["verbatim_test.tex"]
 )
 
 latex_package(
@@ -616,6 +716,7 @@ latex_package(
         "@texlive_texmf__texmf-dist__fonts__vf__public__xcharter",
         "@texlive_texmf__texmf-dist__tex__latex__xcharter",
     ],
+    tests=["xcharter_test.tex"]
 )
 
 latex_package(
@@ -625,6 +726,7 @@ latex_package(
         ":graphics_oberdiek",
         "@texlive_texmf__texmf-dist__tex__latex__xcolor",
     ],
+    tests=["xcolor_test.tex"]
 )
 
 latex_package(
@@ -634,6 +736,7 @@ latex_package(
         ":ifmtarg",
         "@texlive_texmf__texmf-dist__tex__latex__xifthen",
     ],
+    tests=["xifthen_test.tex"]
 )
 
 latex_package(
@@ -642,6 +745,7 @@ latex_package(
         "@texlive_texmf__texmf-dist__tex__generic__xkeyval",
         "@texlive_texmf__texmf-dist__tex__latex__xkeyval",
     ],
+    tests=["xkeyval_test.tex"]
 )
 
 latex_package(
@@ -650,16 +754,19 @@ latex_package(
         ":expl3",
         "@texlive_texmf__texmf-dist__tex__latex__l3packages__xparse",
     ],
+    tests=["xparse_test.tex"]
 )
 
 latex_package(
     name = "xstring",
     srcs = ["@texlive_texmf__texmf-dist__tex__generic__xstring"],
+    tests=["xstring_test.tex"]
 )
 
 latex_package(
     name = "zref-savepos",
     srcs = [":graphics_oberdiek"],
+    tests=["zref-savepos_test.tex"]
 )
 
 # Internal library targets.
@@ -680,23 +787,6 @@ filegroup(
 filegroup(
     name = "babel",
     srcs = ["@texlive_texmf__texmf-dist__tex__generic__babel"],
-)
-
-filegroup(
-    name = "beamer",
-    srcs = [
-        ":amsmath",
-        ":amssymb",
-        ":amsthm",
-        ":enumerate",
-        ":etoolbox",
-        ":geometry",
-        ":hyperref",
-        ":ifpdf",
-        ":pgfcore",
-        ":translator",
-        "@texlive_texmf__texmf-dist__tex__latex__beamer",
-    ],
 )
 
 filegroup(
