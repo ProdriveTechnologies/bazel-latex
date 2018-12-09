@@ -7,9 +7,9 @@ def latex_package(name, srcs = [], tests = []):
         visibility = ["//visibility:public"],
     )
 
-    for i in tests:
+    for test in tests:
         latex_document(
-            name = name + "_" + i,
-            main = i,
+            name = name + "_" + test,
+            main = test,
             srcs = [":" + name],
         )

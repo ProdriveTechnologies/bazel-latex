@@ -88,8 +88,8 @@ latex_package(
         "@texlive_texmf__texmf-dist__tex__latex__beamer",
     ],
     tests = [
-        "beamerthemedefault_test.tex",
-        "beamerthemesplit_test.tex",
+        "beamer_themedefault_test.tex",
+        "beamer_themesplit_test.tex",
     ],
 )
 
