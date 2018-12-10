@@ -502,12 +502,16 @@ latex_package(
         ":hyperref",
         ":ifxetex",
         ":microtype",
+        ":tikz",
         ":url",
         ":xcolor",
         ":xparse",
         "@texlive_texmf__texmf-dist__tex__latex__moderncv",
     ],
-    tests = ["moderncv_test.tex"],
+    tests = [
+        "moderncv_casual_test.tex",
+        "moderncv_classic_test.tex",
+    ],
 )
 
 latex_package(
