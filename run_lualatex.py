@@ -2,6 +2,7 @@
 
 import glob
 import os
+import shutil
 import subprocess
 import sys
 
@@ -45,10 +46,10 @@ env["TEXMFROOT"] = os.path.abspath("texmf")
 env["TTFONTS"] = ":".join(texinputs)
 
 os.mkdir("bin")
-os.link(kpsewhich_file, "bin/kpsewhich")
-os.link(luatex_file, "bin/lualatex")
-os.link(luatex_file, "bin/luatex")
-os.link("texmf/texmf-dist/scripts/texlive/fmtutil.pl", "bin/mktexfmt")
+shutil.copy(kpsewhich_file, "bin/kpsewhich")
+shutil.copy(luatex_file, "bin/lualatex")
+os.link("bin/lualatex", "bin/luatex")
+shutil.copy("texmf/texmf-dist/scripts/texlive/fmtutil.pl", "bin/mktexfmt")
 
 return_code = subprocess.call(
     args=[
