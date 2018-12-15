@@ -5451,7 +5451,13 @@ exports_files(
             build_file_content = """
 filegroup(
     name = "%s",
-    srcs = glob(["**"]),
+    srcs = glob(
+        include = ["**"],
+        exclude = [
+            "BUILD.bazel",
+            "WORKSPACE",
+        ],
+    ),
     visibility = ["//visibility:public"],
 )
 """ % name,
