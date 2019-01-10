@@ -608,6 +608,17 @@ latex_package(
 )
 
 latex_package(
+    name = "standalone",
+    srcs = [
+        ":graphics_oberdiek",
+        ":luatex85",
+        ":xkeyval",
+        "@texlive_texmf__texmf-dist__tex__latex__standalone",
+    ],
+    tests = ["standalone_test.tex"],
+)
+
+latex_package(
     name = "tabularx",
     srcs = [":tools"],
     tests = ["tabularx_test.tex"],
