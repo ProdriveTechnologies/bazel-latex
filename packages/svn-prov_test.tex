@@ -1,0 +1,15 @@
+\documentclass{report}
+\usepackage{svn-prov}
+\ProvidesPackageSVN{$Id: svn-prov.dtx 1862 2010-04-24 14:19:07Z martin $}
+\begin{document}
+\GetFileInfoSVN*
+\begin{tabular}{ll}
+File Name & \filename \\
+File Base Name & \filebase \\
+File Extension & \fileext \\
+File Date & \filedate \\
+File Revision & \filerev \\
+File Version & \fileversion \\
+File Info & \fileinfo \\
+\end{tabular}
+\end{document}

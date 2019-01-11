@@ -261,6 +261,15 @@ latex_package(
 )
 
 latex_package(
+    name = "filemod",
+    srcs = [
+        ":graphics_oberdiek",
+        "@texlive_texmf__texmf-dist__tex__latex__filemod",
+    ],
+    tests = ["filemod_test.tex"],
+)
+
+latex_package(
     name = "float",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__float"],
     tests = ["float_test.tex"],
@@ -319,6 +328,16 @@ latex_package(
         "@texlive_texmf__texmf-dist__tex__latex__geometry",
     ],
     tests = ["geometry_test.tex"],
+)
+
+latex_package(
+    name = "gincltex",
+    srcs = [
+        ":adjustbox",
+        ":svn-prov",
+        "@texlive_texmf__texmf-dist__tex__latex__gincltex",
+    ],
+    tests = ["gincltex_test.tex"],
 )
 
 latex_package(
@@ -626,12 +645,24 @@ latex_package(
 latex_package(
     name = "standalone",
     srcs = [
+        ":currfile",
+        ":filemod",
+        ":gincltex",
         ":graphics_oberdiek",
         ":luatex85",
         ":xkeyval",
         "@texlive_texmf__texmf-dist__tex__latex__standalone",
     ],
-    tests = ["standalone_test.tex"],
+    tests = [
+        "standalone_documentclass_test.tex",
+        "standalone_package_test.tex",
+    ],
+)
+
+latex_package(
+    name = "svn-prov",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__svn-prov"],
+    tests = ["svn-prov_test.tex"],
 )
 
 latex_package(
