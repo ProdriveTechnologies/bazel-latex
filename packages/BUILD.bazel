@@ -344,6 +344,12 @@ latex_package(
 )
 
 latex_package(
+    name = "gensymb",
+    srcs = [":was"],
+    tests = ["gensymb_test.tex"],
+)
+
+latex_package(
     name = "geometry",
     srcs = [
         ":ifpdf",
@@ -1050,4 +1056,9 @@ filegroup(
 filegroup(
     name = "tools",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__tools"],
+)
+
+filegroup(
+    name = "was",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__was"],
 )
