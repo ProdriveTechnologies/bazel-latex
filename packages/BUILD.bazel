@@ -730,6 +730,12 @@ latex_package(
 )
 
 latex_package(
+    name = "subcaption",
+    srcs = [":caption"],
+    tests = ["subcaption_test.tex"],
+)
+
+latex_package(
     name = "substr",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__substr"],
     tests = ["substr_test.tex"],
