@@ -159,6 +159,24 @@ latex_package(
 )
 
 latex_package(
+    name = "datatool",
+    srcs = [
+        ":amsmath",
+        ":etoolbox",
+        ":fp",
+        ":pgf",
+        ":substr",
+        ":xfor",
+        ":xkeyval",
+        "@texlive_texmf__texmf-dist__tex__latex__datatool",
+    ],
+    tests = [
+        "datatool_fp_test.tex",
+        "datatool_pgfmath_test.tex",
+    ],
+)
+
+latex_package(
     name = "datenumber",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__datenumber"],
     tests = ["datenumber_test.tex"],
@@ -308,6 +326,12 @@ latex_package(
 )
 
 latex_package(
+    name = "fp",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__fp"],
+    tests = ["fp_test.tex"],
+)
+
+latex_package(
     name = "framed",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__framed"],
     tests = ["framed_test.tex"],
@@ -338,6 +362,31 @@ latex_package(
         "@texlive_texmf__texmf-dist__tex__latex__gincltex",
     ],
     tests = ["gincltex_test.tex"],
+)
+
+latex_package(
+    name = "glossaries",
+    srcs = [
+        ":datatool",
+        ":longtable",
+        ":mfirstuc",
+        ":textcase",
+        ":xfor",
+        "@texlive_texmf__texmf-dist__tex__latex__glossaries__base",
+        "@texlive_texmf__texmf-dist__tex__latex__glossaries__styles",
+    ],
+    tests = ["glossaries_test.tex"],
+)
+
+latex_package(
+    name = "glossaries-extra",
+    srcs = [
+        ":etoolbox",
+        ":glossaries",
+        ":xkeyval",
+        "@texlive_texmf__texmf-dist__tex__latex__glossaries-extra",
+    ],
+    tests = ["glossaries-extra_test.tex"],
 )
 
 latex_package(
@@ -409,6 +458,12 @@ latex_package(
     name = "ifxetex",
     srcs = ["@texlive_texmf__texmf-dist__tex__generic__ifxetex"],
     tests = ["ifxetex_test.tex"],
+)
+
+latex_package(
+    name = "import",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__import"],
+    tests = ["import_test.tex"],
 )
 
 latex_package(
@@ -504,6 +559,15 @@ latex_package(
         "@texlive_texmf__texmf-dist__tex__latex__marvosym",
     ],
     tests = ["marvosym_test.tex"],
+)
+
+latex_package(
+    name = "mfirstuc",
+    srcs = [
+        ":etoolbox",
+        "@texlive_texmf__texmf-dist__tex__latex__mfirstuc",
+    ],
+    tests = ["mfirstuc_test.tex"],
 )
 
 latex_package(
@@ -660,6 +724,12 @@ latex_package(
 )
 
 latex_package(
+    name = "substr",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__substr"],
+    tests = ["substr_test.tex"],
+)
+
+latex_package(
     name = "svn-prov",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__svn-prov"],
     tests = ["svn-prov_test.tex"],
@@ -681,6 +751,12 @@ latex_package(
         "@texlive_texmf__texmf-dist__tex__latex__tcolorbox",
     ],
     tests = ["tcolorbox_test.tex"],
+)
+
+latex_package(
+    name = "textcase",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__textcase"],
+    tests = ["textcase_test.tex"],
 )
 
 latex_package(
@@ -789,6 +865,12 @@ latex_package(
         "@texlive_texmf__texmf-dist__tex__latex__xcolor",
     ],
     tests = ["xcolor_test.tex"],
+)
+
+latex_package(
+    name = "xfor",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__xfor"],
+    tests = ["xfor_test.tex"],
 )
 
 latex_package(

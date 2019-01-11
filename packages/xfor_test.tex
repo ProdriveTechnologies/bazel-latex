@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{xfor}
+\makeatletter
+\newcount\select@count
+\newcount\select@i
+\newcommand\select[2]{%
+\select@i=\z@\select@count=\z@
+\@for\@@select@item:={#2}\do{\advance\select@count by\@ne}%
+\ifnum#1>\select@count??\else
+\@for\@@select@item:={#2}\do{%
+\advance\select@i by\@ne
+\ifnum#1<1??\@endfortrue\fi
+\ifnum#1=\select@i\@@select@item\@endfortrue\fi
+}%
+\fi
+}
+\makeatother
+\begin{document}
+\begin{itemize}
+\item \verb+\select{0}{A,B,C,D,E}+ gives \select{0}{A,B,C,D,E}
+\item \verb+\select{1}{A,B,C,D,E}+ gives \select{1}{A,B,C,D,E}
+\item \verb+\select{2}{A,B,C,D,E}+ gives \select{2}{A,B,C,D,E}
+\item \verb+\select{5}{A,B,C,D,E}+ gives \select{5}{A,B,C,D,E}
+\item \verb+\select{10}{A,B,C,D,E}+ gives \select{10}{A,B,C,D,E}
+\item \verb+\select{0}{1,2,3,4,5}+ gives \select{0}{1,2,3,4,5}
+\item \verb+\select{1}{1,2,3,4,5}+ gives \select{1}{1,2,3,4,5}
+\item \verb+\select{2}{1,2,3,4,5}+ gives \select{2}{1,2,3,4,5}
+\item \verb+\select{5}{1,2,3,4,5}+ gives \select{5}{1,2,3,4,5}
+\item \verb+\select{10}{1,2,3,4,5}+ gives \select{10}{1,2,3,4,5}
+\end{itemize}
+\end{document}

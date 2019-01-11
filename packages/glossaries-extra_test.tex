@@ -1,0 +1,20 @@
+\documentclass{report}
+\usepackage{glossaries-extra}
+\makeglossaries
+\setabbreviationstyle{long-short-sc}
+\setabbreviationstyle[initialism]{short-long}
+\glssetcategoryattribute{initialism}{insertdots}{true}
+\glssetcategoryattribute{initialism}{discardperiod}{true}
+\newabbreviation{html}{html}{hypertext markup language}
+\newabbreviation[category=initialism]{eg}{eg}{for example}
+\newabbreviation[category=initialism]{si}{SI}{sample initials}
+\begin{document}
+\tableofcontents
+\section{Sample}
+First use: \gls{eg} and \gls{si} (dots inserted) and
+\gls{html} (no dots).
+Next use: \gls{eg} and \gls{si} (dots) and \gls{html} (no dots).
+End of sentence: \gls{eg}. (Trailing period has been discarded.)
+End of sentence: \gls{si}. (Spacefactor has also been adjusted.)
+\printglossaries
+\end{document}

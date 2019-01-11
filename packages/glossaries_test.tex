@@ -1,0 +1,24 @@
+\documentclass{report}
+\usepackage{glossaries}
+\makeglossaries
+\newglossaryentry{latex}
+{
+    name=latex,
+    description={Is a mark up language specially suited
+    for scientific documents}
+}
+\newglossaryentry{maths}
+{
+    name=mathematics,
+    description={Mathematics is what mathematicians do}
+}
+\title{How to create a glossary}
+\author{ }
+\date{ }
+\begin{document}
+\maketitle
+The \Gls{latex} typesetting markup language is specially suitable
+for documents that include \gls{maths}.
+\clearpage
+\printglossaries
+\end{document}

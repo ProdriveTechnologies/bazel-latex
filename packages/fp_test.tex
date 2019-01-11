@@ -1,0 +1,8 @@
+\documentclass{report}
+\usepackage{fp}
+\begin{document}
+\FPeval{\result}{round(400*1.06,0)}%
+$400+6\%=\result$
+\FPeval{\result}{round((result)*1.06,0)}%
+$424+6\%=\result$
+\end{document}
