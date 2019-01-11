@@ -149,6 +149,16 @@ latex_package(
 )
 
 latex_package(
+    name = "currfile",
+    srcs = [
+        ":filehook",
+        ":kvoptions",
+        "@texlive_texmf__texmf-dist__tex__latex__currfile",
+    ],
+    tests = ["currfile_test.tex"],
+)
+
+latex_package(
     name = "datenumber",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__datenumber"],
     tests = ["datenumber_test.tex"],
@@ -242,6 +252,12 @@ latex_package(
     name = "fancyhdr",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__fancyhdr"],
     tests = ["fancyhdr_test.tex"],
+)
+
+latex_package(
+    name = "filehook",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__filehook"],
+    tests = ["filehook_test.tex"],
 )
 
 latex_package(
