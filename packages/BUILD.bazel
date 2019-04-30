@@ -438,6 +438,12 @@ latex_package(
 )
 
 latex_package(
+    name = "ieeetran",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__IEEEtran"],
+    tests = ["ieeetran_test.tex"]
+)
+
+latex_package(
     name = "ifmtarg",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__ifmtarg"],
     tests = ["ifmtarg_test.tex"],
