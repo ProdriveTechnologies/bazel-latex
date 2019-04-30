@@ -440,7 +440,7 @@ latex_package(
 latex_package(
     name = "ieeetran",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__IEEEtran"],
-    tests = ["ieeetran_test.tex"]
+    tests = ["ieeetran_test.tex"],
 )
 
 latex_package(
@@ -633,7 +633,11 @@ latex_package(
 
 latex_package(
     name = "parskip",
-    srcs = ["@texlive_texmf__texmf-dist__tex__latex__parskip"],
+    srcs = [
+        ":etoolbox",
+        ":kvoptions",
+        "@texlive_texmf__texmf-dist__tex__latex__parskip",
+    ],
     tests = ["parskip_test.tex"],
 )
 
