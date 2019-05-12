@@ -261,6 +261,12 @@ latex_package(
 )
 
 latex_package(
+    name = "exam",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__exam"],
+    tests = ["exam_test.tex"],
+)
+
+latex_package(
     name = "expl3",
     srcs = [":l3kernel"],
     tests = ["expl3_test.tex"],
