@@ -626,6 +626,12 @@ latex_package(
 )
 
 latex_package(
+    name = "multicol",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__tools"],
+    tests = ["multicol_test.tex"],
+)
+
+latex_package(
     name = "nth",
     srcs = [":genmisc"],
     tests = ["nth_test.tex"],
