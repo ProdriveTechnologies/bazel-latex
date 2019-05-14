@@ -212,6 +212,15 @@ latex_package(
 )
 
 latex_package(
+    name = "drawstack",
+    srcs = [
+        ":tikz",
+        "@texlive_texmf__texmf-dist__tex__latex__drawstack",
+    ],
+    tests = ["drawstack_test.tex"],
+)
+
+latex_package(
     name = "enumerate",
     srcs = [":tools"],
     tests = ["enumerate_test.tex"],
