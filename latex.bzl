@@ -13,8 +13,13 @@ def _latex_pdf_impl(ctx):
             ctx.files.main[0].path,
             ctx.outputs.out.path,
         ],
-        inputs = toolchain.kpsewhich.files + toolchain.luatex.files +
-                 ctx.files._latexrun + ctx.files.main + ctx.files.srcs,
+        inputs = depset(
+            direct = ctx.files.main + ctx.files.srcs + ctx.files._latexrun,
+            transitive = [
+                toolchain.kpsewhich.files,
+                toolchain.luatex.files,
+            ],
+        ),
         outputs = [ctx.outputs.out],
     )
 
