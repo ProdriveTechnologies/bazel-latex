@@ -103,9 +103,9 @@ These rules have been tested to work on:
 - macOS Mojave 10.14, building locally.
 - Ubuntu 18.04, building locally.
 - Ubuntu 18.04, building on a Debian 8 based
-  [Buildbarn](https://github.com/EdSchouten/bazel-buildbarn) setup.
+  [Buildbarn](https://github.com/buildbarn) setup.
 - Windows 10 1803, building on a Debian 8 based
-  [Buildbarn](https://github.com/EdSchouten/bazel-buildbarn) setup.
+  [Buildbarn](https://github.com/buildbarn) setup.
 
 These rules are known not to work on:
 
