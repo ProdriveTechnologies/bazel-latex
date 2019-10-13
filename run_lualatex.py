@@ -53,6 +53,7 @@ shutil.copy("texmf/texmf-dist/scripts/texlive/fmtutil.pl", "bin/mktexfmt")
 
 return_code = subprocess.call(
     args=[
+        "python3",
         latexrun_file,
         "--latex-args=-jobname=" + job_name,
         "--latex-cmd=lualatex",
