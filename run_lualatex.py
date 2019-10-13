@@ -3,6 +3,7 @@
 import glob
 import os
 import shutil
+import stat
 import subprocess
 import sys
 
@@ -50,6 +51,9 @@ shutil.copy(kpsewhich_file, "bin/kpsewhich")
 shutil.copy(luatex_file, "bin/lualatex")
 os.link("bin/lualatex", "bin/luatex")
 shutil.copy("texmf/texmf-dist/scripts/texlive/fmtutil.pl", "bin/mktexfmt")
+
+st = os.stat(latexrun_file)
+os.chmod(latexrun_file, st.st_mode | stat.S_IEXEC)
 
 return_code = subprocess.call(
     args=[
