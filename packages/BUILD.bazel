@@ -642,7 +642,7 @@ latex_package(
 
 latex_package(
     name = "multicol",
-    srcs = ["@texlive_texmf__texmf-dist__tex__latex__tools"],
+    srcs = [":tools"],
     tests = ["multicol_test.tex"],
 )
 
