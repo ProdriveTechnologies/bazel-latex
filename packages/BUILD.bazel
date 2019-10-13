@@ -819,6 +819,15 @@ latex_package(
 )
 
 latex_package(
+    name = "tikz-qtree",
+    srcs = [
+        "@texlive_texmf__texmf-dist__tex__latex__tikz-qtree",
+        ":pgf",
+    ],
+    tests = ["tikz-qtree_test.tex"],
+)
+
+latex_package(
     name = "titlesec",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__titlesec"],
     tests = ["titlesec_test.tex"],
