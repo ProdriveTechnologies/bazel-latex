@@ -821,8 +821,8 @@ latex_package(
 latex_package(
     name = "tikz-qtree",
     srcs = [
-        "@texlive_texmf__texmf-dist__tex__latex__tikz-qtree",
         ":pgf",
+        "@texlive_texmf__texmf-dist__tex__latex__tikz-qtree",
     ],
     tests = ["tikz-qtree_test.tex"],
 )
