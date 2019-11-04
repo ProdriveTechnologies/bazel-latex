@@ -413,10 +413,10 @@ latex_package(
 latex_package(
     name = "gnuplottex",
     srcs = [
-        "@texlive_texmf__texmf-dist__tex__latex__gnuplottex",
-        "@texlive_texmf__texmf-dist__tex__latex__moreverb",
-        ":verbatim",
         ":graphicx",
+        ":verbatim",
+        "@texlive_texmf__texmf-dist__tex__latex__gnuplottex",
+        "@texlive_texmf__texmf-dist__tex__latex__moreverb",       
     ],
     tests = [ "gnuplottex_test.tex"],
 )
