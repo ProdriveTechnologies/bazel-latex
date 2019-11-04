@@ -411,6 +411,17 @@ latex_package(
 )
 
 latex_package(
+    name = "gnuplottex",
+    srcs = [
+        ":graphicx",
+        ":verbatim",
+        "@texlive_texmf__texmf-dist__tex__latex__gnuplottex",
+        "@texlive_texmf__texmf-dist__tex__latex__moreverb",       
+    ],
+    tests = [ "gnuplottex_test.tex"],
+)
+
+latex_package(
     name = "graphicx",
     srcs = [":graphics_oberdiek"],
     tests = ["graphicx_test.tex"],
