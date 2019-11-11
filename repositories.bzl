@@ -5684,6 +5684,9 @@ filegroup(
             "@bazel_latex//:patches/latexrun-pull-61",
             "@bazel_latex//:patches/latexrun-pull-62",
         ],
+        patch_cmds = [
+            "chmod +x latexrun",
+        ],
         sha256 = "4e1512fde5a05d1249fd6b4e6610cdab8e14ddba82a7cbb58dc7d5c0ba468c2a",
         strip_prefix = "latexrun-38ff6ec2815654513c91f64bdf2a5760c85da26e",
         url = "https://github.com/aclements/latexrun/archive/38ff6ec2815654513c91f64bdf2a5760c85da26e.tar.gz",
