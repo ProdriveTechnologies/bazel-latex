@@ -75,6 +75,12 @@ It can be viewed using your system's PDF viewer by running:
 bazel run :my_report_view
 ```
 
+If no ouput from the PDF viewer is needed you can view the PDF by by running:
+
+```
+bazel run :my_report_view_on_ouput
+```
+
 # Using packages
 
 By default, `latex_document()` only provides a version of TeXLive that
