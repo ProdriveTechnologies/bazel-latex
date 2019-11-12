@@ -47,7 +47,15 @@ def latex_document(name, main, srcs = []):
 
     # Convenience rule for viewing PDFs.
     native.sh_binary(
+        name = name + "_view_output",
+        srcs = ["@bazel_latex//:view_pdf.sh"],
+        data = [name + ".pdf"],
+    )
+
+    # Convenience rule for viewing PDFs.
+    native.sh_binary(
         name = name + "_view",
         srcs = ["@bazel_latex//:view_pdf.sh"],
         data = [name + ".pdf"],
+        args = ["None"],
     )
