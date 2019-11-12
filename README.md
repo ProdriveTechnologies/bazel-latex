@@ -75,10 +75,10 @@ It can be viewed using your system's PDF viewer by running:
 bazel run :my_report_view
 ```
 
-If no ouput from the PDF viewer is needed you can view the PDF by by running:
+If you want to get the output from the PDF viewer you can run:
 
 ```
-bazel run :my_report_view_no_ouput
+bazel run :my_report_view_output
 ```
 
 # Using packages
