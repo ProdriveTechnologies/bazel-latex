@@ -78,7 +78,7 @@ bazel run :my_report_view
 If no ouput from the PDF viewer is needed you can view the PDF by by running:
 
 ```
-bazel run :my_report_view_on_ouput
+bazel run :my_report_view_no_ouput
 ```
 
 # Using packages
