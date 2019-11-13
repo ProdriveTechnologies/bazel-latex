@@ -2,4 +2,4 @@ container:
     image: l.gcr.io/google/bazel:latest
 task:
     name: Building the example
-    build_script: bazel run //example:my_report_view
+    build_script: bazel build //example:my_report
