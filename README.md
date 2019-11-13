@@ -59,7 +59,7 @@ filegroup(
 )
 ```
 
-As `lualatex` is effectively invoked as if within the root of the
+**Note:** as `lualatex` is effectively invoked as if within the root of the
 workspace, all imports of resources (e.g., images) must use the full
 path relative to the root.
 
@@ -101,6 +101,14 @@ latex_document(
 This repository provides bindings for most commonly used packages.
 Please send pull requests if additional bindings are needed.
 
+# Example
+
+An example is available in the corresponding folder. The example can 
+be executed by running:
+```
+bazel run //example:my_report_view
+```
+
 # Platform support
 
 These rules have been tested to work on:
@@ -110,6 +118,8 @@ These rules have been tested to work on:
 - Ubuntu 18.04, building locally.
 - Ubuntu 18.04, building on a Debian 8 based
   [Buildbarn](https://github.com/buildbarn) setup.
+- Ubuntu 19.04 (Disco Dingo), bulding locally.
+- Manjaro 18.1.2 (Juhraya), building locally.
 - Windows 10 1803, building on a Debian 8 based
   [Buildbarn](https://github.com/buildbarn) setup.
 
