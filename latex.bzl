@@ -2,10 +2,9 @@ def _latex_pdf_impl(ctx):
     toolchain = ctx.toolchains["@bazel_latex//:latex_toolchain_type"]
     ctx.actions.run(
         mnemonic = "LuaLatex",
-        executable = "python",
         use_default_shell_env = True,
+        executable = ctx.executable.tool,
         arguments = [
-            "external/bazel_latex/run_lualatex.py",
             toolchain.kpsewhich.files.to_list()[0].path,
             toolchain.luatex.files.to_list()[0].path,
             ctx.files._latexrun[0].path,
@@ -21,12 +20,18 @@ def _latex_pdf_impl(ctx):
             ],
         ),
         outputs = [ctx.outputs.out],
+        tools = [ctx.executable.tool],
     )
 
 _latex_pdf = rule(
     attrs = {
         "main": attr.label(allow_files = True),
         "srcs": attr.label_list(allow_files = True),
+        "tool": attr.label(
+            default = Label("//:run_lualatex"),
+            executable = True,
+            cfg = "host",
+        ),
         "_latexrun": attr.label(
             allow_files = True,
             default = "@bazel_latex_latexrun//:latexrun",
