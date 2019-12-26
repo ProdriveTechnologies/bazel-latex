@@ -982,6 +982,12 @@ latex_package(
 )
 
 latex_package(
+    name = "xspace",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__tools__xspace"],
+    tests = ["xspace_test.tex"],
+)
+
+latex_package(
     name = "xstring",
     srcs = ["@texlive_texmf__texmf-dist__tex__generic__xstring"],
     tests = ["xstring_test.tex"],
