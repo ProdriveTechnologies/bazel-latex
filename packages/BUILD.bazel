@@ -416,7 +416,7 @@ latex_package(
         ":graphicx",
         ":verbatim",
         "@texlive_texmf__texmf-dist__tex__latex__gnuplottex",
-        "@texlive_texmf__texmf-dist__tex__latex__moreverb",       
+        "@texlive_texmf__texmf-dist__tex__latex__moreverb",
     ],
     tests = [ "gnuplottex_test.tex"],
 )
@@ -962,6 +962,12 @@ latex_package(
         "@texlive_texmf__texmf-dist__tex__latex__l3packages__xparse",
     ],
     tests = ["xparse_test.tex"],
+)
+
+latex_package(
+    name = "xspace",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__tools__xspace"],
+    tests = ["xspace_test.tex"],
 )
 
 latex_package(
