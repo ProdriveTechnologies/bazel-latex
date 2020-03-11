@@ -16,7 +16,8 @@ import sys
 texinputs = [""] + glob.glob("bazel-out/*/bin")
 for external in sorted(os.listdir("external")):
     src = os.path.abspath(os.path.join("external", external))
-    if external.startswith("texlive_extra__") or external.startswith("texlive_texmf__"):
+    if external.startswith("texlive_extra__") or external.startswith(
+            "texlive_texmf__"):
         dst = os.path.join("texmf", "/".join(external.split("__")[1:]))
         try:
             os.makedirs(os.path.dirname(dst))
@@ -29,6 +30,7 @@ for external in sorted(os.listdir("external")):
 (
     kpsewhich_file,
     luatex_file,
+    bibtex_file,
     latexrun_file,
     job_name,
     main_file,
@@ -48,6 +50,7 @@ env["TTFONTS"] = ":".join(texinputs)
 os.mkdir("bin")
 shutil.copy(kpsewhich_file, "bin/kpsewhich")
 shutil.copy(luatex_file, "bin/lualatex")
+shutil.copy(bibtex_file, "bin/bibtex")
 os.link("bin/lualatex", "bin/luatex")
 shutil.copy("texmf/texmf-dist/scripts/texlive/fmtutil.pl", "bin/mktexfmt")
 

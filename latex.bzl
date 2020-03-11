@@ -8,6 +8,7 @@ def _latex_pdf_impl(ctx):
             "external/bazel_latex/run_lualatex.py",
             toolchain.kpsewhich.files.to_list()[0].path,
             toolchain.luatex.files.to_list()[0].path,
+            toolchain.bibtex.files.to_list()[0].path,
             ctx.files._latexrun[0].path,
             ctx.label.name,
             ctx.files.main[0].path,
@@ -18,6 +19,7 @@ def _latex_pdf_impl(ctx):
             transitive = [
                 toolchain.kpsewhich.files,
                 toolchain.luatex.files,
+                toolchain.bibtex.files,
             ],
         ),
         outputs = [ctx.outputs.out],
