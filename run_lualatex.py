@@ -54,7 +54,7 @@ shutil.copy("texmf/texmf-dist/scripts/texlive/fmtutil.pl", "bin/mktexfmt")
 return_code = subprocess.call(
     args=[
         latexrun_file,
-        "--latex-args=-jobname=" + job_name,
+        "--latex-args=-shell-escape -jobname=" + job_name,
         "--latex-cmd=lualatex",
         "-Wall",
         main_file,

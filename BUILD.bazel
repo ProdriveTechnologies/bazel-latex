@@ -64,3 +64,9 @@ filegroup(
     ],
     visibility = ["//visibility:public"],
 )
+
+py_binary(
+    name = "run_lualatex",
+    srcs = ["run_lualatex.py"],
+    visibility = ["//visibility:public"],
+)
