@@ -37,12 +37,13 @@ _latex_pdf = rule(
     implementation = _latex_pdf_impl,
 )
 
-def latex_document(name, main, srcs = []):
+def latex_document(name, main, srcs = [], tags = []):
     # PDF generation.
     _latex_pdf(
         name = name,
         srcs = srcs + ["@bazel_latex//:core_dependencies"],
         main = main,
+        tags = tags,
     )
 
     # Convenience rule for viewing PDFs.
@@ -50,6 +51,7 @@ def latex_document(name, main, srcs = []):
         name = name + "_view_output",
         srcs = ["@bazel_latex//:view_pdf.sh"],
         data = [name + ".pdf"],
+        tags = tags,
     )
 
     # Convenience rule for viewing PDFs.
@@ -58,4 +60,5 @@ def latex_document(name, main, srcs = []):
         srcs = ["@bazel_latex//:view_pdf.sh"],
         data = [name + ".pdf"],
         args = ["None"],
+        tags = tags,
     )
