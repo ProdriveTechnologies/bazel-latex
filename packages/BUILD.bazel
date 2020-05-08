@@ -166,6 +166,12 @@ latex_package(
 )
 
 latex_package(
+    name = "csquotes",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__csquotes"],
+    tests = ["csquotes_test.tex"],
+)
+
+latex_package(
     name = "currfile",
     srcs = [
         ":filehook",
