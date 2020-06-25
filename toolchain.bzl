@@ -1,8 +1,15 @@
+LatexInfo = provider(
+    doc = "Information about how to invoke the latex compiler",
+    fields = ["kpsewhich", "luatex"],
+)
+
 def _latex_toolchain_info_impl(ctx):
     return [
         platform_common.ToolchainInfo(
-            kpsewhich = ctx.attr.kpsewhich,
-            luatex = ctx.attr.luatex,
+            latexinfo = LatexInfo(   
+		kpsewhich = ctx.attr.kpsewhich,
+		luatex = ctx.attr.luatex,
+	    ),
         ),
     ]
 
