@@ -48,6 +48,7 @@ latex_document(
         "chapters/*.tex",
         "figures/*",
     ]) + [":company_style"],
+    cmd_flags = ["--bibtex-cmd=biber"], # Optional
     main = "my_report.tex",
 )
 
@@ -58,6 +59,7 @@ filegroup(
     ]),
 )
 ```
+The usage of `cmd_flags` is optional, but may be useful when using biber.
 
 **Note:** as `lualatex` is effectively invoked as if within the root of the
 workspace, all imports of resources (e.g., images) must use the full
@@ -66,19 +68,19 @@ path relative to the root.
 A PDF can be built by running:
 
 ```
-bazel build :my_report
+bazel build //example:my_report
 ```
 
 It can be viewed using your system's PDF viewer by running:
 
 ```
-bazel run :my_report_view
+bazel run //example:my_report_view
 ```
 
 If you want to get the output from the PDF viewer you can run:
 
 ```
-bazel run :my_report_view_output
+bazel run //example:my_report_view_output
 ```
 
 # Using packages
@@ -111,14 +113,17 @@ bazel run //example:my_report_view
 
 # Platform support
 
-These rules have been tested to work on:
+These rules have been tested to work on (using bazel 3.2.0):
 
 - FreeBSD 11.2, building locally.
 - macOS Mojave 10.14, building locally.
+- macOS Catalina 10.15, building locally.
 - Ubuntu 18.04, building locally.
+- Ubuntu 18.04 WSL, building locally.
 - Ubuntu 18.04, building on a Debian 8 based
   [Buildbarn](https://github.com/buildbarn) setup.
 - Ubuntu 19.04 (Disco Dingo), bulding locally.
+- Ubuntu 20.04, building locally.
 - Manjaro 18.1.2 (Juhraya), building locally.
 - Windows 10 1803, building on a Debian 8 based
   [Buildbarn](https://github.com/buildbarn) setup.

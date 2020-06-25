@@ -6,6 +6,8 @@ import shutil
 import subprocess
 import sys
 
+ARGS_COUNT = 7
+
 # Walk through all externals. If they start with the special prefix
 # texlive_{extra,texmf}__ prefix, it means they should be part of the
 # texmf directory. LaTeX utilities don't seem to like the use of
@@ -33,7 +35,7 @@ for external in sorted(os.listdir("external")):
     job_name,
     main_file,
     output_file,
-) = sys.argv[1:]
+) = sys.argv[1:ARGS_COUNT]
 
 env = dict(os.environ)
 env["OPENTYPEFONTS"] = ":".join(texinputs)
@@ -51,14 +53,15 @@ shutil.copy(luatex_file, "bin/lualatex")
 os.link("bin/lualatex", "bin/luatex")
 shutil.copy("texmf/texmf-dist/scripts/texlive/fmtutil.pl", "bin/mktexfmt")
 
+args=[
+    latexrun_file,
+    "--latex-args=-shell-escape -jobname=" + job_name,
+    "--latex-cmd=lualatex",
+    "-Wall",
+] + sys.argv[ARGS_COUNT:] + [main_file]
+
 return_code = subprocess.call(
-    args=[
-        latexrun_file,
-        "--latex-args=-shell-escape -jobname=" + job_name,
-        "--latex-cmd=lualatex",
-        "-Wall",
-        main_file,
-    ],
+    args=args,
     env=env,
 )
 if return_code != 0:
