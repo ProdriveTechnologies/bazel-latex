@@ -1,5 +1,5 @@
 def _latex_pdf_impl(ctx):
-    toolchain = ctx.toolchains["@bazel_latex//:latex_toolchain_type"]
+    toolchain = ctx.toolchains["@bazel_latex//:latex_toolchain_type"].latexinfo
     ctx.actions.run(
         mnemonic = "LuaLatex",
         use_default_shell_env = True,
