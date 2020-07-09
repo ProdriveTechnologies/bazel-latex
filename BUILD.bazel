@@ -35,6 +35,13 @@ latex_toolchain(
 )
 
 filegroup(
+    name = "biber_tools",
+    srcs = select({
+        "@bazel_tools//platforms:linux":["@biber_linux_x86_64//:biber"],
+    }),
+)
+
+filegroup(
     name = "core_dependencies",
     srcs = [
         "@bazel_latex//:run_lualatex.py",

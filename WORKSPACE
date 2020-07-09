@@ -12,6 +12,15 @@ http_archive(
     ],
 )
 
+http_archive(
+    name = "biber_linux_x86_64",
+    sha256 = "fd0b5145cc908c400a701b583330635d533d750b73a272d1d5ea47e10b2fbf71",
+    url = "https://sourceforge.net/projects/biblatex-biber/files/biblatex-biber/2.12/binaries/Linux/biber-linux_x86_64.tar.gz",
+    build_file_content = """
+exports_files(["biber"])
+    """,
+)
+
 register_toolchains(
     "//:latex_toolchain_amd64-freebsd",
     "//:latex_toolchain_x86_64-darwin",
