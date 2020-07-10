@@ -34,41 +34,6 @@ latex_toolchain(
     platform = "x86_64-linux",
 )
 
-# Config settings for biber usage
-config_setting(
-    name = "is_freebsd",
-    constraint_values = [
-	"@platforms//os:freebsd",
-	"@platforms//cpu:x86_64",
-    ],
-)
-
-config_setting(
-    name = "is_macos",
-    constraint_values = [
-	"@platforms//os:macos",
-	"@platforms//cpu:x86_64",
-    ],
-)
-
-config_setting(
-    name = "is_linux",
-    constraint_values = [
-	"@platforms//os:linux",
-	"@platforms//cpu:x86_64",
-    ],
-)
-
-filegroup(
-    name = "biber_tools",
-    srcs = select({
-	"is_freebsd":["@biber_amd64_freebsd//:biber"],
-	"is_macos":["@biber_darwin_x86_64//:biber"],
-	"is_linux":["@biber_linux_x86_64//:biber"],
-    }),
-    visibility = ["//visibility:public"],
-)
-
 filegroup(
     name = "core_dependencies",
     srcs = [
