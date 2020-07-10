@@ -6,11 +6,11 @@ LatexInfo = provider(
 def _latex_toolchain_info_impl(ctx):
     return [
         platform_common.ToolchainInfo(
-            latexinfo = LatexInfo(   
-		kpsewhich = ctx.attr.kpsewhich,
-		luatex = ctx.attr.luatex,
-		biber = ctx.attr.biber,
-	    ),
+            latexinfo = LatexInfo(
+                kpsewhich = ctx.attr.kpsewhich,
+                luatex = ctx.attr.luatex,
+                biber = ctx.attr.biber,
+            ),
         ),
     ]
 
@@ -40,7 +40,7 @@ def latex_toolchain(platform, exec_compatible_with):
         name = "latex_toolchain_info_%s" % platform,
         kpsewhich = "@texlive_bin__%s//:kpsewhich" % platform,
         luatex = "@texlive_bin__%s//:luatex" % platform,
-	biber = "@texlive_bin__%s//:biber" % platform,
+        biber = "@texlive_bin__%s//:biber" % platform,
         visibility = ["//visibility:public"],
     )
 

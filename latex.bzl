@@ -18,7 +18,7 @@ def _latex_pdf_impl(ctx):
             transitive = [
                 toolchain.kpsewhich.files,
                 toolchain.luatex.files,
-		toolchain.biber.files,
+                toolchain.biber.files,
             ],
         ),
         outputs = [ctx.outputs.out],
@@ -29,10 +29,10 @@ _latex_pdf = rule(
     attrs = {
         "main": attr.label(allow_files = True),
         "srcs": attr.label_list(allow_files = True),
-	"cmd_flags": attr.string_list(
-	    allow_empty = True,
-	    default = [],
-	 ),
+        "cmd_flags": attr.string_list(
+            allow_empty = True,
+            default = [],
+        ),
         "tool": attr.label(
             default = Label("//:run_lualatex"),
             executable = True,
@@ -55,7 +55,7 @@ def latex_document(name, main, srcs = [], tags = [], cmd_flags = []):
         srcs = srcs + ["@bazel_latex//:core_dependencies"],
         main = main,
         tags = tags,
-	cmd_flags = cmd_flags,
+        cmd_flags = cmd_flags,
     )
 
     # Convenience rule for viewing PDFs.
