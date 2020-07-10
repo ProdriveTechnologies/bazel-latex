@@ -93,6 +93,23 @@ latex_package(
     ],
 )
 
+# Pakcage is tested in example PDF
+latex_package(
+    name = "biblatex",
+    srcs = [
+	"@texlive_texmf__texmf-dist__scripts__oberdiek",
+        "@texlive_texmf__texmf-dist__tex__generic__oberdiek",
+        "@texlive_texmf__texmf-dist__tex__latex__oberdiek",
+        "@texlive_texmf__texmf-dist__tex__latex__etoolbox",
+        "@texlive_texmf__texmf-dist__tex__latex__graphics",
+        "@texlive_texmf__texmf-dist__tex__latex__logreq",
+        "@texlive_texmf__texmf-dist__tex__latex__url",
+        "@texlive_texmf__texmf-dist__tex__latex__hyperref",
+        "@texlive_texmf__texmf-dist__tex__generic__ifxetex",
+        "@texlive_texmf__texmf-dist__tex__latex__biblatex",
+    ],
+)
+
 latex_package(
     name = "booktabs",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__booktabs"],
