@@ -5644,7 +5644,7 @@ def latex_repositories():
             name = name,
             build_file_content = """
 exports_files(
-    ["kpsewhich", "luatex", "bibtex"],
+    ["kpsewhich", "luatex", "bibtex", "biber"],
     visibility = ["//visibility:public"],
 )
 """,

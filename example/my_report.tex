@@ -1,13 +1,15 @@
 \documentclass[a4paper]{article}
 
-% Needed when SI units are used
-\usepackage{siunitx}
+\usepackage[backend=biber]{biblatex}
+\addbibresource{example/references.bib}
 
-\title{ProdriveTechnologies/bazel-latex example}
+\title{Bazel rules for LaTex example}
 \author{Prodrive Technologies}
 \date{2019-11-13}
 
 \begin{document}
 \maketitle
 \input{example/chapters/introduction}
+\printbibliography
 \end{document}
+

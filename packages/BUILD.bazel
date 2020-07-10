@@ -93,6 +93,23 @@ latex_package(
     ],
 )
 
+# Package is tested in example PDF
+latex_package(
+    name = "biblatex",
+    srcs = [
+        "@texlive_texmf__texmf-dist__scripts__oberdiek",
+        "@texlive_texmf__texmf-dist__tex__generic__ifxetex",
+        "@texlive_texmf__texmf-dist__tex__generic__oberdiek",
+        "@texlive_texmf__texmf-dist__tex__latex__biblatex",
+        "@texlive_texmf__texmf-dist__tex__latex__etoolbox",
+        "@texlive_texmf__texmf-dist__tex__latex__graphics",
+        "@texlive_texmf__texmf-dist__tex__latex__hyperref",
+        "@texlive_texmf__texmf-dist__tex__latex__logreq",
+        "@texlive_texmf__texmf-dist__tex__latex__oberdiek",
+        "@texlive_texmf__texmf-dist__tex__latex__url",
+    ],
+)
+
 latex_package(
     name = "booktabs",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__booktabs"],
@@ -416,9 +433,9 @@ latex_package(
         ":graphicx",
         ":verbatim",
         "@texlive_texmf__texmf-dist__tex__latex__gnuplottex",
-        "@texlive_texmf__texmf-dist__tex__latex__moreverb",       
+        "@texlive_texmf__texmf-dist__tex__latex__moreverb",
     ],
-    tests = [ "gnuplottex_test.tex"],
+    tests = ["gnuplottex_test.tex"],
 )
 
 latex_package(
@@ -962,6 +979,12 @@ latex_package(
         "@texlive_texmf__texmf-dist__tex__latex__l3packages__xparse",
     ],
     tests = ["xparse_test.tex"],
+)
+
+latex_package(
+    name = "xspace",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__tools__xspace"],
+    tests = ["xspace_test.tex"],
 )
 
 latex_package(

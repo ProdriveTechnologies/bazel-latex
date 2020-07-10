@@ -5,7 +5,8 @@ latex_document(
     srcs = glob([
         "chapters/*.tex",
     ]) + [
-        "@bazel_latex//packages:siunitx",
+        "@bazel_latex//packages:biblatex",
+        "references.bib",
     ],
     main = "my_report.tex",
 )
