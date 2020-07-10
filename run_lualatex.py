@@ -63,7 +63,6 @@ return_code = subprocess.call(
         latexrun_file,
         "--latex-args=-shell-escape -jobname=" + job_name,
         "--latex-cmd=lualatex",
-        "--bibtex-cmd=biber",
         "-Wall",
         ] + sys.argv[ARGS_COUNT:] + [main_file],
     env=env,

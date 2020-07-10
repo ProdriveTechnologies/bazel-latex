@@ -8,5 +8,6 @@ latex_document(
         "@bazel_latex//packages:biblatex",
         "references.bib",
     ],
+    cmd_flags = ["--bibtex-cmd=biber"],
     main = "my_report.tex",
 )
