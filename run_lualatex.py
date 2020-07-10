@@ -6,7 +6,7 @@ import shutil
 import subprocess
 import sys
 
-ARGS_COUNT = 8
+ARGS_COUNT = 9
 
 # Walk through all externals. If they start with the special prefix
 # texlive_{extra,texmf}__ prefix, it means they should be part of the

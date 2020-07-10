@@ -1,6 +1,6 @@
 LatexInfo = provider(
     doc = "Information about how to invoke the latex compiler",
-    fields = ["kpsewhich", "luatex", "biber"],
+    fields = ["kpsewhich", "luatex", "bibtex", "biber"],
 )
 
 def _latex_toolchain_info_impl(ctx):
