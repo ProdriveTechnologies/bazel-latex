@@ -9,6 +9,7 @@ def _latex_toolchain_info_impl(ctx):
             latexinfo = LatexInfo(
                 kpsewhich = ctx.attr.kpsewhich,
                 luatex = ctx.attr.luatex,
+                bibtex = ctx.attr.bibtex,
                 biber = ctx.attr.biber,
             ),
         ),
@@ -22,6 +23,11 @@ _latex_toolchain_info = rule(
             executable = True,
         ),
         "luatex": attr.label(
+            allow_single_file = True,
+            cfg = "host",
+            executable = True,
+        ),
+        "bibtex": attr.label(
             allow_single_file = True,
             cfg = "host",
             executable = True,
@@ -40,6 +46,7 @@ def latex_toolchain(platform, exec_compatible_with):
         name = "latex_toolchain_info_%s" % platform,
         kpsewhich = "@texlive_bin__%s//:kpsewhich" % platform,
         luatex = "@texlive_bin__%s//:luatex" % platform,
+        bibtex = "@texlive_bin__%s//:bibtex" % platform,
         biber = "@texlive_bin__%s//:biber" % platform,
         visibility = ["//visibility:public"],
     )

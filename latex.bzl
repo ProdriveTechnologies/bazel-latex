@@ -7,6 +7,7 @@ def _latex_pdf_impl(ctx):
         arguments = [
             toolchain.kpsewhich.files.to_list()[0].path,
             toolchain.luatex.files.to_list()[0].path,
+            toolchain.bibtex.files.to_list()[0].path,
             toolchain.biber.files.to_list()[0].path,
             ctx.files._latexrun[0].path,
             ctx.label.name,
@@ -18,6 +19,7 @@ def _latex_pdf_impl(ctx):
             transitive = [
                 toolchain.kpsewhich.files,
                 toolchain.luatex.files,
+                toolchain.bibtex.files,
                 toolchain.biber.files,
             ],
         ),
