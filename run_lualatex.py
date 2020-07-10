@@ -6,7 +6,7 @@ import shutil
 import subprocess
 import sys
 
-ARGS_COUNT = 7
+ARGS_COUNT = 8 
 
 # Walk through all externals. If they start with the special prefix
 # texlive_{extra,texmf}__ prefix, it means they should be part of the
@@ -32,6 +32,7 @@ for external in sorted(os.listdir("external")):
     kpsewhich_file,
     luatex_file,
     latexrun_file,
+    biber_file,
     job_name,
     main_file,
     output_file,
@@ -53,15 +54,17 @@ shutil.copy(luatex_file, "bin/lualatex")
 os.link("bin/lualatex", "bin/luatex")
 shutil.copy("texmf/texmf-dist/scripts/texlive/fmtutil.pl", "bin/mktexfmt")
 
-args=[
-    latexrun_file,
-    "--latex-args=-shell-escape -jobname=" + job_name,
-    "--latex-cmd=lualatex",
-    "-Wall",
-] + sys.argv[ARGS_COUNT:] + [main_file]
+biber_path = os.path.abspath(biber_file)
 
 return_code = subprocess.call(
-    args=args,
+    args=[
+        latexrun_file,
+        "--latex-args=-shell-escape -jobname=" + job_name,
+        "--latex-cmd=lualatex",
+        "--bibtex-cmd=" + biber_path,
+        "-Wall",
+        main_file,
+    ],
     env=env,
 )
 if return_code != 0:
