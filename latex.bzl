@@ -8,12 +8,13 @@ def _latex_pdf_impl(ctx):
             toolchain.kpsewhich.files.to_list()[0].path,
             toolchain.luatex.files.to_list()[0].path,
             ctx.files._latexrun[0].path,
+	    ctx.files._biber[0].path,
             ctx.label.name,
             ctx.files.main[0].path,
             ctx.outputs.out.path,
         ] + ctx.attr.cmd_flags,
         inputs = depset(
-            direct = ctx.files.main + ctx.files.srcs + ctx.files._latexrun,
+            direct = ctx.files.main + ctx.files.srcs + ctx.files._latexrun + ctx.files._biber,
             transitive = [
                 toolchain.kpsewhich.files,
                 toolchain.luatex.files,
@@ -40,6 +41,10 @@ _latex_pdf = rule(
             allow_files = True,
             default = "@bazel_latex_latexrun//:latexrun",
         ),
+	"_biber": attr.label(
+	    allow_files = True,
+	    default = "//:biber_tools",
+	),
     },
     outputs = {"out": "%{name}.pdf"},
     toolchains = ["@bazel_latex//:latex_toolchain_type"],
