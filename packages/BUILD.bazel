@@ -167,7 +167,11 @@ latex_package(
 
 latex_package(
     name = "csquotes",
-    srcs = ["@texlive_texmf__texmf-dist__tex__latex__csquotes"],
+    srcs = [
+        ":etoolbox",
+        ":keyval",
+        "@texlive_texmf__texmf-dist__tex__latex__csquotes",
+    ],
     tests = ["csquotes_test.tex"],
 )
 
