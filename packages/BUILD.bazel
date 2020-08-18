@@ -993,7 +993,7 @@ latex_package(
 
 latex_package(
     name = "xspace",
-    srcs = ["@texlive_texmf__texmf-dist__tex__latex__tools__xspace"],
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__tools"],
     tests = ["xspace_test.tex"],
 )
 
