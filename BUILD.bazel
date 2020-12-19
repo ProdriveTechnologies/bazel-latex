@@ -5,7 +5,10 @@ exports_files([
     "view_pdf.sh",
 ])
 
+toolchain_type(name = "latex_toolchain_type")
+
 latex_toolchain(
+    name = "latex_toolchain_amd64-freebsd",
     exec_compatible_with = [
         "@bazel_tools//platforms:freebsd",
         "@bazel_tools//platforms:x86_64",
@@ -14,6 +17,7 @@ latex_toolchain(
 )
 
 latex_toolchain(
+    name = "latex_toolchain_x86_64-darwin",
     exec_compatible_with = [
         "@bazel_tools//platforms:osx",
         "@bazel_tools//platforms:x86_64",
@@ -22,6 +26,7 @@ latex_toolchain(
 )
 
 latex_toolchain(
+    name = "latex_toolchain_x86_64-linux",
     exec_compatible_with = [
         "@bazel_tools//platforms:linux",
         "@bazel_tools//platforms:x86_64",

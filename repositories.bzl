@@ -5474,9 +5474,3 @@ filegroup(
         strip_prefix = "latexrun-38ff6ec2815654513c91f64bdf2a5760c85da26e",
         url = "https://github.com/aclements/latexrun/archive/38ff6ec2815654513c91f64bdf2a5760c85da26e.tar.gz",
     )
-
-    native.register_toolchains(
-        "@bazel_latex//:latex_toolchain_amd64-freebsd",
-        "@bazel_latex//:latex_toolchain_x86_64-darwin",
-        "@bazel_latex//:latex_toolchain_x86_64-linux",
-    )

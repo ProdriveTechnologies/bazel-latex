@@ -5,7 +5,7 @@ def _latex_pdf_impl(ctx):
         executable = "python",
         use_default_shell_env = True,
         arguments = [
-            "external/bazel_latex/run_lualatex.py",
+            "run_lualatex.py",
             toolchain.kpsewhich.files.to_list()[0].path,
             toolchain.luatex.files.to_list()[0].path,
             ctx.files._latexrun[0].path,
@@ -13,8 +13,7 @@ def _latex_pdf_impl(ctx):
             ctx.files.main[0].path,
             ctx.outputs.out.path,
         ],
-        inputs = toolchain.kpsewhich.files + toolchain.luatex.files +
-                 ctx.files._latexrun + ctx.files.main + ctx.files.srcs,
+        inputs = depset(direct = ctx.files._latexrun + ctx.files.main + ctx.files.srcs, transitive = [toolchain.kpsewhich.files, toolchain.luatex.files]),
         outputs = [ctx.outputs.out],
     )
 
