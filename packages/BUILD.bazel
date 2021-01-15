@@ -913,6 +913,14 @@ latex_package(
 )
 
 latex_package(
+    name = "unicode-math",
+    srcs = [
+        "@texlive_texmf__texmf-dist__tex__latex__unicode-math",
+    ],
+    tests = ["unicode-math_text.tex"],
+)
+
+latex_package(
     name = "upquote",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__upquote"],
     tests = ["upquote_test.tex"],
