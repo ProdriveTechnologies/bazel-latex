@@ -234,6 +234,16 @@ latex_package(
 )
 
 latex_package(
+    name = "cookingsymbols",
+    srcs = [
+        ":booktabs",
+        "@texlive_texmf__texmf-dist__fonts__tfm__public__cookingsymbols",
+        "@texlive_texmf__texmf-dist__tex__latex__cookingsymbols",
+    ],
+    tests = ["cookingsymbols_test.tex"],
+)
+
+latex_package(
     name = "csquotes",
     srcs = [
         ":etoolbox",
