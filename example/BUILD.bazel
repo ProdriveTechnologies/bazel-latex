@@ -7,6 +7,7 @@ latex_document(
     ]) + [
         "@bazel_latex//packages:biblatex",
         "references.bib",
+        "//example/example_class:example_class",
     ],
     cmd_flags = ["--bibtex-cmd=biber"],
     main = "my_report.tex",
