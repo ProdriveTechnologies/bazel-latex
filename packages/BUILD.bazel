@@ -913,6 +913,20 @@ latex_package(
 )
 
 latex_package(
+    name = "unicode-math",
+    srcs = [
+        ":fontspec",
+        "@texlive_texmf__texmf-dist__fonts__opentype__public__lm-math",
+        "@texlive_texmf__texmf-dist__tex__latex__etoolbox",
+        "@texlive_texmf__texmf-dist__tex__latex__filehook",
+        "@texlive_texmf__texmf-dist__tex__latex__l3packages__l3keys2e",
+        "@texlive_texmf__texmf-dist__tex__latex__unicode-math",
+        "@texlive_texmf__texmf-dist__tex__lualatex__lualatex-math"
+    ],
+    tests = ["unicode-math_test.tex"],
+)
+
+latex_package(
     name = "upquote",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__upquote"],
     tests = ["upquote_test.tex"],
