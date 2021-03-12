@@ -1018,6 +1018,23 @@ latex_package(
 )
 
 latex_package(
+    name = "xtemplate",
+    srcs = [
+        ":amstext",
+        ":expl3",
+        "@texlive_texmf__texmf-dist__tex__latex__l3packages__xtemplate",
+    ],
+    tests = ["xtemplate_test.tex"],
+    tests_deps = [
+        ":csquotes",
+        ":fontspec",
+        ":xcolor",
+        ":xparse",
+        ":xspace",
+    ],
+)
+
+latex_package(
     name = "zref-savepos",
     srcs = [":graphics_oberdiek"],
     tests = ["zref-savepos_test.tex"],
