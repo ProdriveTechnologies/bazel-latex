@@ -1,6 +1,6 @@
 load("//:latex.bzl", "latex_document")
 
-def latex_package(name, srcs = [], tests = []):
+def latex_package(name, srcs = [], tests = [], tests_deps = []):
     native.filegroup(
         name = name,
         srcs = srcs,
@@ -11,5 +11,5 @@ def latex_package(name, srcs = [], tests = []):
         latex_document(
             name = name + "_" + test,
             main = test,
-            srcs = [":" + name],
+            srcs = [":" + name] + tests_deps,
         )
