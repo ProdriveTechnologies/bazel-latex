@@ -6,73 +6,73 @@
 \DeclareObjectType{inlineobj}{1}
 \DeclareTemplateInterface{inlineobj}{span}{1}
 {
-  font-face: tokenlist,
-  font-shape: choice {italic, slanted, normal}=normal,
-  font-weight: choice {bold, normal}=normal,
-  font-color: tokenlist=black,
-  quote: choice {none, enquote}=none,
-}
+    font-face: tokenlist,
+    font-shape: choice {italic, slanted, normal}=normal,
+    font-weight: choice {bold, normal}=normal,
+    font-color: tokenlist=black,
+    quote: choice {none, enquote}=none,
+    }
 
-\DeclareTemplateCode{inlineobj}{span}{1}
-{
-  font-face  =  \l_font_tl,
-  font-shape = {
-     italic       = \cs_set_nopar:Nn \afontshape: {\itshape},
-     slanted = \cs_set_nopar:Nn \afontshape: {\itshape},
-     normal  = \cs_set_nopar:Nn \afontshape: {\upshape}
-  },
-  font-weight= {
-     bold    = \cs_set_nopar:Nn \afontseries: {\bfseries},
-     normal  =\cs_set_nopar:Nn \afontseries: {\mdseries}
-   },
-  font-color = \l_tmpa_tl,  
-  quote = {
-     none    = \cs_set_nopar:Npn \quotemacro:n #1 {\detokenize{#1}},  
-     enquote = \cs_set_nopar:Npn \quotemacro:n #1 {\enquote{\detokenize{#1}}},
-     unknown = \cs_set_nopar:Npn \quotemacro:n #1 {\detokenize{#1}} 
-  },
-}
-{
-% the implementation part
-  \AssignTemplateKeys
-
-  \group_begin:
-  \color\l_tmpa_tl
-   \cs:w \l_font_tl \cs_end: 
-   \afontshape:
-   \afontseries:\selectfont 
-       \quotemacro:n{#1} 
-   \group_end:
- }
-
-\DeclareInstance {inlineobj}{docFunction}{span}
+    \DeclareTemplateCode{inlineobj}{span}{1}
     {
-        font-shape=italic,
-        font-weight=bold,
-        font-color=green!40!black,
-        quote=enquote
-     }
+        font-face  =  \l_font_tl,
+        font-shape = {
+            italic       = \cs_set_nopar:Nn \afontshape: {\itshape},
+            slanted = \cs_set_nopar:Nn \afontshape: {\itshape},
+            normal  = \cs_set_nopar:Nn \afontshape: {\upshape}
+        },
+        font-weight= {
+            bold    = \cs_set_nopar:Nn \afontseries: {\bfseries},
+            normal  =\cs_set_nopar:Nn \afontseries: {\mdseries}
+        },
+        font-color = \l_tmpa_tl,  
+        quote = {
+            none    = \cs_set_nopar:Npn \quotemacro:n #1 {\detokenize{#1}},  
+            enquote = \cs_set_nopar:Npn \quotemacro:n #1 {\enquote{\detokenize{#1}}},
+            unknown = \cs_set_nopar:Npn \quotemacro:n #1 {\detokenize{#1}} 
+        },
+        }
+        {
+            % the implementation part
+            \AssignTemplateKeys
 
-\DeclareDocumentCommand\docFunction { m } {
-   \IfInstanceExistTF {inlineobj}{docFunction} 
-     {\UseInstance{inlineobj}{docFunction}{#1}}
-     {ERROR}
-}
+            \group_begin:
+            \color\l_tmpa_tl
+            \cs:w \l_font_tl \cs_end: 
+            \afontshape:
+            \afontseries:\selectfont 
+            \quotemacro:n{#1} 
+            \group_end:
+        }
 
-\DeclareInstance {inlineobj}{tn}{span}
-    {
-        font-shape=normal,
-        font-weight=normal,
-        font-color=red!80!black,
-        quote=none,
-     }
+        \DeclareInstance {inlineobj}{docFunction}{span}
+        {
+            font-shape=italic,
+            font-weight=bold,
+            font-color=green!40!black,
+            quote=enquote
+        }
 
-\DeclareDocumentCommand\tn{ m }{%
-   \IfInstanceExistTF {inlineobj}{tn}
-    {\UseInstance{inlineobj}{tn}{#1}}
-    {ERROR}
-} 
-\ExplSyntaxOff
+        \DeclareDocumentCommand\docFunction { m } {
+            \IfInstanceExistTF {inlineobj}{docFunction} 
+            {\UseInstance{inlineobj}{docFunction}{#1}}
+            {ERROR}
+            }
 
-The function \docFunction {get_string ( )} is used throughout to get a string in LuaTeX, where macros in text paragraphs are shown as \docFunction{\my_macro} in green. Typewrite text is obtained by using \tn{\tn}. 
-\end{document}
+            \DeclareInstance {inlineobj}{tn}{span}
+            {
+                font-shape=normal,
+                font-weight=normal,
+                font-color=red!80!black,
+                quote=none,
+            }
+
+            \DeclareDocumentCommand\tn{ m }{%
+                \IfInstanceExistTF {inlineobj}{tn}
+                {\UseInstance{inlineobj}{tn}{#1}}
+                {ERROR}
+                } 
+                \ExplSyntaxOff
+
+                The function \docFunction {get_string ( )} is used throughout to get a string in LuaTeX, where macros in text paragraphs are shown as \docFunction{\my_macro} in green. Typewrite text is obtained by using \tn{\tn}. 
+    \end{document}
