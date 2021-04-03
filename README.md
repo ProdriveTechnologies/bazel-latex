@@ -40,10 +40,8 @@ And add the following `load()` directive to your `BUILD` files:
 load("@bazel_latex//:latex.bzl", "latex_document")
 ```
 
-You can then use `latex_document()` to declare documents that need to be
-built. Commonly reused sources (e.g., templates) can be placed in
-[`filegroup()`](https://docs.bazel.build/versions/master/be/general.html#filegroup)
-blocks, so that they don't need to be repeated.
+You can then use `latex_document()` in `BUILD` file to declare documents that need to be
+built.
 
 ```python
 latex_document(
@@ -52,11 +50,25 @@ latex_document(
         "chapters/*.tex",
         "figures/*",
         "references.bib",
-    ]) + [":company_style"],
+    ]) + ["//company_dir:company_style"],
     cmd_flags = ["--bibtex-cmd=biber"], % Optional
     main = "my_report.tex",
 )
+```
 
+Utilize `cmd_flags` to provide optional command line arguments, e.g. to run
+biber instead of bibtex.
+
+Commonly reused sources (e.g., templates) can be placed in
+[`filegroup()`](https://docs.bazel.build/versions/master/be/general.html#filegroup)
+blocks, so that they don't need to be repeated. Those `filegroup()` could
+be located not just in the single `BUILD` file, but in any of sub directories.
+For example, if you want to include company specific template files which are
+located in `//company_dir` directory as `company_style`, then declare them as
+like following in `company_dir/BUILD` file, and include the dependency, like
+`//company_dir:company_style`, in `latex_repositories`.
+
+```python
 filegroup(
     name = "company_style",
     srcs = glob([
@@ -64,12 +76,6 @@ filegroup(
     ]),
 )
 ```
-Utilize `cmd_flags` to provide optional command line arguments, e.g. to run 
-biber instead of bibtex.
-
-**Note:** as `lualatex` is effectively invoked as if within the root of the
-workspace, all imports of resources (e.g., images) must use the full
-path relative to the root.
 
 A PDF can be built by running:
 
@@ -111,7 +117,7 @@ Please open a pull request if additional bindings are needed.
 
 # Example
 
-An example is available in the corresponding folder. The example can 
+An example is available in the corresponding folder. The example can
 be executed by running:
 ```
 bazel run //example:my_report_view
