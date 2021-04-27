@@ -6,7 +6,7 @@ import shutil
 import subprocess
 import sys
 
-ARGS_COUNT = 9
+ARGS_COUNT = 10
 
 # Walk through all externals. If they start with the special prefix
 # texlive_{extra,texmf}__ prefix, it means they should be part of the
@@ -38,7 +38,12 @@ for external in sorted(os.listdir("external")):
     job_name,
     main_file,
     output_file,
+    dependency_list,
 ) = sys.argv[1:ARGS_COUNT]
+
+# Add custom dependencies to TEXINPUTS
+dependency_list = dependency_list.split(',')
+texinputs.extend([os.path.abspath(path) for path in dependency_list])
 
 env = dict(os.environ)
 env["OPENTYPEFONTS"] = ":".join(texinputs)
@@ -64,7 +69,7 @@ return_code = subprocess.call(
         "--latex-args=-shell-escape -jobname=" + job_name,
         "--latex-cmd=lualatex",
         "-Wall",
-        ] + sys.argv[ARGS_COUNT:] + [main_file],
+    ] + sys.argv[ARGS_COUNT:] + [main_file],
     env=env,
 )
 if return_code != 0:

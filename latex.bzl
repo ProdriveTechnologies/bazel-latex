@@ -1,5 +1,11 @@
 def _latex_pdf_impl(ctx):
     toolchain = ctx.toolchains["@bazel_latex//:latex_toolchain_type"].latexinfo
+    custom_dependencies = []
+    for srcs in ctx.attr.srcs:
+        for file in srcs.files.to_list():
+            if file.dirname not in custom_dependencies:
+                custom_dependencies.append(file.dirname)
+    custom_dependencies = ','.join(custom_dependencies)
     ctx.actions.run(
         mnemonic = "LuaLatex",
         use_default_shell_env = True,
@@ -13,6 +19,7 @@ def _latex_pdf_impl(ctx):
             ctx.label.name,
             ctx.files.main[0].path,
             ctx.outputs.out.path,
+            custom_dependencies,
         ] + ctx.attr.cmd_flags,
         inputs = depset(
             direct = ctx.files.main + ctx.files.srcs + ctx.files._latexrun,
