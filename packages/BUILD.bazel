@@ -550,6 +550,16 @@ latex_package(
 )
 
 latex_package(
+    name = "lettrine",
+    srcs = [
+        ":keyval",
+        ":minifp",
+        "@texlive_texmf__texmf-dist__tex__latex__lettrine",
+    ],
+    tests = ["lettrine_test.tex"],
+)
+
+latex_package(
     name = "lineno",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__lineno"],
     tests = ["lineno_test.tex"],
