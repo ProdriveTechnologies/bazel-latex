@@ -54,6 +54,7 @@ env["TEXMF"] = os.path.abspath("texmf/texmf-dist")
 env["TEXMFCNF"] = os.path.abspath("texmf/texmf-dist/web2c")
 env["TEXMFROOT"] = os.path.abspath("texmf")
 env["TTFONTS"] = ":".join(texinputs)
+env["max_print_line"] = "480"
 
 os.mkdir("bin")
 shutil.copy(kpsewhich_file, "bin/kpsewhich")
