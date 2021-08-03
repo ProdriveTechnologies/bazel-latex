@@ -753,6 +753,15 @@ latex_package(
 )
 
 latex_package(
+    name = "pgfopts",
+    srcs = [
+        ":pgf",
+        "@texlive_texmf__texmf-dist__tex__latex__pgfopts",
+    ],
+    tests = ["pgfopts_test.tex"],
+)
+
+latex_package(
     name = "placeat",
     srcs = [
         ":luacode",
