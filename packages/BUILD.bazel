@@ -852,6 +852,15 @@ latex_package(
 )
 
 latex_package(
+    name = "tabulary",
+    srcs = [
+        ":array",
+        "@texlive_texmf__texmf-dist__tex__latex__tabulary",
+    ],
+    tests = ["tabulary_test.tex"],
+)
+
+latex_package(
     name = "tcolorbox",
     srcs = [
         ":environ",
