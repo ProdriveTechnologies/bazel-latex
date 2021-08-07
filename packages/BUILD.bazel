@@ -636,6 +636,17 @@ latex_package(
 )
 
 latex_package(
+    name = "mflogo",
+    srcs = [
+        "@texlive_texmf__texmf-dist__fonts__afm__hoekwater__mflogo-font",
+        "@texlive_texmf__texmf-dist__fonts__tfm__public__mflogo",
+        "@texlive_texmf__texmf-dist__fonts__type1__hoekwater__mflogo-font",
+        "@texlive_texmf__texmf-dist__tex__latex__mflogo",
+    ],
+    tests = ["mflogo_test.tex"],
+)
+
+latex_package(
     name = "microtype",
     srcs = [
         ":keyval",
