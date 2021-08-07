@@ -965,6 +965,15 @@ latex_package(
 )
 
 latex_package(
+    name = "units",
+    srcs = [
+        ":ifthen",
+        "@texlive_texmf__texmf-dist__tex__latex__units",
+    ],
+    tests = ["units_test.tex"],
+)
+
+latex_package(
     name = "upquote",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__upquote"],
     tests = ["upquote_test.tex"],
