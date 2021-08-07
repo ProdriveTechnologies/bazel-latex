@@ -656,6 +656,14 @@ latex_package(
 )
 
 latex_package(
+    name = "minifp",
+    srcs = [
+        "@texlive_texmf__texmf-dist__tex__generic__minifp",
+    ],
+    tests = ["minifp_test.tex"],
+)
+
+latex_package(
     name = "mnsymbol",
     srcs = [
         ":amsmath",
@@ -932,7 +940,7 @@ latex_package(
         "@texlive_texmf__texmf-dist__tex__latex__filehook",
         "@texlive_texmf__texmf-dist__tex__latex__l3packages__l3keys2e",
         "@texlive_texmf__texmf-dist__tex__latex__unicode-math",
-        "@texlive_texmf__texmf-dist__tex__lualatex__lualatex-math"
+        "@texlive_texmf__texmf-dist__tex__lualatex__lualatex-math",
     ],
     tests = ["unicode-math_test.tex"],
 )
