@@ -315,6 +315,13 @@ latex_package(
 )
 
 latex_package(
+    name = "fancyvrb",
+    srcs = [
+        "@texlive_texmf__texmf-dist__tex__latex__fancyvrb",
+    ],
+)
+
+latex_package(
     name = "filehook",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__filehook"],
     tests = ["filehook_test.tex"],
@@ -768,6 +775,19 @@ latex_package(
     name = "placeins",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__placeins"],
     tests = ["placeins_test.tex"],
+)
+
+latex_package(
+    name = "plantuml",
+    srcs = [
+        ":adjustbox",
+        ":fancyvrb",
+        ":l3keys2e",
+        ":luacode",
+        ":tikz",
+        ":xparse",
+        "@texlive_texmf__texmf-dist__tex__lualatex__plantuml",
+    ],
 )
 
 latex_package(
