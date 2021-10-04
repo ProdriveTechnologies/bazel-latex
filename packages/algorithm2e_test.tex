@@ -1,0 +1,19 @@
+% Example from https://www.overleaf.com/learn/latex/Algorithms#The_algorithm2e_package
+\documentclass{article}
+\usepackage{algorithm2e}
+\RestyleAlgo{ruled}
+\begin{document}
+\begin{algorithm}
+$i\gets 10$\;
+\eIf{$i\geq 5$}
+{
+    $i\gets i-1$\;
+}{
+    \If{$i\leq 3$}
+    {
+        $i\gets i+2$\;
+    }
+}
+\end{algorithm}
+
+\end{document}
