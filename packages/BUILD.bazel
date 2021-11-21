@@ -3,6 +3,15 @@ load(":packages.bzl", "latex_package")
 # Externally usable library targets.
 
 latex_package(
+    name = "genealogytree",
+    srcs = [
+        ":tcolorbox",
+        "@texlive_texmf__texmf-dist__tex__latex__genealogytree",
+    ],
+    tests = ["genealogytree_test.tex"],
+)
+
+latex_package(
     name = "adjustbox",
     srcs = [
         ":collectbox",

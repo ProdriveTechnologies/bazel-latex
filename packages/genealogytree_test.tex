@@ -1,0 +1,21 @@
+\documentclass{report}
+\usepackage{genealogytree}
+\begin{document}
+    \begin{tikzpicture}
+        \genealogytree[template=signpost]{
+            parent{
+                g[female]{first child}
+                c[male]{second child}
+                c[female]{third child}
+                parent{
+                    c[female]{aunt}
+                    g[male]{father}
+                    c[male]{uncle}
+                    p[male]{grandfather}
+                    p[female]{grandmother}
+                }
+                p[female]{mother}
+            }
+        }
+    \end{tikzpicture}
+\end{document}
