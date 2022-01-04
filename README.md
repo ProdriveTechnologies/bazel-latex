@@ -135,6 +135,8 @@ http_archive(
 )
 ```
 
+If this solution does not suffice, please feel free to open a PR to add the corresponding package to Bazel LaTeX. In that case, also see `CONTRIBUTING.md`.
+
 # Example
 
 An example is available in the corresponding folder. The example can
