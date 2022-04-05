@@ -57,7 +57,7 @@ _latex_pdf = rule(
     implementation = _latex_pdf_impl,
 )
 
-def latex_document(name, main, srcs = [], tags = [], cmd_flags = []):
+def latex_document(name, main, srcs = [], tags = [], cmd_flags = [], visibility=None):
     # PDF generation.
     _latex_pdf(
         name = name,
@@ -65,6 +65,7 @@ def latex_document(name, main, srcs = [], tags = [], cmd_flags = []):
         main = main,
         tags = tags,
         cmd_flags = cmd_flags,
+        visibility = visibility,
     )
 
     # Convenience rule for viewing PDFs.
