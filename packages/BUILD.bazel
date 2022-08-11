@@ -24,7 +24,7 @@ latex_package(
         ":xspace",
         "@texlive_texmf__texmf-dist__tex__latex__algorithm2e",
     ],
-    tests = ["algorithm2e_test.tex"]
+    tests = ["algorithm2e_test.tex"],
 )
 
 latex_package(
@@ -792,6 +792,16 @@ latex_package(
         "@texlive_texmf__texmf-dist__tex__latex__pgfopts",
     ],
     tests = ["pgfopts_test.tex"],
+)
+
+latex_package(
+    name = "pgfplots",
+    srcs = [
+        ":pgf",
+        "@texlive_texmf__texmf-dist__tex__generic__pgfplots",
+        "@texlive_texmf__texmf-dist__tex__latex__pgfplots",
+    ],
+    tests = ["pgfplots_test.tex"],
 )
 
 latex_package(
