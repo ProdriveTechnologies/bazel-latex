@@ -24,7 +24,7 @@ latex_package(
         ":xspace",
         "@texlive_texmf__texmf-dist__tex__latex__algorithm2e",
     ],
-    tests = ["algorithm2e_test.tex"]
+    tests = ["algorithm2e_test.tex"],
 )
 
 latex_package(
@@ -74,6 +74,16 @@ latex_package(
     name = "auxhook",
     srcs = [":graphics_oberdiek"],
     tests = ["auxhook_test.tex"],
+)
+
+latex_package(
+    name = "babel_dutch",
+    srcs = [
+        ":babel",
+        ":hyph_utf8",
+        "@texlive_texmf__texmf-dist__tex__generic__babel-dutch",
+    ],
+    tests = ["babel_dutch_test.tex"],
 )
 
 latex_package(
@@ -498,6 +508,16 @@ latex_package(
 )
 
 latex_package(
+    name = "hyph_utf8",
+    srcs = [
+        ":graphics_oberdiek",
+        "@texlive_texmf__texmf-dist__tex__generic__hyph-utf8__loadhyph",
+        "@texlive_texmf__texmf-dist__tex__generic__hyph-utf8__patterns__tex",
+    ],
+    tests = ["hyph_utf8_test.tex"],
+)
+
+latex_package(
     name = "hyphenat",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__hyphenat"],
     tests = ["hyphenat_test.tex"],
@@ -554,6 +574,15 @@ latex_package(
     name = "keyval",
     srcs = [":graphics_oberdiek"],
     tests = ["keyval_test.tex"],
+)
+
+latex_package(
+    name = "koma_script",
+    srcs = [
+        ":keyval",
+        "@texlive_texmf__texmf-dist__tex__latex__koma-script",
+    ],
+    tests = ["koma_script_test.tex"],
 )
 
 latex_package(
