@@ -958,6 +958,12 @@ latex_package(
 )
 
 latex_package(
+    name = "titling",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__titling"],
+    tests = ["titling_test.tex"],
+)
+
+latex_package(
     name = "tocloft",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__tocloft"],
     tests = ["tocloft_test.tex"],
