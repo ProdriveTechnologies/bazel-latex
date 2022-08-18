@@ -187,6 +187,15 @@ latex_package(
 )
 
 latex_package(
+    name = "contour",
+    srcs = [
+        ":color",
+        "@texlive_texmf__texmf-dist__tex__latex__contour",
+    ],
+    tests = ["contour_test.tex"],
+)
+
+latex_package(
     name = "csquotes",
     srcs = [
         ":etoolbox",
