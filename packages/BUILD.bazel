@@ -836,6 +836,12 @@ latex_package(
 )
 
 latex_package(
+    name = "ragged2e",
+    srcs = [":ms"],
+    tests = ["ragged2e_test.tex"],
+)
+
+latex_package(
     name = "relsize",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__relsize"],
     tests = ["relsize_test.tex"],
