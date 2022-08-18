@@ -693,6 +693,21 @@ latex_package(
 )
 
 latex_package(
+    name = "mdframed",
+    srcs = [
+        ":etoolbox",
+        ":ifluatex",
+        ":luatexbase",
+        ":needspace",
+        ":tikz",
+        ":xparse",
+        ":zref-savepos",
+        "@texlive_texmf__texmf-dist__tex__latex__mdframed",
+    ],
+    tests = ["mdframed_test.tex"],
+)
+
+latex_package(
     name = "mfirstuc",
     srcs = [
         ":etoolbox",
@@ -767,6 +782,14 @@ latex_package(
     name = "multicol",
     srcs = [":tools"],
     tests = ["multicol_test.tex"],
+)
+
+latex_package(
+    name = "needspace",
+    srcs = [
+        "@texlive_texmf__texmf-dist__tex__latex__needspace",
+    ],
+    tests = ["needspace_test.tex"],
 )
 
 latex_package(
