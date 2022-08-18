@@ -654,6 +654,12 @@ latex_package(
 )
 
 latex_package(
+    name = "marginfix",
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__marginfix"],
+    tests = ["marginfix_test.tex"],
+)
+
+latex_package(
     name = "marginnote",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__marginnote"],
     tests = ["marginnote_test.tex"],
