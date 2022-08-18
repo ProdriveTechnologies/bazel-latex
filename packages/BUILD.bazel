@@ -1071,6 +1071,21 @@ latex_package(
 )
 
 latex_package(
+    name = "translations",
+    srcs = [
+        ":babel",
+        ":etoolbox",
+        ":koma_script",
+        "@texlive_texmf__texmf-dist__tex__latex__translations",
+    ],
+    tests = ["translations_test.tex"],
+    tests_deps = [
+        ":babel_dutch",
+        ":babel_english",
+    ],
+)
+
+latex_package(
     name = "translator",
     srcs = [
         ":babel",

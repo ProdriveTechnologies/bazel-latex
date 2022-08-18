@@ -1,0 +1,20 @@
+\documentclass{article}
+
+\usepackage[english,dutch]{babel}
+\usepackage{translations}
+
+\declaretranslation{English}{Kueche}{kitchen}
+\declaretranslation{Dutch}{Kueche}{keuken}
+
+\begin{document}
+    \GetTranslation{Kueche}
+    \SaveTranslation\kitchen{Kueche}
+    \SaveTranslationFor\keuken{dutch}{Kueche}
+
+    \selectlanguage{dutch}
+    \GetTranslation{Kueche} \kitchen\ \GetTranslationFor{dutch}{Kueche}
+    \keuken
+
+    \IfTranslation{German}{Kueche}{true}{false} \par
+    \IfTranslation{Dutch}{Kueche}{true}{false}
+\end{document}
