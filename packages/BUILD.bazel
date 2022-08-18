@@ -151,6 +151,14 @@ latex_package(
 )
 
 latex_package(
+    name = "changepage",
+    srcs = [
+        "@texlive_texmf__texmf-dist__tex__latex__changepage",
+    ],
+    tests = ["changepage_test.tex"],
+)
+
+latex_package(
     name = "cleveref",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__cleveref"],
     tests = ["cleveref_test.tex"],
