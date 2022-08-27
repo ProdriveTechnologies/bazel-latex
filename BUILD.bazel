@@ -1,7 +1,7 @@
 load(":toolchain.bzl", "latex_toolchain")
 
 exports_files([
-    "run_lualatex.py",
+    "tool_wrapper.py",
     "view_pdf.sh",
 ])
 
@@ -37,7 +37,7 @@ latex_toolchain(
 filegroup(
     name = "core_dependencies",
     srcs = [
-        "@bazel_latex//:run_lualatex.py",
+        "@bazel_latex//:tool_wrapper_py",
         "@texlive_extra__tlpkg__TeXLive",
         "@texlive_texmf__texmf-dist__fonts__enc__dvips__base",
         "@texlive_texmf__texmf-dist__fonts__enc__dvips__cm-super",
@@ -66,7 +66,8 @@ filegroup(
 )
 
 py_binary(
-    name = "run_lualatex",
-    srcs = ["run_lualatex.py"],
+    name = "tool_wrapper_py",
+    srcs = ["tool_wrapper.py"],
+    main = "tool_wrapper.py",
     visibility = ["//visibility:public"],
 )

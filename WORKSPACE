@@ -21,3 +21,4 @@ register_toolchains(
 load("@bazel_latex//:repositories.bzl", "latex_repositories")
 
 latex_repositories()
+
