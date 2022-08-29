@@ -27,12 +27,13 @@ def _latex_impl(ctx):
             "--dep-tool=" +  toolchain.biber.files.to_list()[0].path,
             "--tool=" +  ctx.files._latexrun[0].path,
             "--flag=--latex-cmd=lualatex",
+            "--flag=--latex-args=-shell-escape -jobname=" + ctx.label.name,
             "--flag=-Wall",
             "--input=" + ctx.file.main.path,
-            "--tool-output=" + ctx.label.name + ext,
+            "--tool-output=" + ctx.file.main.basename.rsplit(".", 1)[0] + ext,
             "--output=" + ctx.outputs.out.path,
             "--inputs=" + custom_dependencies,
-        ] + flags + ["--flag=--latex-args=-shell-escape -jobname=" + ctx.label.name],
+        ] + flags,
         inputs = depset(
             direct = ctx.files.main + ctx.files.srcs + ctx.files._latexrun,
             transitive = [
