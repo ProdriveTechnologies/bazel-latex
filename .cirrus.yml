@@ -2,7 +2,7 @@ container:
     image: l.gcr.io/google/bazel:latest
 task:
     name: Build the example document
-    build_script: bazel build //... --verbose_failures
+    build_script: bazel build //example/... --verbose_failures
 task:
     name: Build all package tests
     build_script: bazel build //packages:all --verbose_failures
