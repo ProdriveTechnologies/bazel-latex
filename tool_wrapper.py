@@ -89,16 +89,19 @@ def main():
         os.path.basename(args.tool),
     ] + args.flag + [args.input]
 
-    return_code = subprocess.call(
+    result = subprocess.check_output(
         args=cmd_args,
         env=env,
+        stderr=subprocess.STDOUT,
     )
     
-    if return_code != 0 or not os.path.exists(args.tool_output):
+    if not os.path.exists(args.tool_output):
         raise SystemExit(
                 """{} exited with: {}
 The following arguments were provided:
-{}""".format(args.tool, return_code, cmd_args)
+{}
+content in dir:
+{}""".format(args.tool, result, cmd_args, os.listdir("."))
         )
 
     os.rename(args.tool_output, args.output)
