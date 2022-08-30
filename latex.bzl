@@ -9,7 +9,6 @@ def _latex_impl(ctx):
                 custom_dependencies.append(file.dirname)
     custom_dependencies = ','.join(custom_dependencies)
 
-    ext =".{}".format(ctx.attr.format)
     flags = ["--flag=--latex-args=--output-format={}".format(ctx.attr.format)]
     for value in ctx.attr.cmd_flags:
         if "output-format" in value and ctx.attr.format not in value:
@@ -30,7 +29,7 @@ def _latex_impl(ctx):
             "--flag=--latex-args=-shell-escape -jobname=" + ctx.label.name,
             "--flag=-Wall",
             "--input=" + ctx.file.main.path,
-            "--tool-output=" + ctx.file.main.basename.rsplit(".", 1)[0] + ext,
+            "--tool-output=" + ctx.file.main.basename.rsplit(".", 1)[0] + ".{}".format(ctx.attr.format),
             "--output=" + ctx.outputs.out.path,
             "--inputs=" + custom_dependencies,
         ] + flags,
@@ -46,7 +45,7 @@ def _latex_impl(ctx):
         outputs = [ctx.outputs.out],
         tools = [ctx.executable._tool],
     )
-    latex_info = LatexOutputInfo(file = ctx.outputs.out, format=ext)
+    latex_info = LatexOutputInfo(file = ctx.outputs.out, format=ctx.attr.format)
     return [latex_info]
 
 _latex = rule(
@@ -63,7 +62,7 @@ _latex = rule(
         "format": attr.string(
             doc = "Output file format",
             default = "pdf",
-            values = ["dvi","pdf"],
+            values = ["dvi", "pdf"],
         ),
         "_tool": attr.label(
             default = Label("@bazel_latex//:tool_wrapper_py"),
