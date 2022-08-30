@@ -12,3 +12,17 @@ latex_document(
     cmd_flags = ["--bibtex-cmd=biber"],
     main = "my_report.tex",
 )
+
+latex_document(
+    name = "my_dvi_report",
+    format = "dvi",
+    srcs = glob([
+        "chapters/*.tex",
+    ]) + [
+        "@bazel_latex//packages:biblatex",
+        "references.bib",
+        "//example/example_class:example_class",
+    ],
+    cmd_flags = ["--bibtex-cmd=biber"],
+    main = "my_report.tex",
+)

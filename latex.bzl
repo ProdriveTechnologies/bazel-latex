@@ -1,4 +1,6 @@
-def _latex_pdf_impl(ctx):
+LatexOutputInfo = provider(fields = ['format', 'file'])
+
+def _latex_impl(ctx):
     toolchain = ctx.toolchains["@bazel_latex//:latex_toolchain_type"].latexinfo
     custom_dependencies = []
     for srcs in ctx.attr.srcs:
@@ -6,21 +8,31 @@ def _latex_pdf_impl(ctx):
             if file.dirname not in custom_dependencies:
                 custom_dependencies.append(file.dirname)
     custom_dependencies = ','.join(custom_dependencies)
+
+    flags = ["--flag=--latex-args=--output-format={}".format(ctx.attr.format)]
+    for value in ctx.attr.cmd_flags:
+        if "output-format" in value and ctx.attr.format not in value:
+            fail("Value of attr format ({}) conflicts with value of flag {}".format(ctx.attr.format, value))
+        flags.append("--flag=" + value)
+
     ctx.actions.run(
         mnemonic = "LuaLatex",
         use_default_shell_env = True,
-        executable = ctx.executable.tool,
+        executable = ctx.executable._tool,
         arguments = [
-            toolchain.kpsewhich.files.to_list()[0].path,
-            toolchain.luatex.files.to_list()[0].path,
-            toolchain.bibtex.files.to_list()[0].path,
-            toolchain.biber.files.to_list()[0].path,
-            ctx.files._latexrun[0].path,
-            ctx.label.name,
-            ctx.files.main[0].path,
-            ctx.outputs.out.path,
-            custom_dependencies,
-        ] + ctx.attr.cmd_flags,
+            "--dep-tool=" + toolchain.kpsewhich.files.to_list()[0].path,
+            "--dep-tool=" + toolchain.luatex.files.to_list()[0].path,
+            "--dep-tool=" +  toolchain.bibtex.files.to_list()[0].path,
+            "--dep-tool=" +  toolchain.biber.files.to_list()[0].path,
+            "--tool=" +  ctx.files._latexrun[0].path,
+            "--flag=--latex-cmd=lualatex",
+            "--flag=--latex-args=-shell-escape -jobname=" + ctx.label.name,
+            "--flag=-Wall",
+            "--input=" + ctx.file.main.path,
+            "--tool-output=" + ctx.file.main.basename.rsplit(".", 1)[0] + ".{}".format(ctx.attr.format),
+            "--output=" + ctx.outputs.out.path,
+            "--inputs=" + custom_dependencies,
+        ] + flags,
         inputs = depset(
             direct = ctx.files.main + ctx.files.srcs + ctx.files._latexrun,
             transitive = [
@@ -31,19 +43,29 @@ def _latex_pdf_impl(ctx):
             ],
         ),
         outputs = [ctx.outputs.out],
-        tools = [ctx.executable.tool],
+        tools = [ctx.executable._tool],
     )
+    latex_info = LatexOutputInfo(file = ctx.outputs.out, format=ctx.attr.format)
+    return [latex_info]
 
-_latex_pdf = rule(
+_latex = rule(
     attrs = {
-        "main": attr.label(allow_files = True),
+        "main": attr.label(
+            allow_single_file = [".tex"],
+            mandatory = True,
+         ),
         "srcs": attr.label_list(allow_files = True),
         "cmd_flags": attr.string_list(
             allow_empty = True,
             default = [],
         ),
-        "tool": attr.label(
-            default = Label("//:run_lualatex"),
+        "format": attr.string(
+            doc = "Output file format",
+            default = "pdf",
+            values = ["dvi", "pdf"],
+        ),
+        "_tool": attr.label(
+            default = Label("@bazel_latex//:tool_wrapper_py"),
             executable = True,
             cfg = "host",
         ),
@@ -52,34 +74,36 @@ _latex_pdf = rule(
             default = "@bazel_latex_latexrun//:latexrun",
         ),
     },
-    outputs = {"out": "%{name}.pdf"},
+    outputs = {"out": "%{name}.%{format}"},
     toolchains = ["@bazel_latex//:latex_toolchain_type"],
-    implementation = _latex_pdf_impl,
+    implementation = _latex_impl,
 )
 
-def latex_document(name, main, srcs = [], tags = [], cmd_flags = []):
-    # PDF generation.
-    _latex_pdf(
+def latex_document(name, main, srcs = [], tags = [], cmd_flags = [], format="pdf"):
+
+    _latex(
         name = name,
         srcs = srcs + ["@bazel_latex//:core_dependencies"],
         main = main,
         tags = tags,
         cmd_flags = cmd_flags,
+        format = format,
     )
 
-    # Convenience rule for viewing PDFs.
-    native.sh_binary(
-        name = name + "_view_output",
-        srcs = ["@bazel_latex//:view_pdf.sh"],
-        data = [name + ".pdf"],
-        tags = tags,
-    )
+    if "pdf" in format:
+         # Convenience rule for viewing PDFs.
+         native.sh_binary(
+             name = "{}_view_output".format(name),
+             srcs = ["@bazel_latex//:view_pdf.sh"],
+             data = [":{}".format(name)],
+             tags = tags,
+         )
 
-    # Convenience rule for viewing PDFs.
-    native.sh_binary(
-        name = name + "_view",
-        srcs = ["@bazel_latex//:view_pdf.sh"],
-        data = [name + ".pdf"],
-        args = ["None"],
-        tags = tags,
-    )
+         # Convenience rule for viewing PDFs.
+         native.sh_binary(
+             name = "{}_view".format(name),
+             srcs = ["@bazel_latex//:view_pdf.sh"],
+             data = [":{}".format(name)],
+             args = ["None"],
+             tags = tags,
+         )
