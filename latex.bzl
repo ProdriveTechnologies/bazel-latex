@@ -90,20 +90,23 @@ def latex_document(name, main, srcs = [], tags = [], cmd_flags = [], format="pdf
         format = format,
     )
 
-    if "pdf" in format:
-         # Convenience rule for viewing PDFs.
-         native.sh_binary(
-             name = "{}_view_output".format(name),
-             srcs = ["@bazel_latex//:view_pdf.sh"],
-             data = [":{}".format(name)],
-             tags = tags,
-         )
+     # Convenience rule for viewing outputs.
+    native.sh_binary(
+        name = "{}_view_output".format(name),
+        srcs = ["@bazel_latex//:view_output.sh"],
+        data = [":{}.{}".format(name, format)],
+        args = ["$(location :{}.{})".format(name, format)],
+        tags = tags,
+    )
 
-         # Convenience rule for viewing PDFs.
-         native.sh_binary(
-             name = "{}_view".format(name),
-             srcs = ["@bazel_latex//:view_pdf.sh"],
-             data = [":{}".format(name)],
-             args = ["None"],
-             tags = tags,
-         )
+    # Convenience rule for viewing outputs, silencing stderr.
+    native.sh_binary(
+        name = "{}_view".format(name),
+        srcs = ["@bazel_latex//:view_output.sh"],
+        data = [":{}.{}".format(name, format)],
+        args = [
+            "$(location :{}.{})".format(name, format),
+            "None",
+        ],
+        tags = tags,
+    )
