@@ -2,7 +2,7 @@ load(":toolchain.bzl", "latex_toolchain")
 
 exports_files([
     "tool_wrapper.py",
-    "view_pdf.sh",
+    "view_output.sh",
 ])
 
 toolchain_type(

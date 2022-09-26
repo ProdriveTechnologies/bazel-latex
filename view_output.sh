@@ -1,10 +1,11 @@
 #!/bin/sh
-filename="$(find . -name '*.pdf')"
+filename="$1"
+stderr_type="$2"
 
 if type xdg-open > /dev/null 2>&1; then
     # X11-based systems (Linux, BSD).
     
-    if [ $1 = "None" ] ; then   
+    if [ "$stderr_type" = "None" ] ; then
         exec xdg-open "${filename}" 2>/dev/null &
     else
         exec xdg-open "${filename}" &
