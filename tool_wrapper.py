@@ -89,19 +89,27 @@ def main():
         os.path.basename(args.tool),
     ] + args.flag + [args.input]
 
-    result = subprocess.check_output(
-        args=cmd_args,
-        env=env,
-        stderr=subprocess.STDOUT,
-    )
-    
-    if not os.path.exists(args.tool_output):
+    returncode = 0
+    output = None
+    try:
+        subprocess.check_output(
+            args=cmd_args,
+            env=env,
+            stderr=subprocess.STDOUT,
+            universal_newlines=True,
+        )
+    except subprocess.CalledProcessError as exc:
+        output = exc.output
+        returncode = exc.returncode
+
+    if not os.path.exists(args.tool_output) or returncode != 0:
         raise SystemExit(
-                """{} exited with: {}
+                """{} exited ({}) with:
+{}
 The following arguments were provided:
 {}
 content in dir:
-{}""".format(args.tool, result, cmd_args, os.listdir("."))
+{}""".format(args.tool, returncode, output, cmd_args, os.listdir("."))
         )
 
     os.rename(args.tool_output, args.output)
