@@ -21,9 +21,19 @@ latex_toolchain(
 latex_toolchain(
     exec_compatible_with = [
         "@bazel_tools//platforms:osx",
+        "@bazel_tools//platforms:aarch64",
+    ],
+    platform = "universal-darwin",
+    platform_name_override = "aarch64-darwin",
+)
+
+latex_toolchain(
+    exec_compatible_with = [
+        "@bazel_tools//platforms:osx",
         "@bazel_tools//platforms:x86_64",
     ],
-    platform = "x86_64-darwin",
+    platform = "universal-darwin",
+    platform_name_override = "x86_64-darwin",
 )
 
 latex_toolchain(
@@ -42,6 +52,7 @@ filegroup(
         "@texlive_texmf__texmf-dist__fonts__enc__dvips__base",
         "@texlive_texmf__texmf-dist__fonts__enc__dvips__cm-super",
         "@texlive_texmf__texmf-dist__fonts__enc__dvips__lm",
+        "@texlive_texmf__texmf-dist__fonts__map__dvips__updmap",
         "@texlive_texmf__texmf-dist__fonts__map__pdftex__updmap",
         "@texlive_texmf__texmf-dist__fonts__opentype__public__lm",
         "@texlive_texmf__texmf-dist__fonts__tfm__public__cm",
@@ -53,11 +64,21 @@ filegroup(
         "@texlive_texmf__texmf-dist__scripts__texlive",
         "@texlive_texmf__texmf-dist__tex__generic__config",
         "@texlive_texmf__texmf-dist__tex__generic__hyphen",
+        "@texlive_texmf__texmf-dist__tex__generic__iftex",
+        "@texlive_texmf__texmf-dist__tex__generic__infwarerr",
+        "@texlive_texmf__texmf-dist__tex__generic__kvsetkeys",
+        "@texlive_texmf__texmf-dist__tex__generic__ltxcmds",
+        "@texlive_texmf__texmf-dist__tex__generic__pdftexcmds",
         "@texlive_texmf__texmf-dist__tex__generic__tex-ini-files",
         "@texlive_texmf__texmf-dist__tex__generic__unicode-data",
         "@texlive_texmf__texmf-dist__tex__latex__base",
+        "@texlive_texmf__texmf-dist__tex__latex__kvoptions",
+        "@texlive_texmf__texmf-dist__tex__latex__l3backend",
+        "@texlive_texmf__texmf-dist__tex__latex__l3kernel",
+        "@texlive_texmf__texmf-dist__tex__latex__l3packages__xparse",
         "@texlive_texmf__texmf-dist__tex__latex__latexconfig",
         "@texlive_texmf__texmf-dist__tex__latex__lm",
+        "@texlive_texmf__texmf-dist__tex__luatex__lua-uni-algos",
         "@texlive_texmf__texmf-dist__tex__luatex__lualibs",
         "@texlive_texmf__texmf-dist__tex__luatex__luaotfload",
         "@texlive_texmf__texmf-dist__web2c",

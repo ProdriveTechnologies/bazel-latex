@@ -43,16 +43,17 @@ def setup_env(env, texinputs, tools):
     env["TEXMFCNF"] = os.path.abspath("texmf/texmf-dist/web2c")
     env["TEXMFROOT"] = os.path.abspath("texmf")
     env["TTFONTS"] = ":".join(texinputs)
-    
-    os.mkdir("bin")
-    for tool in tools:
-        if "luatex" in tool:
-            shutil.copy(tool, "bin/lualatex")
-            os.link("bin/lualatex", "bin/luatex")
-        else:
+
+    try:
+        os.mkdir("bin")
+        for tool in tools:
             shutil.copy(tool, "bin/" + os.path.basename(tool))
 
-    shutil.copy("texmf/texmf-dist/scripts/texlive/fmtutil.pl", "bin/mktexfmt")
+        shutil.copy("texmf/texmf-dist/scripts/texlive/fmtutil.pl", "bin/mktexfmt")
+        shutil.copy("texmf/texmf-dist/scripts/texlive/mktexpk", "bin/mktexpk")
+    except FileExistsError:
+        pass
+
     return env
 
 
@@ -91,7 +92,24 @@ def main():
 
     returncode = 0
     output = None
+    engine = "luahbtex"
+    progname = "lualatex"
+
+    for flag in args.flag:
+        if "--latex-cmd=" in flag:
+            engine = flag[len("--latex-cmd="):]
+    ini_files = ["texmf", "texmf-dist", "tex", "generic", "tex-ini-files"]
+    ini_files_path = os.path.sep.join(ini_files)
+    engine_config_args = [engine, "-ini", "{}{}{}.ini".format(ini_files_path, os.path.sep, progname)]
+
     try:
+        subprocess.check_output(
+            args=engine_config_args,
+            env=env,
+            stderr=subprocess.STDOUT,
+            universal_newlines=True,
+        )
+
         subprocess.check_output(
             args=cmd_args,
             env=env,
