@@ -34,6 +34,14 @@ latex_toolchain(
     platform = "x86_64-linux",
 )
 
+latex_toolchain(
+    exec_compatible_with = [
+        "@bazel_tools//platforms:windows",
+        "@bazel_tools//platforms:x86_64",
+    ],
+    platform = "win32",
+)
+
 filegroup(
     name = "core_dependencies",
     srcs = [
