@@ -16,7 +16,6 @@ jobs:
           - "example"
           - "packages"
         platform:
-          - ubuntu-latest
           - macos-latest
 
 
