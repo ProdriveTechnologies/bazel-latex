@@ -16,9 +16,9 @@ register_toolchains(
     "//:latex_toolchain_amd64-freebsd",
     "//:latex_toolchain_x86_64-darwin",
     "//:latex_toolchain_x86_64-linux",
+    "//:latex_toolchain_win32",
 )
 
 load("@bazel_latex//:repositories.bzl", "latex_repositories")
 
 latex_repositories()
-

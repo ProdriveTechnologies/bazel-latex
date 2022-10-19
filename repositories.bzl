@@ -5642,12 +5642,16 @@ def latex_repositories():
         name = "texlive_%s" % path.replace("/", "__")
         http_archive(
             name = name,
-            build_file_content = """
-exports_files(
-    ["kpsewhich", "luatex", "bibtex", "biber"],
+            build_file_content = "\n".join(["""
+filegroup(
+    name = "%s_bin",
+    srcs = select({
+        "@bazel_tools//platforms:windows": ["%s.exe"],
+        "//conditions:default": ["%s"],
+    }),
     visibility = ["//visibility:public"],
 )
-""",
+""" % (bin, bin, bin) for bin in ["kpsewhich", "luatex", "bibtex", "biber"]]),
             sha256 = sha256,
             url = "https://github.com/ProdriveTechnologies/texlive-modular/releases/download/%s/texlive-%s-%s.tar.xz" % (_TEXLIVE_VERSION, _TEXLIVE_VERSION, path.replace("/", "--")),
         )
@@ -5696,4 +5700,5 @@ filegroup(
         "@bazel_latex//:latex_toolchain_amd64-freebsd",
         "@bazel_latex//:latex_toolchain_x86_64-darwin",
         "@bazel_latex//:latex_toolchain_x86_64-linux",
+        "@bazel_latex//:latex_toolchain_win32",
     )
