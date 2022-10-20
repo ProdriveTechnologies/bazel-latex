@@ -1,5 +1,5 @@
 container:
-    image: l.gcr.io/google/bazel:latest
+    image: gcr.io/bazel-public/bazel:latest
 task:
     name: Build the example document
     build_script: bazel build //example:all
