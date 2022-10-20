@@ -206,6 +206,20 @@ latex_package(
 )
 
 latex_package(
+    name = "cooking-units",
+    srcs = [
+        ":expl3",
+        ":fmtcount",
+        ":l3keys2e",
+        ":translations",
+        ":xfrac",
+        ":xparse",
+        "@texlive_texmf__texmf-dist__tex__latex__cooking-units",
+    ],
+    tests = ["cooking-units_test.tex"],
+)
+
+latex_package(
     name = "csquotes",
     srcs = [
         ":etoolbox",
