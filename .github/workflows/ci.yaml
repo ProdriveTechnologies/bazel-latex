@@ -9,6 +9,15 @@ on:
   workflow_dispatch:
 
 jobs:
+  buildifier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: thompsonja/bazel-buildifier@v0.4.0
+        with:
+          buildifier_version: 5.1.0
+          warnings: all
+
   test:
     strategy:
       matrix:
