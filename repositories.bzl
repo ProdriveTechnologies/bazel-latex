@@ -5681,6 +5681,7 @@ filegroup(
             "@bazel_latex//:patches/latexrun-force-colors",
             "@bazel_latex//:patches/latexrun-pull-21",
             "@bazel_latex//:patches/latexrun-pull-47",
+            "@bazel_latex//:patches/latexrun-pull-52",
             "@bazel_latex//:patches/latexrun-pull-61",
             "@bazel_latex//:patches/latexrun-pull-62",
         ],
