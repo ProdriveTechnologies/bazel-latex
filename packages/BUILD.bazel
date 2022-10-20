@@ -773,6 +773,14 @@ latex_package(
 )
 
 latex_package(
+    name = "mathastext",
+    srcs = [
+        "@texlive_texmf__texmf-dist__tex__latex__mathastext",
+    ],
+    tests = ["mathastext_test.tex"],
+)
+
+latex_package(
     name = "mdframed",
     srcs = [
         ":etoolbox",
