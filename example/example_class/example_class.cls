@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{exampleclass}
+\ProvidesClass{example_class}
 
 \newcommand{\headlinecolor}{\normalcolor}
 \LoadClass[onecolumn]{article}

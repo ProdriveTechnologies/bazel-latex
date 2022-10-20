@@ -6,6 +6,7 @@ latex_package(
     name = "adjustbox",
     srcs = [
         ":collectbox",
+        ":epstopdf-base",
         ":graphicx",
         ":pgf",
         ":xkeyval",
@@ -72,7 +73,7 @@ latex_package(
 
 latex_package(
     name = "auxhook",
-    srcs = [":graphics_oberdiek"],
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__auxhook"],
     tests = ["auxhook_test.tex"],
 )
 
@@ -120,8 +121,7 @@ latex_package(
 latex_package(
     name = "biblatex",
     srcs = [
-        "@texlive_texmf__texmf-dist__scripts__oberdiek",
-        "@texlive_texmf__texmf-dist__tex__generic__ifxetex",
+        ":iftex",
         "@texlive_texmf__texmf-dist__tex__generic__oberdiek",
         "@texlive_texmf__texmf-dist__tex__latex__biblatex",
         "@texlive_texmf__texmf-dist__tex__latex__etoolbox",
@@ -346,7 +346,7 @@ latex_package(
 
 latex_package(
     name = "everyshi",
-    srcs = [":ms"],
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__everyshi"],
     tests = ["everyshi_test.tex"],
 )
 
@@ -377,7 +377,7 @@ latex_package(
 latex_package(
     name = "filemod",
     srcs = [
-        ":graphics_oberdiek",
+        ":iftex",
         "@texlive_texmf__texmf-dist__tex__latex__filemod",
     ],
     tests = ["filemod_test.tex"],
@@ -404,12 +404,28 @@ latex_package(
     name = "fontawesome",
     srcs = [
         ":fontspec",
-        ":ifluatex",
-        ":ifxetex",
+        ":iftex",
         "@texlive_texmf__texmf-dist__fonts__opentype__public__fontawesome",
         "@texlive_texmf__texmf-dist__tex__latex__fontawesome",
     ],
     tests = ["fontawesome_test.tex"],
+)
+
+latex_package(
+    name = "fontawesome5",
+    srcs = [
+        ":fontspec",
+        ":iftex",
+        ":l3keys2e",
+        ":luatexbase",
+        "@texlive_texmf__texmf-dist__fonts__enc__dvips__fontawesome5",
+        "@texlive_texmf__texmf-dist__fonts__map__dvips__fontawesome5",
+        "@texlive_texmf__texmf-dist__fonts__opentype__public__fontawesome5",
+        "@texlive_texmf__texmf-dist__fonts__tfm__public__fontawesome5",
+        "@texlive_texmf__texmf-dist__fonts__type1__public__fontawesome5",
+        "@texlive_texmf__texmf-dist__tex__latex__fontawesome5",
+    ],
+    tests = ["fontawesome5_test.tex"],
 )
 
 latex_package(
@@ -449,7 +465,7 @@ latex_package(
     name = "geometry",
     srcs = [
         ":ifpdf",
-        ":ifxetex",
+        ":iftex",
         ":keyval",
         "@texlive_texmf__texmf-dist__tex__latex__geometry",
     ],
@@ -496,6 +512,8 @@ latex_package(
     srcs = [
         ":graphicx",
         ":verbatim",
+        "@texlive_texmf__texmf-dist__tex__generic__catchfile",
+        "@texlive_texmf__texmf-dist__tex__generic__etexcmds",
         "@texlive_texmf__texmf-dist__tex__latex__gnuplottex",
         "@texlive_texmf__texmf-dist__tex__latex__moreverb",
     ],
@@ -529,11 +547,24 @@ latex_package(
     name = "hyperref",
     srcs = [
         ":auxhook",
-        ":ifxetex",
+        ":iftex",
         ":keyval",
         ":ltxcmds",
         ":url",
+        "@texlive_texmf__texmf-dist__tex__generic__bigintcalc",
+        "@texlive_texmf__texmf-dist__tex__generic__bitset",
+        "@texlive_texmf__texmf-dist__tex__generic__etexcmds",
+        "@texlive_texmf__texmf-dist__tex__generic__gettitlestring",
+        "@texlive_texmf__texmf-dist__tex__generic__intcalc",
+        "@texlive_texmf__texmf-dist__tex__generic__kvdefinekeys",
+        "@texlive_texmf__texmf-dist__tex__generic__pdfescape",
+        "@texlive_texmf__texmf-dist__tex__generic__stringenc",
+        "@texlive_texmf__texmf-dist__tex__generic__uniquecounter",
+        "@texlive_texmf__texmf-dist__tex__latex__hycolor",
         "@texlive_texmf__texmf-dist__tex__latex__hyperref",
+        "@texlive_texmf__texmf-dist__tex__latex__letltxmacro",
+        "@texlive_texmf__texmf-dist__tex__latex__refcount",
+        "@texlive_texmf__texmf-dist__tex__latex__rerunfilecheck",
     ],
     tests = ["hyperref_test.tex"],
 )
@@ -556,7 +587,7 @@ latex_package(
 
 latex_package(
     name = "ieeetran",
-    srcs = ["@texlive_texmf__texmf-dist__tex__latex__IEEEtran"],
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__ieeetran"],
     tests = ["ieeetran_test.tex"],
 )
 
@@ -568,7 +599,7 @@ latex_package(
 
 latex_package(
     name = "ifluatex",
-    srcs = [":graphics_oberdiek"],
+    srcs = [":iftex"],
     tests = ["ifluatex_test.tex"],
 )
 
@@ -580,7 +611,7 @@ latex_package(
 
 latex_package(
     name = "ifpdf",
-    srcs = [":graphics_oberdiek"],
+    srcs = [":iftex"],
     tests = ["ifpdf_test.tex"],
 )
 
@@ -590,9 +621,15 @@ latex_package(
 )
 
 latex_package(
+    name = "iftex",
+    srcs = ["@texlive_texmf__texmf-dist__tex__generic__iftex"],
+    tests = ["iftex_test.tex"],
+)
+
+# iftex used to be called ifxetex in TeXLive 2019, keeping an alias.
+alias(
     name = "ifxetex",
-    srcs = ["@texlive_texmf__texmf-dist__tex__generic__ifxetex"],
-    tests = ["ifxetex_test.tex"],
+    actual = ":iftex",
 )
 
 latex_package(
@@ -773,6 +810,7 @@ latex_package(
 latex_package(
     name = "microtype",
     srcs = [
+        ":etoolbox",
         ":keyval",
         "@texlive_texmf__texmf-dist__tex__latex__microtype",
     ],
@@ -805,15 +843,18 @@ latex_package(
     srcs = [
         ":etoolbox",
         ":fancyhdr",
-        ":fontawesome",
+        ":fontawesome5",
         ":hyperref",
-        ":ifxetex",
+        ":iftex",
         ":microtype",
         ":tikz",
         ":url",
         ":xcolor",
         ":xparse",
+        "@texlive_texmf__texmf-dist__tex__latex__academicons",
+        "@texlive_texmf__texmf-dist__tex__latex__arydshln",
         "@texlive_texmf__texmf-dist__tex__latex__moderncv",
+        "@texlive_texmf__texmf-dist__tex__latex__multirow",
     ],
     tests = [
         "moderncv_casual_test.tex",
@@ -837,7 +878,7 @@ latex_package(
 
 latex_package(
     name = "nth",
-    srcs = [":genmisc"],
+    srcs = ["@texlive_texmf__texmf-dist__tex__generic__nth"],
     tests = ["nth_test.tex"],
 )
 
@@ -870,7 +911,10 @@ latex_package(
 
 latex_package(
     name = "pgfcore",
-    srcs = [":pgf"],
+    srcs = [
+        ":epstopdf-base",
+        ":pgf",
+    ],
     tests = ["pgfcore_test.tex"],
 )
 
@@ -913,7 +957,7 @@ latex_package(
 
 latex_package(
     name = "ragged2e",
-    srcs = [":ms"],
+    srcs = ["@texlive_texmf__texmf-dist__tex__latex__ragged2e"],
     tests = ["ragged2e_test.tex"],
 )
 
@@ -934,6 +978,7 @@ latex_package(
     srcs = [
         ":amstext",
         ":array",
+        ":color",
         ":expl3",
         ":l3keys2e",
         ":xparse",
@@ -946,20 +991,28 @@ latex_package(
     name = "soul",
     srcs = [
         ":ec",
-        "@texlive_texmf__texmf-dist__tex__latex__soul",
+        "@texlive_texmf__texmf-dist__tex__generic__soul",
     ],
     tests = ["soul_test.tex"],
 )
 
 latex_package(
     name = "soulutf8",
-    srcs = [":graphics_oberdiek"],
+    srcs = [
+        ":soul",
+        "@texlive_texmf__texmf-dist__tex__generic__etexcmds",
+        "@texlive_texmf__texmf-dist__tex__generic__soulutf8",
+    ],
     tests = ["soulutf8_test.tex"],
 )
 
 latex_package(
     name = "soulpos",
-    srcs = [":bezos"],
+    srcs = [
+        ":keyval",
+        ":soulutf8",
+        "@texlive_texmf__texmf-dist__tex__latex__soulpos",
+    ],
     tests = ["soulpos_test.tex"],
 )
 
@@ -1127,6 +1180,7 @@ latex_package(
 latex_package(
     name = "unicode-math",
     srcs = [
+        ":amsmath",
         ":fontspec",
         "@texlive_texmf__texmf-dist__fonts__opentype__public__lm-math",
         "@texlive_texmf__texmf-dist__tex__latex__etoolbox",
@@ -1170,13 +1224,21 @@ latex_package(
     srcs = [
         ":cyrillic",
         ":etoolbox",
+        ":fontspec",
+        ":iftex",
         ":ly1",
         ":psnfss",
         ":times",
+        ":xkeyval",
+        ":xstring",
+        "@texlive_texmf__texmf-dist__fonts__afm__public__xcharter",
         "@texlive_texmf__texmf-dist__fonts__enc__dvips__xcharter",
+        "@texlive_texmf__texmf-dist__fonts__map__dvips__xcharter",
+        "@texlive_texmf__texmf-dist__fonts__opentype__public__xcharter",
         "@texlive_texmf__texmf-dist__fonts__tfm__public__xcharter",
         "@texlive_texmf__texmf-dist__fonts__type1__public__xcharter",
         "@texlive_texmf__texmf-dist__fonts__vf__public__xcharter",
+        "@texlive_texmf__texmf-dist__tex__latex__carlisle",
         "@texlive_texmf__texmf-dist__tex__latex__xcharter",
     ],
     tests = ["xcharter_test.tex"],
@@ -1270,7 +1332,13 @@ latex_package(
 
 latex_package(
     name = "zref-savepos",
-    srcs = [":graphics_oberdiek"],
+    srcs = [
+        ":auxhook",
+        ":iftex",
+        "@texlive_texmf__texmf-dist__tex__generic__etexcmds",
+        "@texlive_texmf__texmf-dist__tex__generic__kvdefinekeys",
+        "@texlive_texmf__texmf-dist__tex__latex__zref",
+    ],
     tests = ["zref-savepos_test.tex"],
 )
 
@@ -1295,15 +1363,6 @@ filegroup(
 )
 
 filegroup(
-    name = "bezos",
-    srcs = [
-        ":keyval",
-        ":soulutf8",
-        "@texlive_texmf__texmf-dist__tex__latex__bezos",
-    ],
-)
-
-filegroup(
     name = "ctablestack",
     srcs = ["@texlive_texmf__texmf-dist__tex__luatex__ctablestack"],
 )
@@ -1318,18 +1377,13 @@ filegroup(
     srcs = ["@texlive_texmf__texmf-dist__fonts__tfm__jknappen__ec"],
 )
 
-filegroup(
-    name = "genmisc",
-    srcs = ["@texlive_texmf__texmf-dist__tex__generic__genmisc"],
-)
-
 # These packages have a cyclic dependency on each other.
 filegroup(
     name = "graphics_oberdiek",
     srcs = [
         ":soul",
-        "@texlive_texmf__texmf-dist__scripts__oberdiek",
         "@texlive_texmf__texmf-dist__tex__generic__oberdiek",
+        "@texlive_texmf__texmf-dist__tex__latex__epstopdf-pkg",
         "@texlive_texmf__texmf-dist__tex__latex__graphics",
         "@texlive_texmf__texmf-dist__tex__latex__graphics-cfg",
         "@texlive_texmf__texmf-dist__tex__latex__graphics-def",
