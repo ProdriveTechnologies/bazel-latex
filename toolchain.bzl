@@ -1,3 +1,7 @@
+"""
+Definitions related to a LaTeX toolchain
+"""
+
 LatexInfo = provider(
     doc = "Information about how to invoke the latex compiler",
     fields = [
@@ -28,43 +32,51 @@ _latex_toolchain_info = rule(
     attrs = {
         "biber": attr.label(
             allow_single_file = True,
-            cfg = "host",
+            cfg = "exec",
             executable = True,
         ),
         "bibtex": attr.label(
             allow_single_file = True,
-            cfg = "host",
+            cfg = "exec",
             executable = True,
         ),
         "gsftopk": attr.label(
             allow_single_file = True,
-            cfg = "host",
+            cfg = "exec",
             executable = True,
         ),
         "kpsewhich": attr.label(
             allow_single_file = True,
-            cfg = "host",
+            cfg = "exec",
             executable = True,
         ),
         "luahbtex": attr.label(
             allow_single_file = True,
-            cfg = "host",
+            cfg = "exec",
             executable = True,
         ),
         "luatex": attr.label(
             allow_single_file = True,
-            cfg = "host",
+            cfg = "exec",
             executable = True,
         ),
     },
     implementation = _latex_toolchain_info_impl,
 )
 
-def latex_toolchain(platform, exec_compatible_with, platform_name_override = None):
-    _name = platform_name_override if platform_name_override != None else platform
+def latex_toolchain(platform, exec_compatible_with, name = None):
+    """
+    Defines a LaTeX toolchain.
+
+    Args:
+      name: optional name for the toolchain, defaults to latex_toolchain_{platform}.
+      platform: name of the platform as named by TeXLive.
+      exec_compatible_with: execution constraints passed to the toolchain.
+    """
+    _toolchain_name = name if name != None else "latex_toolchain_%s" % platform
 
     _latex_toolchain_info(
-        name = "latex_toolchain_info_%s" % _name,
+        name = "%s_info" % _toolchain_name,
         biber = "@texlive_bin__%s//:biber" % platform,
         bibtex = "@texlive_bin__%s//:bibtex" % platform,
         gsftopk = "@texlive_bin__%s//:gsftopk" % platform,
@@ -75,8 +87,8 @@ def latex_toolchain(platform, exec_compatible_with, platform_name_override = Non
     )
 
     native.toolchain(
-        name = "latex_toolchain_%s" % _name,
+        name = _toolchain_name,
         exec_compatible_with = exec_compatible_with,
-        toolchain = ":latex_toolchain_info_%s" % _name,
+        toolchain = ":%s_info" % _toolchain_name,
         toolchain_type = ":latex_toolchain_type",
     )

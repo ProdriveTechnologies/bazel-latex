@@ -19,21 +19,21 @@ latex_toolchain(
 )
 
 latex_toolchain(
+    name = "latex_toolchain_aarch64-darwin",
     exec_compatible_with = [
         "@bazel_tools//platforms:osx",
         "@bazel_tools//platforms:aarch64",
     ],
     platform = "universal-darwin",
-    platform_name_override = "aarch64-darwin",
 )
 
 latex_toolchain(
+    name = "latex_toolchain_x86_64-darwin",
     exec_compatible_with = [
         "@bazel_tools//platforms:osx",
         "@bazel_tools//platforms:x86_64",
     ],
     platform = "universal-darwin",
-    platform_name_override = "x86_64-darwin",
 )
 
 latex_toolchain(
@@ -86,6 +86,7 @@ filegroup(
     visibility = ["//visibility:public"],
 )
 
+# buildifier: disable=native-py
 py_binary(
     name = "tool_wrapper_py",
     srcs = ["tool_wrapper.py"],
