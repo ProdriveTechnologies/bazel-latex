@@ -1,3 +1,7 @@
+"""
+Helpers for built-in packages.
+"""
+
 load("//:latex.bzl", "latex_document")
 
 def latex_package(name, srcs = [], tests = [], tests_deps = []):

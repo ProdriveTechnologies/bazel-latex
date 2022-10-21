@@ -15,7 +15,6 @@ latex_document(
 
 latex_document(
     name = "my_dvi_report",
-    format = "dvi",
     srcs = glob([
         "chapters/*.tex",
     ]) + [
@@ -24,5 +23,6 @@ latex_document(
         "//example/example_class:example_class",
     ],
     cmd_flags = ["--bibtex-cmd=biber"],
+    format = "dvi",
     main = "my_report.tex",
 )

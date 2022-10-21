@@ -1,3 +1,7 @@
+"""
+Definition of all the LaTeX dependencies. Users should call latex_repositories().
+"""
+
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 _TEXLIVE_VERSION = "20220321"
@@ -6588,7 +6592,13 @@ _TEXLIVE_MODULAR_PACKAGES_OTHER = [
     ("texmf/texmf-dist/xindy", "2602383712e3e37a4a623f744c887b47c5916d39b634917c90fa00501a8e3c2d", []),
 ]
 
-def latex_repositories():
+def latex_repositories(name = None):
+    """
+    Load all the dependencies required to compile LaTeX documents.
+
+    Args:
+      name: unused.
+    """
     for path, sha256 in _TEXLIVE_MODULAR_PACKAGES_BIN:
         name = "texlive_%s" % path.replace("/", "__")
         http_archive(

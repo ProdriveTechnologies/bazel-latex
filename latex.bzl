@@ -1,4 +1,14 @@
-LatexOutputInfo = provider(fields = ["format", "file"])
+"""
+Rules to compile LaTeX documents.
+"""
+
+LatexOutputInfo = provider(
+    "Information about the result of a LaTeX compilation.",
+    fields = {
+        "file": "string, e.g. 'foo/bar.pdf'",
+        "format": "string, e.g. 'pdf'",
+    },
+)
 
 def _latex_impl(ctx):
     toolchain = ctx.toolchains["@bazel_latex//:latex_toolchain_type"].latexinfo
@@ -11,7 +21,7 @@ def _latex_impl(ctx):
 
     flags = [
         "--flag=--latex-args=--progname=lualatex --debug-format --output-format={} --shell-escape --jobname={}"
-            .format(ctx.attr.format, ctx.label.name)
+            .format(ctx.attr.format, ctx.label.name),
     ]
     for value in ctx.attr.cmd_flags:
         if "output-format" in value and ctx.attr.format not in value:
@@ -57,11 +67,6 @@ def _latex_impl(ctx):
 
 _latex = rule(
     attrs = {
-        "main": attr.label(
-            allow_single_file = [".tex"],
-            mandatory = True,
-        ),
-        "srcs": attr.label_list(allow_files = True),
         "cmd_flags": attr.string_list(
             allow_empty = True,
             default = [],
@@ -71,14 +76,19 @@ _latex = rule(
             default = "pdf",
             values = ["dvi", "pdf"],
         ),
-        "_tool": attr.label(
-            default = Label("@bazel_latex//:tool_wrapper_py"),
-            executable = True,
-            cfg = "host",
+        "main": attr.label(
+            allow_single_file = [".tex"],
+            mandatory = True,
         ),
+        "srcs": attr.label_list(allow_files = True),
         "_latexrun": attr.label(
             allow_files = True,
             default = "@bazel_latex_latexrun//:latexrun",
+        ),
+        "_tool": attr.label(
+            default = Label("@bazel_latex//:tool_wrapper_py"),
+            executable = True,
+            cfg = "exec",
         ),
     },
     outputs = {"out": "%{name}.%{format}"},
