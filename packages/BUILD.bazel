@@ -117,6 +117,20 @@ latex_package(
     ],
 )
 
+latex_package(
+    name = "beamertheme-metropolis",
+    srcs = [
+        ":beamer",
+        ":fontspec",
+        ":grfext",
+        ":pgfopts",
+        "@texlive_texmf__texmf-dist__tex__latex__beamertheme-metropolis",
+    ],
+    tests = [
+        "beamertheme-metropolis_test.tex",
+    ],
+)
+
 # Package is tested in example PDF
 latex_package(
     name = "biblatex",
@@ -527,6 +541,15 @@ latex_package(
 )
 
 latex_package(
+    name = "grfext",
+    srcs = [
+        ":kvdefinekeys",
+        "@texlive_texmf__texmf-dist__tex__latex__grfext",
+    ],
+    tests = ["grfext_test.tex"],
+)
+
+latex_package(
     name = "hanging",
     srcs = ["@texlive_texmf__texmf-dist__tex__latex__hanging"],
     tests = ["hanging_test.tex"],
@@ -651,6 +674,12 @@ latex_package(
         "@texlive_texmf__texmf-dist__tex__latex__koma-script",
     ],
     tests = ["koma_script_test.tex"],
+)
+
+latex_package(
+    name = "kvdefinekeys",
+    srcs = ["@texlive_texmf__texmf-dist__tex__generic__kvdefinekeys"],
+    tests = ["kvdefinekeys_test.tex"],
 )
 
 latex_package(
