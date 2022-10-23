@@ -6661,6 +6661,15 @@ filegroup(
         url = "https://github.com/aclements/latexrun/archive/38ff6ec2815654513c91f64bdf2a5760c85da26e.tar.gz",
     )
 
+    http_archive(
+        name = "platforms",
+        urls = [
+            "https://mirror.bazel.build/github.com/bazelbuild/platforms/releases/download/0.0.6/platforms-0.0.6.tar.gz",
+            "https://github.com/bazelbuild/platforms/releases/download/0.0.6/platforms-0.0.6.tar.gz",
+        ],
+        sha256 = "5308fc1d8865406a49427ba24a9ab53087f17f5266a7aabbfc28823f3916e1ca",
+    )
+
     native.register_toolchains(
         "@bazel_latex//:latex_toolchain_aarch64-darwin",
         "@bazel_latex//:latex_toolchain_amd64-freebsd",
