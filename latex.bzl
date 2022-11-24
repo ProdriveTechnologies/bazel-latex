@@ -2,6 +2,8 @@
 Rules to compile LaTeX documents.
 """
 
+load("@bazel_latex//:latex_engine_cmds.bzl", "lualatex_engine_cmd_gen")
+
 LatexOutputInfo = provider(
     "Information about the result of a LaTeX compilation.",
     fields = {
@@ -10,54 +12,35 @@ LatexOutputInfo = provider(
     },
 )
 
+def get_engine_cmds_gen(engine_progname):
+    engine_map = {"lualatex": lualatex_engine_cmd_gen}
+    return engine_map[engine_progname]
+
 def _latex_impl(ctx):
     toolchain = ctx.toolchains["@bazel_latex//:latex_toolchain_type"].latexinfo
-    custom_dependencies = []
-    for srcs in ctx.attr.srcs:
-        for file in srcs.files.to_list():
-            if file.dirname not in custom_dependencies:
-                custom_dependencies.append(file.dirname)
-    custom_dependencies = ",".join(custom_dependencies)
 
-    flags = [
-        "--flag=--latex-args=--progname=lualatex --debug-format --output-format={} --shell-escape --jobname={}"
-            .format(ctx.attr.format, ctx.label.name),
+    latex_tool = getattr(toolchain, ctx.attr._engine).files
+    dep_tools = [
+        toolchain.biber.files,
+        toolchain.bibtex.files,
+        toolchain.gsftopk.files,
+        toolchain.kpsewhich.files,
+        toolchain.mktexlsr.files,
+        toolchain.kpsestat.files,
+        toolchain.kpseaccess.files,
     ]
-    for value in ctx.attr.cmd_flags:
-        if "output-format" in value and ctx.attr.format not in value:
-            fail("Value of attr format ({}) conflicts with value of flag {}".format(ctx.attr.format, value))
-        flags.append("--flag=" + value)
+
+    engine_cmds_gen = get_engine_cmds_gen(ctx.attr._progname)
+    engine_cmds = engine_cmds_gen(ctx, dep_tools, latex_tool)
 
     ctx.actions.run(
         mnemonic = "LuaLatex",
         use_default_shell_env = True,
         executable = ctx.executable._tool,
-        arguments = [
-            "--dep-tool=" + toolchain.biber.files.to_list()[0].path,
-            "--dep-tool=" + toolchain.bibtex.files.to_list()[0].path,
-            "--dep-tool=" + toolchain.gsftopk.files.to_list()[0].path,
-            "--dep-tool=" + toolchain.kpsewhich.files.to_list()[0].path,
-            "--dep-tool=" + toolchain.luahbtex.files.to_list()[0].path,
-            "--dep-tool=" + toolchain.luatex.files.to_list()[0].path,
-            "--tool=" + ctx.files._latexrun[0].path,
-            "--flag=--latex-cmd=luahbtex",
-            "--flag=-Wall",
-            "--flag=--debug",
-            "--input=" + ctx.file.main.path,
-            "--tool-output=" + ctx.label.name + ".{}".format(ctx.attr.format),
-            "--output=" + ctx.outputs.out.path,
-            "--inputs=" + custom_dependencies,
-        ] + flags,
+        arguments = engine_cmds,
         inputs = depset(
-            direct = ctx.files.main + ctx.files.srcs + ctx.files._latexrun,
-            transitive = [
-                toolchain.biber.files,
-                toolchain.bibtex.files,
-                toolchain.gsftopk.files,
-                toolchain.kpsewhich.files,
-                toolchain.luahbtex.files,
-                toolchain.luatex.files,
-            ],
+            direct = ctx.files.main + ctx.files.srcs + ctx.files._latexrun + ctx.files.ini_files + ctx.files.font_maps + ctx.files.web2c,
+            transitive = [latex_tool] + dep_tools,
         ),
         outputs = [ctx.outputs.out],
         tools = [ctx.executable._tool],
@@ -71,20 +54,39 @@ _latex = rule(
             allow_empty = True,
             default = [],
         ),
+        "font_maps": attr.label_list(
+            allow_files = True,
+            default = [
+                "@texlive_texmf__texmf-dist__fonts__map__dvips__updmap",
+                "@texlive_texmf__texmf-dist__fonts__map__pdftex__updmap",
+            ],
+        ),
         "format": attr.string(
             doc = "Output file format",
             default = "pdf",
             values = ["dvi", "pdf"],
+        ),
+        "ini_files": attr.label(
+            allow_files = True,
+            default = "@texlive_texmf__texmf-dist__tex__generic__tex-ini-files",
         ),
         "main": attr.label(
             allow_single_file = [".tex"],
             mandatory = True,
         ),
         "srcs": attr.label_list(allow_files = True),
+        "web2c": attr.label(
+            allow_files = True,
+            default = "@texlive_texmf__texmf-dist__web2c",
+        ),
+        # TODO: Suggestion to make _engine public so that the
+        #       user can set their engine of choice
+        "_engine": attr.string(default = "luahbtex"),
         "_latexrun": attr.label(
             allow_files = True,
             default = "@bazel_latex_latexrun//:latexrun",
         ),
+        "_progname": attr.string(default = "lualatex"),
         "_tool": attr.label(
             default = Label("@bazel_latex//:tool_wrapper_py"),
             executable = True,
@@ -99,6 +101,8 @@ _latex = rule(
 def latex_document(name, main, srcs = [], tags = [], cmd_flags = [], format = "pdf"):
     _latex(
         name = name,
+        # TODO: Add a deps field, for adding external deps such
+        #       as core_deps
         srcs = srcs + ["@bazel_latex//:core_dependencies"],
         main = main,
         tags = tags,

@@ -13,10 +13,10 @@ http_archive(
 )
 
 register_toolchains(
-    "//:latex_toolchain_aarch64-darwin",
-    "//:latex_toolchain_amd64-freebsd",
-    "//:latex_toolchain_x86_64-darwin",
-    "//:latex_toolchain_x86_64-linux",
+    "@bazel_latex//:latex_toolchain_aarch64-darwin",
+    "@bazel_latex//:latex_toolchain_amd64-freebsd",
+    "@bazel_latex//:latex_toolchain_x86_64-darwin",
+    "@bazel_latex//:latex_toolchain_x86_64-linux",
 )
 
 load("@bazel_latex//:repositories.bzl", "latex_repositories")

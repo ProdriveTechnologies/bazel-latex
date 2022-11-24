@@ -1,29 +1,29 @@
 """
-Definition of all the LaTeX dependencies.
+    The TeXLive distribution repositorties.
 """
 
-TEXLIVE_VERSION = "20220321"
+TEXLIVE_VERSION_2022 = "20220321"
 
-TEXLIVE_MODULAR_PACKAGES_BIN = [
-    ("bin/aarch64-linux", "e9d0a9c0e310c6f975e1df940fa94bceebd7a91acb1fe54d2bda147a7613baed"),
-    ("bin/amd64-freebsd", "8b8274e7dfb5e10705ad6046dda45fcb39d2d72d9e56bc0f17013003299143f2"),
-    ("bin/amd64-netbsd", "f5a831427f4e8d7f8e7d16077fb66dd436f9968cdb29835febe0c5394acaa98f"),
-    ("bin/armhf-linux", "ab55c24beabfee98f5a07917838ef8d8ea6ea18b1fcc9cee50e1ee7810865162"),
-    ("bin/i386-cygwin", "15f507cad7cec7331445e1d7af026773fa78c9c76ea53870ccdc2cbd4facf38c"),
-    ("bin/i386-freebsd", "2962d4c413b37a267f5d43c234e20ad83dba6476bc43132552b94b28c6c418e8"),
-    ("bin/i386-linux", "1ff64574d46269dd5b26c62e11c754e5057e2e823d98003e3854eac08d7fa2dd"),
-    ("bin/i386-netbsd", "4247f60ddad22758c99047e85c0155bcab2eb3f77d9607f5a9c8aee6b1f61e35"),
-    ("bin/i386-solaris", "15ff8f4841239322d73664497dd94b725d3cd6690fe78d90ff557b965496fec9"),
-    ("bin/universal-darwin", "3af02eb69ab7142570cde69757e16098066ff78a7667b602df9c1e1fbaa7bf48"),
-    ("bin/win32", "0f14c1aad3223e2a2a02d10d0265e185dc17b6f78b0e24acb2dbcbc84205a92e"),
-    ("bin/x86_64-cygwin", "3e0e42f9f2a2e24b43155cf592565eb5b008c4d5d12d0822402f389663808cfb"),
-    ("bin/x86_64-darwinlegacy", "d0427834a7dc109b38d2ac3cc714a998f833083fd996731187aa484097e226fc"),
-    ("bin/x86_64-linux", "840374f0f1f31a7763206e8925f2f0894a8599dffb17cdd51481f20b1e3533a3"),
-    ("bin/x86_64-linuxmusl", "8b46a33fb1e34d7208fad26f6832db897350fbba4e712b2eeae468994ab53168"),
-    ("bin/x86_64-solaris", "c7f8e1d662b794053fc8a06776a73b04e072b939bd3f7c4c3308f63ab9b98eb9"),
+TEXLIVE_MODULAR_PACKAGES_BIN_2022 = [
+    ("bin/aarch64-linux", "e9d0a9c0e310c6f975e1df940fa94bceebd7a91acb1fe54d2bda147a7613baed", []),
+    ("bin/amd64-freebsd", "8b8274e7dfb5e10705ad6046dda45fcb39d2d72d9e56bc0f17013003299143f2", []),
+    ("bin/amd64-netbsd", "f5a831427f4e8d7f8e7d16077fb66dd436f9968cdb29835febe0c5394acaa98f", []),
+    ("bin/armhf-linux", "ab55c24beabfee98f5a07917838ef8d8ea6ea18b1fcc9cee50e1ee7810865162", []),
+    ("bin/i386-cygwin", "15f507cad7cec7331445e1d7af026773fa78c9c76ea53870ccdc2cbd4facf38c", []),
+    ("bin/i386-freebsd", "2962d4c413b37a267f5d43c234e20ad83dba6476bc43132552b94b28c6c418e8", []),
+    ("bin/i386-linux", "1ff64574d46269dd5b26c62e11c754e5057e2e823d98003e3854eac08d7fa2dd", []),
+    ("bin/i386-netbsd", "4247f60ddad22758c99047e85c0155bcab2eb3f77d9607f5a9c8aee6b1f61e35", []),
+    ("bin/i386-solaris", "15ff8f4841239322d73664497dd94b725d3cd6690fe78d90ff557b965496fec9", []),
+    ("bin/universal-darwin", "3af02eb69ab7142570cde69757e16098066ff78a7667b602df9c1e1fbaa7bf48", []),
+    ("bin/win32", "0f14c1aad3223e2a2a02d10d0265e185dc17b6f78b0e24acb2dbcbc84205a92e", []),
+    ("bin/x86_64-cygwin", "3e0e42f9f2a2e24b43155cf592565eb5b008c4d5d12d0822402f389663808cfb", []),
+    ("bin/x86_64-darwinlegacy", "d0427834a7dc109b38d2ac3cc714a998f833083fd996731187aa484097e226fc", []),
+    ("bin/x86_64-linux", "840374f0f1f31a7763206e8925f2f0894a8599dffb17cdd51481f20b1e3533a3", []),
+    ("bin/x86_64-linuxmusl", "8b46a33fb1e34d7208fad26f6832db897350fbba4e712b2eeae468994ab53168", []),
+    ("bin/x86_64-solaris", "c7f8e1d662b794053fc8a06776a73b04e072b939bd3f7c4c3308f63ab9b98eb9", []),
 ]
 
-TEXLIVE_MODULAR_PACKAGES_OTHER = [
+TEXLIVE_MODULAR_PACKAGES_OTHER_2022 = [
     ("extra/tlpkg/TeXLive", "1e220578cbe21cca2175e68c84e0eefdf64c2ca71ce157e505b23940a337a789", []),
     ("texmf/texmf-dist/asymptote", "a9a1819f80f75d2c3dfe34b395215fb95b5bfc224c7ab5794f027b788d835334", []),
     ("texmf/texmf-dist/bibtex/bib/abntex2", "c14b514b9e891c4524a1f35f4b7eb2ef75f45c5ece7f41dfb6fd9bb950e29a97", []),
@@ -2522,9 +2522,9 @@ TEXLIVE_MODULAR_PACKAGES_OTHER = [
     ("texmf/texmf-dist/scripts/texdoc", "aa1d72d100bfb8efee9d21bc429f30393d0163beb18ec96d984526f92551a95e", []),
     ("texmf/texmf-dist/scripts/texdoctk", "e5a4f870533d11f50651723b1555c810a8853de339731283f5bf3e0923c8fe43", []),
     ("texmf/texmf-dist/scripts/texfot", "99bfeb3a342768e2e544cf0c8f22fc4e10934c20979d57452d55e11cff5e2a9e", []),
+    ("texmf/texmf-dist/scripts/texlive", "4107d09c29207f3e7dd23d2d66a34b667b822638119da9c9481ab49537e1459c", []),
     ("texmf/texmf-dist/scripts/texlive-extra", "a4e4df3119066c9e01247f7d18dd71238e6c5cbe7db500b82df869c19c2dc47a", []),
     ("texmf/texmf-dist/scripts/texliveonfly", "19aa5ec68d6cb8d7a79b0fbbbeb890a2c8bc4df0d51da7c2222695f9c6663b47", []),
-    ("texmf/texmf-dist/scripts/texlive", "4107d09c29207f3e7dd23d2d66a34b667b822638119da9c9481ab49537e1459c", []),
     ("texmf/texmf-dist/scripts/texloganalyser", "3c87696e4b338b36ba0db12dad95e524cdc9d67057d4c6c9b0a8df5fa8373207", []),
     ("texmf/texmf-dist/scripts/texlogfilter", "0064280f690dc3085361ce9f8e43000254ac2a39ed5f80af5cff77dd94ca8e3d", []),
     ("texmf/texmf-dist/scripts/texlogsieve", "8a231e4fef5394d5da306bd29701a5c506ac6348dc2565fc15e12bac6ae10607", []),

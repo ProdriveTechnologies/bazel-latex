@@ -1,47 +1,34 @@
-
 """
 Setup of all the LaTeX dependencies.
 """
 
+load(
+    "@bazel_latex//:texlive_2022_repos.bzl",
+    "TEXLIVE_MODULAR_PACKAGES_BIN_2022",
+    "TEXLIVE_MODULAR_PACKAGES_OTHER_2022",
+    "TEXLIVE_VERSION_2022",
+)
+load("@bazel_latex//:version.bzl", "texlive_version")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-load("@bazel_latex//:texlive_2022_repos.bzl", "TEXLIVE_VERSION", "TEXLIVE_MODULAR_PACKAGES_BIN", "TEXLIVE_MODULAR_PACKAGES_OTHER")
 
+bin_build_file = """
+# {}
 
-def latex_repositories(name = None):
-    """
-    Load all the dependencies required to compile LaTeX documents.
-
-    Args:
-      name: unused.
-    """
-    for path, sha256 in TEXLIVE_MODULAR_PACKAGES_BIN:
-        name = "texlive_%s" % path.replace("/", "__")
-        http_archive(
-            name = name,
-            build_file_content = """
 exports_files(
-    [
-        "biber",
-        "bibtex",
-        "kpsewhich",
-        "gsftopk",
-        "luahbtex",
-        "luatex",
-    ],
+    glob(["*.*", "*"]),
     visibility = ["//visibility:public"],
 )
-""",
-            sha256 = sha256,
-            url = "https://github.com/ProdriveTechnologies/texlive-modular/releases/download/%s/texlive-%s-%s.tar.xz" % (TEXLIVE_VERSION, TEXLIVE_VERSION, path.replace("/", "--")),
-        )
+"""
 
-    for path, sha256, patches in TEXLIVE_MODULAR_PACKAGES_OTHER:
-        name = "texlive_%s" % path.replace("/", "__")
-        http_archive(
-            name = name,
-            build_file_content = """
+other_build_file = """
+
+exports_files(
+    glob(["*.*", "*"]),
+    visibility = ["//visibility:public"],
+)
+
 filegroup(
-    name = "%s",
+    name = "{}",
     srcs = glob(
         include = ["**"],
         exclude = [
@@ -51,11 +38,64 @@ filegroup(
     ),
     visibility = ["//visibility:public"],
 )
-""" % name,
-            patches = patches,
-            sha256 = sha256,
-            url = "https://github.com/ProdriveTechnologies/texlive-modular/releases/download/%s/texlive-%s-%s.tar.xz" % (TEXLIVE_VERSION, TEXLIVE_VERSION, path.replace("/", "--")),
-        )
+"""
+
+# This allows us to append versions and keep mutliple version alive instead of
+# forcing users to use an older version of this repo just to use and older
+# version of latex.
+LATEX_DIST = {
+    TEXLIVE_VERSION_2022: struct(
+        bin = TEXLIVE_MODULAR_PACKAGES_BIN_2022,
+        other = TEXLIVE_MODULAR_PACKAGES_OTHER_2022,
+    ),
+    #TEXLIVE_VERSION_2023: struct(...,
+    #TEXLIVE_VERSION_40000: struct(...,
+}
+
+def download_pkg_archive(build_file_content, version, path, sha256, patches = [], patch_cmds = []):
+    """
+    Helper function for downloads of external dependencies.
+
+    Args:
+      build_file_content: The build file content
+      version: The version of the toolchain to use
+      path: The path to use
+      sha256: The checksum to use
+      patches: The optional patches to apply
+      patch_cmds: The optional patch commands to apply
+    """
+    modular_url_stem = "https://github.com/ProdriveTechnologies/texlive-modular"
+    modular_url = "/releases/download/%s/texlive-%s-%s.tar.xz"
+    name = "texlive_%s" % path.replace("/", "__")
+    http_archive(
+        name = name,
+        build_file_content = build_file_content.format(name),
+        patches = patches,
+        patch_cmds = patch_cmds,
+        sha256 = sha256,
+        url = modular_url_stem + modular_url % (version, version, path.replace("/", "--")),
+    )
+
+def latex_repositories(version = TEXLIVE_VERSION_2022):
+    """
+    Load all the dependencies required to compile LaTeX documents.
+
+    Args:
+      version: version of texlive. See the LATEX_DIST variable.
+    """
+
+    if version not in LATEX_DIST:
+        fail("Available texlive dists are: {}".format(LATEX_DIST.keys()))
+    pkgs = LATEX_DIST[version]
+
+    other = [ent[0] for ent in pkgs.other]
+    texlive_version(name = "texlive_version", version = ":../../".join(other))
+
+    for path, sha256, patches in pkgs.bin:
+        download_pkg_archive(bin_build_file, version, path, sha256, patches)
+
+    for path, sha256, patches in pkgs.other:
+        download_pkg_archive(other_build_file, version, path, sha256, patches)
 
     http_archive(
         name = "bazel_latex_latexrun",
@@ -83,11 +123,4 @@ filegroup(
             "https://github.com/bazelbuild/platforms/releases/download/0.0.6/platforms-0.0.6.tar.gz",
         ],
         sha256 = "5308fc1d8865406a49427ba24a9ab53087f17f5266a7aabbfc28823f3916e1ca",
-    )
-
-    native.register_toolchains(
-        "@bazel_latex//:latex_toolchain_aarch64-darwin",
-        "@bazel_latex//:latex_toolchain_amd64-freebsd",
-        "@bazel_latex//:latex_toolchain_x86_64-darwin",
-        "@bazel_latex//:latex_toolchain_x86_64-linux",
     )
