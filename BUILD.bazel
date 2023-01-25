@@ -1,7 +1,6 @@
 load(":toolchain.bzl", "latex_toolchain")
 
 exports_files([
-    "tool_wrapper.py",
     "view_output.sh",
 ])
 
@@ -47,7 +46,6 @@ latex_toolchain(
 filegroup(
     name = "core_dependencies",
     srcs = [
-        "@bazel_latex//:tool_wrapper_py",
         "@texlive_extra__tlpkg__TeXLive",
         "@texlive_texmf__texmf-dist__fonts__enc__dvips__base",
         "@texlive_texmf__texmf-dist__fonts__enc__dvips__cm-super",
@@ -80,13 +78,5 @@ filegroup(
         "@texlive_texmf__texmf-dist__tex__luatex__luaotfload",
         "@texlive_texmf__texmf-dist__web2c",
     ],
-    visibility = ["//visibility:public"],
-)
-
-# buildifier: disable=native-py
-py_binary(
-    name = "tool_wrapper_py",
-    srcs = ["tool_wrapper.py"],
-    main = "tool_wrapper.py",
     visibility = ["//visibility:public"],
 )

@@ -9,7 +9,7 @@ latex_document(
         "references.bib",
         "//example/example_class:example_class",
     ],
-    cmd_flags = ["--bibtex-cmd=biber"],
+    bib_tool = "biber",  # Is the default
     main = "my_report.tex",
 )
 
@@ -22,7 +22,6 @@ latex_document(
         "references.bib",
         "//example/example_class:example_class",
     ],
-    cmd_flags = ["--bibtex-cmd=biber"],
     format = "dvi",
     main = "my_report.tex",
 )
