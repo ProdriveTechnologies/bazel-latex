@@ -30,7 +30,7 @@ http_archive(
     patches = ["some_patch.patch"], % Optional
 )
 
-load("@bazel_latex//:texlive_2022_repos.bzl", "latex_repositories")
+load("@bazel_latex//:repositories.bzl", "latex_repositories")
 
 latex_repositories()
 ```

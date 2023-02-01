@@ -19,6 +19,6 @@ register_toolchains(
     "//:latex_toolchain_x86_64-linux",
 )
 
-load("@bazel_latex//:texlive_2022_repos.bzl", "latex_repositories")
+load("@bazel_latex//:repositories.bzl", "latex_repositories")
 
 latex_repositories()

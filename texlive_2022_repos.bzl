@@ -1,12 +1,10 @@
 """
-Definition of all the LaTeX dependencies. Users should call latex_repositories().
+Definition of all the LaTeX dependencies.
 """
 
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+TEXLIVE_VERSION = "20220321"
 
-_TEXLIVE_VERSION = "20220321"
-
-_TEXLIVE_MODULAR_PACKAGES_BIN = [
+TEXLIVE_MODULAR_PACKAGES_BIN = [
     ("bin/aarch64-linux", "e9d0a9c0e310c6f975e1df940fa94bceebd7a91acb1fe54d2bda147a7613baed"),
     ("bin/amd64-freebsd", "8b8274e7dfb5e10705ad6046dda45fcb39d2d72d9e56bc0f17013003299143f2"),
     ("bin/amd64-netbsd", "f5a831427f4e8d7f8e7d16077fb66dd436f9968cdb29835febe0c5394acaa98f"),
@@ -25,7 +23,7 @@ _TEXLIVE_MODULAR_PACKAGES_BIN = [
     ("bin/x86_64-solaris", "c7f8e1d662b794053fc8a06776a73b04e072b939bd3f7c4c3308f63ab9b98eb9"),
 ]
 
-_TEXLIVE_MODULAR_PACKAGES_OTHER = [
+TEXLIVE_MODULAR_PACKAGES_OTHER = [
     ("extra/tlpkg/TeXLive", "1e220578cbe21cca2175e68c84e0eefdf64c2ca71ce157e505b23940a337a789", []),
     ("texmf/texmf-dist/asymptote", "a9a1819f80f75d2c3dfe34b395215fb95b5bfc224c7ab5794f027b788d835334", []),
     ("texmf/texmf-dist/bibtex/bib/abntex2", "c14b514b9e891c4524a1f35f4b7eb2ef75f45c5ece7f41dfb6fd9bb950e29a97", []),
@@ -6591,88 +6589,3 @@ _TEXLIVE_MODULAR_PACKAGES_OTHER = [
     ("texmf/texmf-dist/xdvi", "09577152dd6b0fbe844d294eef44e783ab5bd72e57bddaa71d4859a304b551b5", []),
     ("texmf/texmf-dist/xindy", "2602383712e3e37a4a623f744c887b47c5916d39b634917c90fa00501a8e3c2d", []),
 ]
-
-def latex_repositories(name = None):
-    """
-    Load all the dependencies required to compile LaTeX documents.
-
-    Args:
-      name: unused.
-    """
-    for path, sha256 in _TEXLIVE_MODULAR_PACKAGES_BIN:
-        name = "texlive_%s" % path.replace("/", "__")
-        http_archive(
-            name = name,
-            build_file_content = """
-exports_files(
-    [
-        "biber",
-        "bibtex",
-        "kpsewhich",
-        "gsftopk",
-        "luahbtex",
-        "luatex",
-    ],
-    visibility = ["//visibility:public"],
-)
-""",
-            sha256 = sha256,
-            url = "https://github.com/ProdriveTechnologies/texlive-modular/releases/download/%s/texlive-%s-%s.tar.xz" % (_TEXLIVE_VERSION, _TEXLIVE_VERSION, path.replace("/", "--")),
-        )
-
-    for path, sha256, patches in _TEXLIVE_MODULAR_PACKAGES_OTHER:
-        name = "texlive_%s" % path.replace("/", "__")
-        http_archive(
-            name = name,
-            build_file_content = """
-filegroup(
-    name = "%s",
-    srcs = glob(
-        include = ["**"],
-        exclude = [
-            "BUILD.bazel",
-            "WORKSPACE",
-        ],
-    ),
-    visibility = ["//visibility:public"],
-)
-""" % name,
-            patches = patches,
-            sha256 = sha256,
-            url = "https://github.com/ProdriveTechnologies/texlive-modular/releases/download/%s/texlive-%s-%s.tar.xz" % (_TEXLIVE_VERSION, _TEXLIVE_VERSION, path.replace("/", "--")),
-        )
-
-    http_archive(
-        name = "bazel_latex_latexrun",
-        build_file_content = "exports_files([\"latexrun\"])",
-        patches = [
-            "@bazel_latex//:patches/latexrun-force-colors",
-            "@bazel_latex//:patches/latexrun-pull-21",
-            "@bazel_latex//:patches/latexrun-pull-47",
-            "@bazel_latex//:patches/latexrun-pull-52",
-            "@bazel_latex//:patches/latexrun-pull-61",
-            "@bazel_latex//:patches/latexrun-pull-62",
-        ],
-        patch_cmds = [
-            "chmod +x latexrun",
-        ],
-        sha256 = "4e1512fde5a05d1249fd6b4e6610cdab8e14ddba82a7cbb58dc7d5c0ba468c2a",
-        strip_prefix = "latexrun-38ff6ec2815654513c91f64bdf2a5760c85da26e",
-        url = "https://github.com/aclements/latexrun/archive/38ff6ec2815654513c91f64bdf2a5760c85da26e.tar.gz",
-    )
-
-    http_archive(
-        name = "platforms",
-        urls = [
-            "https://mirror.bazel.build/github.com/bazelbuild/platforms/releases/download/0.0.6/platforms-0.0.6.tar.gz",
-            "https://github.com/bazelbuild/platforms/releases/download/0.0.6/platforms-0.0.6.tar.gz",
-        ],
-        sha256 = "5308fc1d8865406a49427ba24a9ab53087f17f5266a7aabbfc28823f3916e1ca",
-    )
-
-    native.register_toolchains(
-        "@bazel_latex//:latex_toolchain_aarch64-darwin",
-        "@bazel_latex//:latex_toolchain_amd64-freebsd",
-        "@bazel_latex//:latex_toolchain_x86_64-darwin",
-        "@bazel_latex//:latex_toolchain_x86_64-linux",
-    )
