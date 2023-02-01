@@ -30,7 +30,7 @@ http_archive(
     patches = ["some_patch.patch"], % Optional
 )
 
-load("@bazel_latex//:repositories.bzl", "latex_repositories")
+load("@bazel_latex//:texlive_2022_repos.bzl", "latex_repositories")
 
 latex_repositories()
 ```
@@ -121,7 +121,7 @@ If the desired package to use is not available through bazel-latex, but is
 available in TeX Live, then it is possible to patch `BUILD.bazel` in
 `/packages` to add support for the desired package locally.
 
-Therefore, clone bazel-latex locally, and make the desired changes to the 
+Therefore, clone bazel-latex locally, and make the desired changes to the
 packages build file. Then, put the output of the diff in `some_patch.patch`,
 and update your `WORKSPACE` accordingly as shown below.
 
