@@ -9,8 +9,11 @@ LatexInfo = provider(
         "bibtex",
         "gsftopk",
         "kpsewhich",
+        "kpsestat",
         "luahbtex",
         "luatex",
+        "mktexlsr",
+        "kpseaccess",
     ],
 )
 
@@ -22,8 +25,11 @@ def _latex_toolchain_info_impl(ctx):
                 bibtex = ctx.attr.bibtex,
                 gsftopk = ctx.attr.gsftopk,
                 kpsewhich = ctx.attr.kpsewhich,
+                kpsestat = ctx.attr.kpsestat,
                 luahbtex = ctx.attr.luahbtex,
                 luatex = ctx.attr.luatex,
+                mktexlsr = ctx.attr.mktexlsr,
+                kpseaccess = ctx.attr.kpseaccess,
             ),
         ),
     ]
@@ -45,6 +51,16 @@ _latex_toolchain_info = rule(
             cfg = "exec",
             executable = True,
         ),
+        "kpseaccess": attr.label(
+            allow_single_file = True,
+            cfg = "exec",
+            executable = True,
+        ),
+        "kpsestat": attr.label(
+            allow_single_file = True,
+            cfg = "exec",
+            executable = True,
+        ),
         "kpsewhich": attr.label(
             allow_single_file = True,
             cfg = "exec",
@@ -56,6 +72,11 @@ _latex_toolchain_info = rule(
             executable = True,
         ),
         "luatex": attr.label(
+            allow_single_file = True,
+            cfg = "exec",
+            executable = True,
+        ),
+        "mktexlsr": attr.label(
             allow_single_file = True,
             cfg = "exec",
             executable = True,
@@ -75,14 +96,18 @@ def latex_toolchain(platform, exec_compatible_with, name = None):
     """
     _toolchain_name = name if name != None else "latex_toolchain_%s" % platform
 
+    stem = "@texlive_bin__" + platform + "//:"
     _latex_toolchain_info(
         name = "%s_info" % _toolchain_name,
-        biber = "@texlive_bin__%s//:biber" % platform,
-        bibtex = "@texlive_bin__%s//:bibtex" % platform,
-        gsftopk = "@texlive_bin__%s//:gsftopk" % platform,
-        kpsewhich = "@texlive_bin__%s//:kpsewhich" % platform,
-        luahbtex = "@texlive_bin__%s//:luahbtex" % platform,
-        luatex = "@texlive_bin__%s//:luatex" % platform,
+        biber = stem + "biber",
+        bibtex = stem + "bibtex",
+        gsftopk = stem + "gsftopk",
+        kpseaccess = stem + "kpseaccess",
+        kpsestat = stem + "kpsestat",
+        kpsewhich = stem + "kpsewhich",
+        luahbtex = stem + "luahbtex",
+        luatex = stem + "luatex",
+        mktexlsr = "@texlive_texmf__texmf-dist__scripts__texlive//:" + "mktexlsr",
         visibility = ["//visibility:public"],
     )
 
