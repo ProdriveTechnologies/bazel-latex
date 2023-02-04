@@ -7,6 +7,7 @@ LatexInfo = provider(
     fields = [
         "biber",
         "bibtex",
+        "dvisvgm",
         "gsftopk",
         "kpsewhich",
         "kpsestat",
@@ -23,6 +24,7 @@ def _latex_toolchain_info_impl(ctx):
             latexinfo = LatexInfo(
                 biber = ctx.attr.biber,
                 bibtex = ctx.attr.bibtex,
+                dvisvgm = ctx.attr.dvisvgm,
                 gsftopk = ctx.attr.gsftopk,
                 kpsewhich = ctx.attr.kpsewhich,
                 kpsestat = ctx.attr.kpsestat,
@@ -42,6 +44,11 @@ _latex_toolchain_info = rule(
             executable = True,
         ),
         "bibtex": attr.label(
+            allow_single_file = True,
+            cfg = "exec",
+            executable = True,
+        ),
+        "dvisvgm": attr.label(
             allow_single_file = True,
             cfg = "exec",
             executable = True,
@@ -101,6 +108,7 @@ def latex_toolchain(platform, exec_compatible_with, name = None):
         name = "%s_info" % _toolchain_name,
         biber = stem + "biber",
         bibtex = stem + "bibtex",
+        dvisvgm = stem + "dvisvgm",
         gsftopk = stem + "gsftopk",
         kpseaccess = stem + "kpseaccess",
         kpsestat = stem + "kpsestat",

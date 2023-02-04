@@ -22,3 +22,31 @@ register_toolchains(
 load("@bazel_latex//:repositories.bzl", "latex_repositories")
 
 latex_repositories()
+
+# Needed for building ghostscript
+# Which is needed by dvisvgm,
+# dvisvgm is part of the texlive toolchain,
+# but cannot produce correct svg files without dynamically
+# linking to ghostscript.
+load("@rules_foreign_cc//foreign_cc:repositories.bzl", "rules_foreign_cc_dependencies")
+
+rules_foreign_cc_dependencies()
+
+# mac os shared lib was difficult to build via foreign rules so as a temporary
+# solution we provide it as a precompiled artifact.
+# Consider making it available via bazel_latex binaries repo instead
+http_archive(
+    name = "ghostscript_macos",
+    build_file_content = """
+filegroup(
+    name = "libgs_macos",
+    srcs = glob(["*/*"]),
+    target_compatible_with = ["@platforms//os:osx"],
+    visibility = ["//visibility:public"],
+)
+""",
+    sha256 = "56b480ebdf34000eac4a29e108ce6384858941d892fd69e604d90585aaae4c94",
+    urls = [
+        "https://github.com/solsjo/rules_latex_deps/releases/download/v0.9.4/rules_latex_deps_macos-latest.zip",
+    ],
+)

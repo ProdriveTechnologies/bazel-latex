@@ -1,3 +1,4 @@
+load("@rules_python//python:defs.bzl", "py_binary")
 load(":toolchain.bzl", "latex_toolchain")
 
 exports_files([
@@ -78,5 +79,20 @@ filegroup(
         "@texlive_texmf__texmf-dist__tex__luatex__luaotfload",
         "@texlive_texmf__texmf-dist__web2c",
     ],
+    visibility = ["//visibility:public"],
+)
+
+filegroup(
+    name = "ghostscript_dependencies",
+    srcs = [
+        "@texlive_texmf__texmf-dist__dvips__base",
+        "@texlive_texmf__texmf-dist__dvips__l3backend",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+py_binary(
+    name = "dvi_sub",
+    srcs = ["dvi_sub.py"],
     visibility = ["//visibility:public"],
 )

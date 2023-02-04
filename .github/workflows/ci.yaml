@@ -26,7 +26,7 @@ jobs:
           - "packages"
         platform:
           - macos-latest
-
+          - ubuntu-latest
 
     runs-on: ${{ matrix.platform }}
 
@@ -43,4 +43,5 @@ jobs:
       - name: Build ${{ matrix.folder }}
         env:
           XDG_CACHE_HOME: ~/.cache/bazel-repo
-        run: bazel build //${{ matrix.folder }}:all
+        run: |
+          bazel build //${{ matrix.folder }}:all

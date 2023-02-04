@@ -1,0 +1,24 @@
+load("@rules_foreign_cc//foreign_cc:defs.bzl", "configure_make")
+
+configure_make(
+    name = "lib_ghost_script_configure_linux",
+    autoreconf = True,
+    autoreconf_options = ["-fi"],
+    configure_in_place = True,
+    install_prefix = "output",
+    lib_source = "@ghost_script_source//:all_srcs",
+    # libgs compilation currently fails to build on mac os x latest
+    out_shared_libs = ["libgs.so"],
+    target_compatible_with = ["@platforms//os:linux"],
+    targets = [
+        "so",
+        "soinstall",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+filegroup(
+    name = "libgs",
+    srcs = [":lib_ghost_script_configure_linux"],
+    visibility = ["//visibility:public"],
+)

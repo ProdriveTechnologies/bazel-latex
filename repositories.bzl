@@ -129,3 +129,26 @@ py_binary(
         ],
         sha256 = "5308fc1d8865406a49427ba24a9ab53087f17f5266a7aabbfc28823f3916e1ca",
     )
+
+    http_archive(
+        name = "rules_foreign_cc",
+        sha256 = "2a4d07cd64b0719b39a7c12218a3e507672b82a97b98c6a89d38565894cf7c51",
+        strip_prefix = "rules_foreign_cc-0.9.0",
+        url = "https://github.com/bazelbuild/rules_foreign_cc/archive/refs/tags/0.9.0.tar.gz",
+    )
+
+    _ALL_CONTENT = """\
+filegroup(
+    name = "all_srcs",
+    srcs = glob(["**"]),
+    visibility = ["//visibility:public"],
+)
+"""
+
+    http_archive(
+        name = "ghost_script_source",
+        sha256 = "6bf362286e359e31f934e5aad49db3d88a2382a3cac44b40572861ee5c536664",
+        strip_prefix = "ghostpdl-9.56.1",
+        build_file_content = _ALL_CONTENT,
+        url = "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9561/ghostpdl-9.56.1.tar.gz",
+    )
