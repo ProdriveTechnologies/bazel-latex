@@ -99,7 +99,12 @@ def latex_repositories(version = TEXLIVE_VERSION_2022):
 
     http_archive(
         name = "bazel_latex_latexrun",
-        build_file_content = "exports_files([\"latexrun\"])",
+        build_file_content = """
+py_binary(
+    name = "latexrun",
+    srcs = ["latexrun.py"],
+    visibility = ["//visibility:public"],
+)""",
         patches = [
             "@bazel_latex//:patches/latexrun-force-colors",
             "@bazel_latex//:patches/latexrun-pull-21",
@@ -109,7 +114,7 @@ def latex_repositories(version = TEXLIVE_VERSION_2022):
             "@bazel_latex//:patches/latexrun-pull-62",
         ],
         patch_cmds = [
-            "chmod +x latexrun",
+            "mv latexrun latexrun.py",
         ],
         sha256 = "4e1512fde5a05d1249fd6b4e6610cdab8e14ddba82a7cbb58dc7d5c0ba468c2a",
         strip_prefix = "latexrun-38ff6ec2815654513c91f64bdf2a5760c85da26e",
