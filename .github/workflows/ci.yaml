@@ -33,15 +33,23 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Mount bazel caches
+        id: bazel_cache
         uses: actions/cache@v3
         with:
           path: |
             "~/.cache/bazel"
             "~/.cache/bazel-repo"
-          key: bazel-cache-${{ hashFiles('**/BUILD.bazel', '**/*.bzl', 'WORKSPACE') }}
-          restore-keys: bazel-cache-
+          key: ${{matrix.platform}}-bazel-cache-${{ hashFiles('**/BUILD.bazel', '**/*.bzl', 'WORKSPACE') }}
+          restore-keys: ${{matrix.platform}}-bazel-cache-
       - name: Build ${{ matrix.folder }}
         env:
           XDG_CACHE_HOME: ~/.cache/bazel-repo
+        if: ${{matrix.folder == 'packages'}}
+        run: |
+          bazel build //${{ matrix.folder }}:all
+      - name: Build ${{ matrix.folder }}
+        env:
+          XDG_CACHE_HOME: ~/.cache/bazel-repo
+        if: ${{matrix.folder == 'example'}}
         run: |
           bazel build //${{ matrix.folder }}:all
