@@ -44,12 +44,11 @@ jobs:
       - name: Build ${{ matrix.folder }}
         env:
           XDG_CACHE_HOME: ~/.cache/bazel-repo
-        if: ${{matrix.folder == 'packages'}}
         run: |
           bazel build //${{ matrix.folder }}:all
-      - name: Build ${{ matrix.folder }}
+      - name: Test
+        if: ${{matrix.folder == 'example'}}
         env:
           XDG_CACHE_HOME: ~/.cache/bazel-repo
-        if: ${{matrix.folder == 'example'}}
         run: |
-          bazel build //${{ matrix.folder }}:all
+          bazel test //${{ matrix.folder }}/test/... --verbose_failures --test_output=streamed
