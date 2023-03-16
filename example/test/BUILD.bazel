@@ -1,0 +1,27 @@
+load("@py_deps//:requirements.bzl", "requirement")
+load("@rules_python//python:defs.bzl", "py_test")
+
+filegroup(
+    name = "rule_output",
+    srcs = [
+        "@bazel_latex//example:my_report",
+        "@bazel_latex//example:my_svg_report_from_dvi",
+        "@bazel_latex//example:my_svg_report_from_pdf",
+    ],
+)
+
+py_test(
+    name = "test_examples",
+    srcs = ["test_examples.py"],
+    data = [
+        ":rule_output",
+        "@bazel_latex//example:my_report.tex",
+    ],
+    deps = [
+        requirement("beautifulsoup4"),
+        requirement("lxml"),
+        requirement("pypdf"),
+        requirement("reportlab"),
+        requirement("svglib"),
+    ],
+)

@@ -3,13 +3,14 @@ This module contains the specializations of commands
 depending on tool or engine.
 """
 
-def add_flags(ctx, fmt, bib_tool):
+def add_flags(ctx, fmt, output_path, bib_tool):
     """
     Set flags for supplying arguments to latexrun and the engine.
 
     Args:
       ctx: For accessing the flags
       fmt: Format file
+      output_path: path of the output artifact
       bib_tool: bib tool of choice
 
     Returns:
@@ -34,7 +35,7 @@ def add_flags(ctx, fmt, bib_tool):
                 "conflicts with value of flag {}".format(value),
             )
         flags.append(value)
-    dir_count = len(ctx.outputs.out.path.split("/")) - 1
+    dir_count = len(output_path.split("/")) - 1
     dir_pos = dir_count * "../"
     flags.append("--bibtex-cmd=" + dir_pos + bib_tool.path)
     flags.append("--bibtex-args=" + "--input-directory=" + dir_pos)
@@ -79,21 +80,57 @@ def lualatex_engine_cmd_gen(ctx, bib_tool, latex_tool):
     )
     args.add("-Wall")
 
-    args.add("-O=" + ctx.outputs.out.dirname)
-    args.add_all(add_flags(ctx, fmt, bib_tool))
-    args.add(ctx.file.main.path)
+    if ctx.attr.format == "dvi":
+        absolute_font_path_dvi = ctx.actions.declare_file(
+            ctx.label.name + "/" + ctx.outputs.out.basename,
+        )
 
-    return [
-        {
-            "cmd": [ini_args],
-            "in": [],
-            "out": [fmt],
-            "tool": latex_tool.files.to_list()[0],
-        },
-        {
-            "cmd": [args],
-            "in": [fmt],
-            "out": [ctx.outputs.out],
-            "tool": ctx.executable._latexrun,
-        },
-    ]
+        args.add("-O=" + absolute_font_path_dvi.dirname)
+        args.add_all(add_flags(ctx, fmt, absolute_font_path_dvi.path, bib_tool))
+        args.add(ctx.file.main.path)
+
+        post_process_dvi_args = ctx.actions.args()
+        post_process_dvi_args.add(absolute_font_path_dvi)
+        post_process_dvi_args.add(ctx.outputs.out)
+
+        engine_cmds = [
+            {
+                "cmd": [ini_args],
+                "in": [],
+                "out": [fmt],
+                "tool": latex_tool.files.to_list()[0],
+            },
+            {
+                "cmd": [args],
+                "in": [fmt],
+                "out": [absolute_font_path_dvi],
+                "tool": ctx.executable._latexrun,
+            },
+            {
+                "cmd": [post_process_dvi_args],
+                "in": [absolute_font_path_dvi],
+                "out": [ctx.outputs.out],
+                "tool": ctx.executable._dvi_sub,
+            },
+        ]
+    else:
+        args.add("-O=" + ctx.outputs.out.dirname)
+        args.add_all(add_flags(ctx, fmt, ctx.outputs.out.path, bib_tool))
+        args.add(ctx.file.main.path)
+
+        engine_cmds = [
+            {
+                "cmd": [ini_args],
+                "in": [],
+                "out": [fmt],
+                "tool": latex_tool.files.to_list()[0],
+            },
+            {
+                "cmd": [args],
+                "in": [fmt],
+                "out": [ctx.outputs.out],
+                "tool": ctx.executable._latexrun,
+            },
+        ]
+
+    return engine_cmds

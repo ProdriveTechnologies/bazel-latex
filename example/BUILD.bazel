@@ -1,4 +1,6 @@
-load("@bazel_latex//:latex.bzl", "latex_document")
+load("@bazel_latex//:latex.bzl", "latex_document", "latex_to_svg")
+
+exports_files(["my_report.tex"])
 
 latex_document(
     name = "my_report",
@@ -11,6 +13,7 @@ latex_document(
     ],
     bib_tool = "biber",  # Is the default
     main = "my_report.tex",
+    visibility = ["//visibility:public"],
 )
 
 latex_document(
@@ -24,4 +27,40 @@ latex_document(
     ],
     format = "dvi",
     main = "my_report.tex",
+)
+
+latex_to_svg(
+    name = "my_svg_report_from_dvi",
+    src = ":my_dvi_report",
+    args = [
+        "--font-format=woff,autohint",
+        "--optimize",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+# NOTE: svgs generated from pdfs are not searchable until dvisvgm
+#       version 3.0 using a separate helper tool mutool.
+#       Also, libgs is only required when generating svgs from pdfs.
+latex_to_svg(
+    name = "my_svg_report_from_pdf",
+    src = ":my_report",
+    libgs = select({
+        "@platforms//os:osx": "@ghostscript_macos//:libgs_macos",
+        "//conditions:default": "@bazel_latex//third_party:libgs",
+    }),
+    visibility = ["//visibility:public"],
+)
+
+latex_document(
+    name = "my_standalone_figure",
+    srcs = ["@bazel_latex//packages:drawstack"],
+    format = "dvi",
+    main = "tikz.tex",
+)
+
+latex_to_svg(
+    name = "example_svg",
+    src = ":my_standalone_figure",
+    args = ["-e"],
 )
