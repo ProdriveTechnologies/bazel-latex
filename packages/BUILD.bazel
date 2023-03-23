@@ -750,7 +750,7 @@ latex_package(
 
 latex_package(
     name = "lstautogobble",
-    srcs = ["@texlive_texmf__texmf-dist__tex__latex__lstaddons"],
+    srcs = [":listings", "@texlive_texmf__texmf-dist__tex__latex__lstaddons"],
     tests = ["lstautogobble_test.tex"],
 )
 
