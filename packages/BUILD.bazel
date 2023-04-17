@@ -749,6 +749,15 @@ latex_package(
 )
 
 latex_package(
+    name = "lstautogobble",
+    srcs = [
+        ":listings",
+        "@texlive_texmf__texmf-dist__tex__latex__lstaddons",
+    ],
+    tests = ["lstautogobble_test.tex"],
+)
+
+latex_package(
     name = "ltxcmds",
     srcs = [":graphics_oberdiek"],
     tests = ["ltxcmds_test.tex"],
