@@ -1,5 +1,5 @@
 beautifulsoup4 == 4.11.2
 lxml == 4.9.2
-pypdf == 3.5.0
+pypdf == 3.9.0
 reportlab == 3.6.12
 svglib == 1.5.1
