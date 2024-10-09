@@ -1,4 +1,5 @@
 load("@rules_python//python:defs.bzl", "py_binary")
+load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 load(":toolchain.bzl", "latex_toolchain")
 
 exports_files([
@@ -98,4 +99,11 @@ py_binary(
     name = "dvi_sub",
     srcs = ["dvi_sub.py"],
     visibility = ["//visibility:public"],
+)
+
+compile_pip_requirements(
+    name = "requirements",
+    src = "requirements.in",
+    requirements_txt = "requirements_lock.txt",
+    tags = ["manual"],
 )
