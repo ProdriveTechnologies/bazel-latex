@@ -7,9 +7,9 @@ latex_document(
     srcs = glob([
         "chapters/*.tex",
     ]) + [
-        "@bazel_latex//packages:biblatex",
         "references.bib",
-        "//example/example_class:example_class",
+        "//example/example_class",
+        "@bazel_latex//packages:biblatex",
     ],
     bib_tool = "biber",  # Is the default
     main = "my_report.tex",
@@ -21,9 +21,9 @@ latex_document(
     srcs = glob([
         "chapters/*.tex",
     ]) + [
-        "@bazel_latex//packages:biblatex",
         "references.bib",
-        "//example/example_class:example_class",
+        "//example/example_class",
+        "@bazel_latex//packages:biblatex",
     ],
     format = "dvi",
     main = "my_report.tex",

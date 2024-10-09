@@ -1,0 +1,13 @@
+"""
+Simple bzlmod example
+"""
+
+module(
+    name = "bazel_latex_example_bzlmod",
+)
+
+bazel_dep(name = "bazel_latex")
+local_path_override(
+    module_name = "bazel_latex",
+    path = "../..",
+)

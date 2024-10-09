@@ -190,3 +190,12 @@ def latex_repositories(version = TEXLIVE_VERSION_2022):
     _platforms_repository()
     _rules_foreign_cc_repository()
     _ghost_script_repository()
+
+def _module_repositories_impl(mctx):
+    _latex_run_repository()
+    _ghost_script_repository()
+    return mctx.extension_metadata(reproducible = True)
+
+module_repositories = module_extension(
+    implementation = _module_repositories_impl,
+)
