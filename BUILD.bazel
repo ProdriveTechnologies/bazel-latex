@@ -10,13 +10,16 @@ toolchain_type(
     visibility = ["//visibility:public"],
 )
 
-latex_toolchain(
-    exec_compatible_with = [
-        "@platforms//cpu:x86_64",
-        "@platforms//os:freebsd",
-    ],
-    platform = "amd64-freebsd",
-)
+# This toolchain seems to be missing the 'biber' binary, causing Bazel to produce the following error
+# "no such target '@@texlive_bin__amd64-freebsd//:biber': target 'biber' not declared in package ''"
+# Disabled for now
+# latex_toolchain(
+#     exec_compatible_with = [
+#         "@platforms//cpu:x86_64",
+#         "@platforms//os:freebsd",
+#     ],
+#     platform = "amd64-freebsd",
+# )
 
 latex_toolchain(
     name = "latex_toolchain_aarch64-darwin",
