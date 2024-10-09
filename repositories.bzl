@@ -76,9 +76,9 @@ def download_pkg_archive(build_file_content, version, path, sha256, patches = []
         url = modular_url_stem + modular_url % (version, version, path.replace("/", "--")),
     )
 
-def latex_repositories(version = TEXLIVE_VERSION_2022):
+def latex_texlive_repositories(version):
     """
-    Load all the dependencies required to compile LaTeX documents.
+    Load all the texlive repositories.
 
     Args:
       version: version of texlive. See the LATEX_DIST variable.
@@ -97,6 +97,7 @@ def latex_repositories(version = TEXLIVE_VERSION_2022):
     for path, sha256, patches in pkgs.other:
         download_pkg_archive(other_build_file, version, path, sha256, patches)
 
+def _latex_run_repository():
     http_archive(
         name = "bazel_latex_latexrun",
         build_file_content = """
@@ -121,6 +122,7 @@ py_binary(
         url = "https://github.com/aclements/latexrun/archive/38ff6ec2815654513c91f64bdf2a5760c85da26e.tar.gz",
     )
 
+def _platforms_repository():
     http_archive(
         name = "platforms",
         urls = [
@@ -130,6 +132,7 @@ py_binary(
         sha256 = "5308fc1d8865406a49427ba24a9ab53087f17f5266a7aabbfc28823f3916e1ca",
     )
 
+def _rules_foreign_cc_repository():
     http_archive(
         name = "rules_foreign_cc",
         sha256 = "2a4d07cd64b0719b39a7c12218a3e507672b82a97b98c6a89d38565894cf7c51",
@@ -137,6 +140,7 @@ py_binary(
         url = "https://github.com/bazelbuild/rules_foreign_cc/archive/refs/tags/0.9.0.tar.gz",
     )
 
+def _ghost_script_repository():
     _ALL_CONTENT = """\
 filegroup(
     name = "all_srcs",
@@ -152,3 +156,17 @@ filegroup(
         build_file_content = _ALL_CONTENT,
         url = "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9561/ghostpdl-9.56.1.tar.gz",
     )
+
+def latex_repositories(version = TEXLIVE_VERSION_2022):
+    """
+    Load all the dependencies required to compile LaTeX documents.
+
+    Args:
+      version: version of texlive. See the LATEX_DIST variable.
+    """
+
+    latex_texlive_repositories(version)
+    _latex_run_repository()
+    _platforms_repository()
+    _rules_foreign_cc_repository()
+    _ghost_script_repository()
