@@ -76,6 +76,25 @@ def download_pkg_archive(build_file_content, version, path, sha256, patches = []
         url = modular_url_stem + modular_url % (version, version, path.replace("/", "--")),
     )
 
+_alias_rule_template = """
+alias(
+    name = "{name}",
+    actual = "{actual}",
+    visibility = ["//visibility:public"],
+    tags = ["manual"],
+)
+"""
+
+def _repository_alias_impl(rctx):
+    rctx.file("BUILD.bazel", "\n".join([_alias_rule_template.replace("{name}", f).replace("{actual}", "@{}".format(f)) for f in rctx.attr.alias_list]))
+
+_repository_alias = repository_rule(
+    implementation = _repository_alias_impl,
+    attrs = {
+        "alias_list": attr.string_list(),
+    },
+)
+
 def latex_texlive_repositories(version):
     """
     Load all the texlive repositories.
@@ -83,7 +102,6 @@ def latex_texlive_repositories(version):
     Args:
       version: version of texlive. See the LATEX_DIST variable.
     """
-
     if version not in LATEX_DIST:
         fail("Available texlive dists are: {}".format(LATEX_DIST.keys()))
     pkgs = LATEX_DIST[version]
@@ -96,6 +114,8 @@ def latex_texlive_repositories(version):
 
     for path, sha256, patches in pkgs.other:
         download_pkg_archive(other_build_file, version, path, sha256, patches)
+
+    _repository_alias(name = "bazel_latex_texlive", alias_list = ["texlive_%s" % f.replace("/", "__") for f in other])
 
 def _latex_run_repository():
     http_archive(

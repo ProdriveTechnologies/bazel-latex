@@ -196,8 +196,8 @@ _latex = rule(
         "font_maps": attr.label_list(
             allow_files = True,
             default = [
-                "@texlive_texmf__texmf-dist__fonts__map__dvips__updmap",
-                "@texlive_texmf__texmf-dist__fonts__map__pdftex__updmap",
+                "@bazel_latex_texlive//:texlive_texmf__texmf-dist__fonts__map__dvips__updmap",
+                "@bazel_latex_texlive//:texlive_texmf__texmf-dist__fonts__map__pdftex__updmap",
             ],
         ),
         "format": attr.string(
@@ -207,7 +207,7 @@ _latex = rule(
         ),
         "ini_files": attr.label(
             allow_files = True,
-            default = "@texlive_texmf__texmf-dist__tex__generic__tex-ini-files",
+            default = "@bazel_latex_texlive//:texlive_texmf__texmf-dist__tex__generic__tex-ini-files",
         ),
         "main": attr.label(
             allow_single_file = [".tex"],
@@ -216,7 +216,7 @@ _latex = rule(
         "srcs": attr.label_list(allow_files = True),
         "web2c": attr.label(
             allow_files = True,
-            default = "@texlive_texmf__texmf-dist__web2c",
+            default = "@bazel_latex_texlive//:texlive_texmf__texmf-dist__web2c",
         ),
         "_dvi_sub": attr.label(
             default = "@bazel_latex//:dvi_sub",
@@ -327,8 +327,8 @@ _latex_to_svg = rule(
         "font_maps": attr.label_list(
             allow_files = True,
             default = [
-                "@texlive_texmf__texmf-dist__fonts__map__dvips__updmap",
-                "@texlive_texmf__texmf-dist__fonts__map__pdftex__updmap",
+                "@bazel_latex_texlive//:texlive_texmf__texmf-dist__fonts__map__dvips__updmap",
+                "@bazel_latex_texlive//:texlive_texmf__texmf-dist__fonts__map__pdftex__updmap",
             ],
         ),
         "ghostscript_envs": attr.string_dict(
@@ -343,7 +343,7 @@ _latex_to_svg = rule(
         "src": attr.label(allow_single_file = [".dvi", ".pdf", ".eps"]),
         "web2c": attr.label(
             allow_files = True,
-            default = "@texlive_texmf__texmf-dist__web2c",
+            default = "@bazel_latex_texlive//:texlive_texmf__texmf-dist__web2c",
         ),
     },
     toolchains = ["@bazel_latex//:latex_toolchain_type"],
