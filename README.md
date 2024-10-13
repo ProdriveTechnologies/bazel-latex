@@ -19,6 +19,8 @@ command flag mentioned below to build with biber instead.
 
 # Using these rules
 
+## Traditional workspace approach
+
 Add the following to `WORKSPACE`:
 
 ```python
@@ -62,6 +64,22 @@ filegroup(
     ],
 )
 ```
+
+## Using Bzlmod
+
+Add to your `MODULE.bazel` file:
+
+```python
+bazel_dep(name = "bazel_latex")
+
+git_override(
+    module_name = "bazel_latex", 
+    remote = "https://github.com/ProdriveTechnologies/bazel-latex.git",
+    commit = "227b02f346c1dd0098d32b5bcb1ef874dd367e2a",
+)
+```
+
+## Build files
 
 And add the following `load()` directive to your `BUILD` files:
 
