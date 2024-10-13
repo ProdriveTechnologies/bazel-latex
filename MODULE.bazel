@@ -1,5 +1,5 @@
 """
-
+    Rules for building LaTeX documents with Bazel.
 """
 
 module(
@@ -60,7 +60,7 @@ use_repo(
     "ghost_script_source",
 )
 
-# mac os shared lib was difficult to build via foreign rules so as a temporary
+# macOS shared lib was difficult to build via foreign rules so as a temporary
 # solution we provide it as a precompiled artifact.
 # Consider making it available via bazel_latex binaries repo instead
 http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
