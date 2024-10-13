@@ -1,0 +1,8 @@
+load("@bazel_latex//:latex.bzl", "latex_document")
+
+latex_document(
+    name = "my_document",
+    srcs = [],
+    main = "my_document.tex",
+    visibility = ["//visibility:public"],
+)

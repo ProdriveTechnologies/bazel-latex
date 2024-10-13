@@ -14,7 +14,8 @@ http_archive(
 
 register_toolchains(
     "@bazel_latex//:latex_toolchain_aarch64-darwin",
-    "@bazel_latex//:latex_toolchain_amd64-freebsd",
+    # The latex_toolchain_amd64-freebsd seems broken, see comment in BUILD.bazel, so disabled for now
+    #"@bazel_latex//:latex_toolchain_amd64-freebsd",
     "@bazel_latex//:latex_toolchain_x86_64-darwin",
     "@bazel_latex//:latex_toolchain_x86_64-linux",
 )
@@ -53,14 +54,22 @@ filegroup(
 
 http_archive(
     name = "rules_python",
-    sha256 = "a30abdfc7126d497a7698c29c46ea9901c6392d6ed315171a6df5ce433aa4502",
-    strip_prefix = "rules_python-0.6.0",
-    url = "https://github.com/bazelbuild/rules_python/archive/0.6.0.tar.gz",
+    sha256 = "ca77768989a7f311186a29747e3e95c936a41dffac779aff6b443db22290d913",
+    strip_prefix = "rules_python-0.36.0",
+    url = "https://github.com/bazelbuild/rules_python/archive/0.36.0.tar.gz",
 )
 
-load("@rules_python//python:pip.bzl", "pip_install")
+load("@rules_python//python:repositories.bzl", "py_repositories")
 
-pip_install(
+py_repositories()
+
+load("@rules_python//python:pip.bzl", "pip_parse")
+
+pip_parse(
     name = "py_deps",
-    requirements = "//:requirements.txt",
+    requirements_lock = "//:requirements_lock.txt",
 )
+
+load("@py_deps//:requirements.bzl", "install_deps")
+
+install_deps()

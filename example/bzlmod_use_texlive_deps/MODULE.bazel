@@ -1,0 +1,20 @@
+"""
+Simple example that shows how to import the 'bazel_latex_texlive' proxy
+"""
+
+module(
+    name = "bazel_latex_example_bzlmod_use_texlive_deps",
+)
+
+bazel_dep(name = "bazel_latex")
+local_path_override(
+    module_name = "bazel_latex",
+    path = "../..",
+)
+
+texlive_repositories = use_extension("@bazel_latex//:extensions.bzl", "texlive_repositories")
+texlive_repositories.install()
+use_repo(
+    texlive_repositories,
+    "bazel_latex_texlive",
+)

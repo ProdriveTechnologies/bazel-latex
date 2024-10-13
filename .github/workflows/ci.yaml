@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: thompsonja/bazel-buildifier@v0.4.0
         with:
-          buildifier_version: 5.1.0
+          buildifier_version: v7.3.1
           warnings: all
 
   test:
