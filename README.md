@@ -79,6 +79,12 @@ git_override(
 )
 ```
 
+or make use of the [Bazel Central Registry](https://registry.bazel.build/):
+
+```python
+bazel_dep(name = "prodrive_technologies_bazel_latex", version = "1.2.2-20250401-c552d5b")
+```
+
 ## Build files
 
 And add the following `load()` directive to your `BUILD` files:
