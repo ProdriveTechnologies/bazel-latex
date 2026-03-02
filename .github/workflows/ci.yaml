@@ -37,8 +37,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-            "${{ runner.home }}/.cache/bazel"
-            "${{ runner.home }}/.cache/bazel-repo"
+            "/home/runner/.cache/bazel"
+            "/home/runner/.cache/bazel-repo"
           key: ${{matrix.platform}}-bazel-cache-${{ hashFiles('**/BUILD.bazel', '**/*.bzl', 'WORKSPACE') }}
           restore-keys: ${{matrix.platform}}-bazel-cache-
       - name: Build ${{ matrix.folder }}
