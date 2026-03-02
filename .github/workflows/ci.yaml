@@ -37,18 +37,18 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-            "${{ env.HOME }}/.cache/bazel"
-            "${{ env.HOME }}/.cache/bazel-repo"
+            "${{ runner.home }}/.cache/bazel"
+            "${{ runner.home }}/.cache/bazel-repo"
           key: ${{matrix.platform}}-bazel-cache-${{ hashFiles('**/BUILD.bazel', '**/*.bzl', 'WORKSPACE') }}
           restore-keys: ${{matrix.platform}}-bazel-cache-
       - name: Build ${{ matrix.folder }}
         env:
-          XDG_CACHE_HOME: ${{ env.HOME }}/.cache/bazel-repo
+          XDG_CACHE_HOME: ${{ runner.home }}/.cache/bazel-repo
         run: |
           bazel build //${{ matrix.folder }}:all
       - name: Test
         if: ${{matrix.folder == 'example'}}
         env:
-          XDG_CACHE_HOME: ${{ env.HOME }}/.cache/bazel-repo
+          XDG_CACHE_HOME: ${{ runner.home }}/.cache/bazel-repo
         run: |
           bazel test //${{ matrix.folder }}/test/... --verbose_failures --test_output=streamed
