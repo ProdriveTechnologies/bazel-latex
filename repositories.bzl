@@ -121,6 +121,7 @@ def _latex_run_repository():
     http_archive(
         name = "bazel_latex_latexrun",
         build_file_content = """
+load("@rules_python//python:py_binary.bzl", "py_binary")
 py_binary(
     name = "latexrun",
     srcs = ["latexrun.py"],

@@ -3,6 +3,7 @@ Rules to compile LaTeX documents.
 """
 
 load("@bazel_latex//:latex_engine_cmds.bzl", "lualatex_engine_cmd_gen")
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 
 LatexOutputInfo = provider(
     "Information about the result of a LaTeX compilation.",
@@ -373,7 +374,7 @@ def latex_document(
     )
 
     # Convenience rule for viewing outputs.
-    native.sh_binary(
+    sh_binary(
         name = "{}_view_output".format(name),
         srcs = ["@bazel_latex//:view_output.sh"],
         data = [":{}.{}".format(name, format)],
@@ -382,7 +383,7 @@ def latex_document(
     )
 
     # Convenience rule for viewing outputs, silencing stderr.
-    native.sh_binary(
+    sh_binary(
         name = "{}_view".format(name),
         srcs = ["@bazel_latex//:view_output.sh"],
         data = [":{}.{}".format(name, format)],
