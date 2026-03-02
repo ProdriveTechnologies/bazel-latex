@@ -43,12 +43,12 @@ jobs:
           restore-keys: ${{matrix.platform}}-bazel-cache-
       - name: Build ${{ matrix.folder }}
         env:
-          XDG_CACHE_HOME: ${{ runner.home }}/.cache/bazel-repo
+          XDG_CACHE_HOME: $HOME/.cache/bazel-repo
         run: |
           bazel build //${{ matrix.folder }}:all
       - name: Test
         if: ${{matrix.folder == 'example'}}
         env:
-          XDG_CACHE_HOME: ${{ runner.home }}/.cache/bazel-repo
+          XDG_CACHE_HOME: $HOME/.cache/bazel-repo
         run: |
           bazel test //${{ matrix.folder }}/test/... --verbose_failures --test_output=streamed
