@@ -1,6 +1,6 @@
 beautifulsoup4==4.11.2
 cssselect2==0.7.0
-lxml==4.9.2
+lxml==6.1.0
 pillow==10.4.0
 pypdf==3.5.0
 reportlab==3.6.13
